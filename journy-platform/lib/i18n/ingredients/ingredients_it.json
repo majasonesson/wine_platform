@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Generale",
+      "items": {
+        "Grapes": "Uva",
+        "Sucrose": "Saccarosio",
+        "Aleppo pine resin": "Resina di pino di Aleppo",
+        "Caramel": "Caramello",
+        "Concentrated grape must": "Mosto d'uva concentrato",
+        "Grape must": "Mosto d'uva",
+        "Rectified concentrated grape must": "Mosto d'uva concentrato rettificato",
+        "Filling dosage": "Dosaggio di riempimento",
+        "Shipping dosage": "Dosaggio di spedizione"
+      }
+    },
+    {
+      "category": "Gas e gas di imballaggio",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Azoto (E 941)",
+        "Carbon dioxide (E 290)": "Anidride carbonica (E 290)",
+        "Packaged under protective atmosphere": "Confezionato in atmosfera protettiva"
+      }
+    },
+    {
+      "category": "Regolatori di acidità",
+      "items": {
+        "Tartaric acid (E 334)": "Acido tartarico (E 334)",
+        "Malic acid (E 296)": "Acido malico (E 296)",
+        "Lactic acid (E 270)": "Acido lattico (E 270)",
+        "Calcium sulphate (E 516)": "Solfato di calcio (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Regolatore di acidità: Acido citrico (E 330)"
+      }
+    },
+    {
+      "category": "Agenti stabilizzanti",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Agente stabilizzante: Acido citrico (E 330)",
+        "Metatartaric acid (E 353)": "Acido metatartarico (E 353)",
+        "Gum arabic (E 414)": "Gomma arabica (E 414)",
+        "Yeast mannoproteins": "Mannoproteine del lievito",
+        "Carboxymethylcellulose (E 466)": "Carbossimetilcellulosa (E 466)",
+        "Potassium polyaspartate (E 456)": "Poliaspartato di potassio (E 456)",
+        "Fumaric acid (E 297)": "Acido fumarico (E 297)"
+      }
+    },
+    {
+      "category": "Conservanti e antiossidanti",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorbato di potassio (E 202)",
+        "Lysozyme (E 1105)": "Lisozima (E 1105)",
+        "L ascorbic acid (E 300)": "Acido ascorbico (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetildicarbonato (DMDC)",
+        "Sulphites": "Solfiti",
+        "Sulfur dioxide": "Anidride solforosa",
+        "Potassium bisulfite": "Bisolfito di potassio",
+        "Potassium metabisulfite": "Metabisolfito di potassio"
+      }
+    },
+    {
+      "category": "Coadiuvanti tecnologici",
+      "items": {
+        "Egg": "Uovo",
+        "Milk": "Latte"
+      }
+    }
+  ]
+}

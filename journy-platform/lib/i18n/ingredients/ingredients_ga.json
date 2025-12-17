@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Ginearálta",
+      "items": {
+        "Grapes": "Fíonchaora",
+        "Sucrose": "Siúcrós",
+        "Aleppo pine resin": "Roise Aleppo",
+        "Caramel": "Caramal",
+        "Concentrated grape must": "Must fíonchaor comhchruinnithe",
+        "Grape must": "Must fíonchaor",
+        "Rectified concentrated grape must": "Must fíonchaor comhchruinnithe ceartaithe",
+        "Filling dosage": "Dáileog líonadh",
+        "Shipping dosage": "Dáileog loingseoireachta"
+      }
+    },
+    {
+      "category": "Gáis agus gáis phacáistithe",
+      "items": {
+        "Argon (E 938)": "Argón (E 938)",
+        "Nitrogen (E 941)": "Nítrigin (E 941)",
+        "Carbon dioxide (E 290)": "Dé-ocsaíd charbóin (E 290)",
+        "Packaged under protective atmosphere": "Pacáistithe faoi atmaisféar cosanta"
+      }
+    },
+    {
+      "category": "Rialtóirí aigéadachta",
+      "items": {
+        "Tartaric acid (E 334)": "Aigéad tartarach (E 334)",
+        "Malic acid (E 296)": "Aigéad malach (E 296)",
+        "Lactic acid (E 270)": "Aigéad lachtach (E 270)",
+        "Calcium sulphate (E 516)": "Sulfáit chailciam (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Rialtóir aigéadachta: Aigéad citreach (E 330)"
+      }
+    },
+    {
+      "category": "Gníomhairí cobhsaithe",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Gníomhaire cobhsaithe: Aigéad citreach (E 330)",
+        "Metatartaric acid (E 353)": "Aigéad meitartarach (E 353)",
+        "Gum arabic (E 414)": "Guma arabach (E 414)",
+        "Yeast mannoproteins": "Mannapróitéiní giosta",
+        "Carboxymethylcellulose (E 466)": "Carbocsaiméitilealalós (E 466)",
+        "Potassium polyaspartate (E 456)": "Polaiaspairtáit photaisiam (E 456)",
+        "Fumaric acid (E 297)": "Aigéad fumárach (E 297)"
+      }
+    },
+    {
+      "category": "Leasaithigh agus frithocsaídeoirí",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorbáit photaisiam (E 202)",
+        "Lysozyme (E 1105)": "Líosóim (E 1105)",
+        "L ascorbic acid (E 300)": "Aigéad ascorbach L (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Démeitildéarbonáit (DMDC)",
+        "Sulphites": "Suilfítí",
+        "Sulfur dioxide": "Dé-ocsaíd sulfair",
+        "Potassium bisulfite": "Bisulfáit photaisiam",
+        "Potassium metabisulfite": "Meitabisulfáit photaisiam"
+      }
+    },
+    {
+      "category": "Cúntóirí próiseála",
+      "items": {
+        "Egg": "Ubh",
+        "Milk": "Bainne"
+      }
+    }
+  ]
+}

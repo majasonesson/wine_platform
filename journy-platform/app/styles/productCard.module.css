@@ -1,0 +1,86 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "Instrument Sans", sans-serif;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.product-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFF4EC;
+  padding: 15px;
+  border-radius: 15px;
+  gap: 20px;
+  width: 100%;
+}
+
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.details-button {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 150px;
+  height: 35px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  border: none !important;
+  outline: none !important;
+}
+.details-button:hover {
+  background-color: #313638;
+}
+
+@media (max-width: 430px) {
+  .product-card {
+    padding: 0px;
+    gap: 15px;
+    height: 110px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrera knapparna */
+    gap: 0;
+  }
+  .details-button, .delete-button, .qr-button {
+    width: 80px;
+    height: 20px;
+    padding: 8px 12px;
+    font-size: 8px;
+    border-radius: 15px;
+  }
+}/*# sourceMappingURL=productCard.module.css.map */

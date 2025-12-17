@@ -1,0 +1,1220 @@
+.container {
+  position: relative;
+  width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+// Global styling för page h2-titlar
+.page1, .page2 {
+  position: relative;
+  width: 1225px;
+  border: 1px solid #D9D9D9;
+  border-radius: 35px;
+  background: #FFFFFF;
+
+  .titleContainer {
+    position: relative;
+    width: 100%;
+    padding: 38px 4px 0 64px;
+    margin-top: -10px;
+
+    h2 {
+      font-family: 'Neue Regrade';
+      font-weight: 600;
+      font-size: 40px;
+      line-height: 50px;
+      color: #000000;
+      margin: 0;
+      text-align: left;
+    }
+  }
+}
+
+// Specifika stilar för page1
+.page1 {
+  height: 575px;
+  margin: 70px auto -40px;
+
+  .titleContainer {
+    .titleWrapper {
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  .formContent {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 80px);
+    padding: 0 60px;
+    display: flex;
+    margin-top: 50px;
+  }
+
+  // Left column
+  .leftColumn {
+    position: relative;
+    width: 415px;
+    margin: 20px 20px 20px 0px;
+    z-index: 200;
+
+    .field {
+      width: 415px;
+      margin-bottom: 57px;
+      position: relative;
+      
+      &:first-child {
+        z-index: 600;
+        
+        div[class*="_dropdown_"], 
+        div[class*="_dropdownList_"],
+        .dropdownList, 
+        div[data-first-child] {
+          z-index: 400 !important;
+        }
+      }
+      
+      &:nth-child(2) {
+        z-index: 90;
+      }
+      
+      &:nth-child(3) {
+        z-index: 80;
+      }
+
+      label {
+        display: block;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        margin-bottom: 28px;
+
+        &::after {
+          content: '*';
+          margin-left: 4px;
+        }
+      }
+
+      select {
+        display: none;
+      }
+    }
+  }
+
+  // Grape section styling
+  .grapeSection {
+    position: relative;
+    width: 614px;
+    margin-left: 76px;
+    margin-top: 0px;
+    z-index: auto;
+    overflow: visible !important;
+
+    h3 {
+      width: 134px;
+      height: 24px;
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: #000000;
+      margin-bottom: 26px;
+    }
+
+    .grapeGrid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 250px);
+      grid-template-rows: repeat(2, 205px);
+      column-gap: 34px;
+      row-gap: 6px;
+      overflow: visible !important;
+    }
+
+    .grapeVariety {
+      position: relative;
+      overflow: visible !important;
+
+      &:first-child {
+        z-index: 100;
+      }
+      
+      &:nth-child(2) {
+        z-index: 90;
+      }
+      
+      &:nth-child(3) {
+        z-index: 80;
+      }
+      
+      &:nth-child(4) {
+        z-index: 70;
+      }
+
+      .grapeLabel {
+        width: 100%;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #000000;
+        margin-bottom: 8px;
+
+        &.major {
+          width: 117px;
+          height: 15px;
+          left: 731px;
+          top: 497px;
+        }
+
+        &.third {
+          width: 108px;
+          height: 15px;
+          left: 1055px;
+          top: 497px;
+        }
+
+        &.secondary {
+          width: 137px;
+          height: 15px;
+          left: 731px;
+          top: 704px;
+        }
+
+        &.fourth {
+          width: 116px;
+          height: 15px;
+          left: 1055px;
+          top: 704px;
+        }
+      }
+
+      .percentageContainer {
+        margin-top: 20px;
+
+        .percentageWrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .percentageLabel {
+          font-family: 'Instrument Sans';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 15px;
+          color: #000000;
+
+          // Only show asterisk for Major Grape
+          &.majorGrape::after {
+            content: '*';
+          }
+        }
+
+        .percentageInput {
+          position: relative;
+          width: 160px;
+          height: 38px;
+          box-sizing: border-box;
+          border: 1px solid #D8D8D8;
+          border-radius: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 15px;
+
+          &:hover {
+            border-color: #B3B3B3;
+          }
+
+          .arrowLeft,
+          .arrowRight {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+
+          .valueContainer {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .value {
+              font-family: 'Instrument Sans';
+              font-style: normal;
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              color: #000000;
+            }
+
+            .unit {
+              font-family: 'Instrument Sans';
+              font-style: normal;
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              color: #999999;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Dropdown Styles
+  .customSelect {
+    position: relative;
+    z-index: inherit;
+    
+    .selectTrigger {
+      position: relative;
+      z-index: 200;
+      box-sizing: border-box;
+      width: 100%;
+      height: 38px;
+      background: #FFFFFF;
+      border: 1px solid #D8D8D8;
+      border-radius: 35px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      
+      &:hover {
+        border-color: #B3B3B3;
+      }
+      
+      .arrow {
+        width: 23px;
+        height: 14px;
+        background-image: url("data:image/svg+xml,%3Csvg width='23' height='14' viewBox='0 0 23 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 1L11.5 12L1 1' stroke='%23717171' stroke-width='2'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: transform 0.2s;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+      
+      &.open .arrow {
+        transform: rotate(180deg);
+      }
+      
+      // Badge style for selected grape
+      .selectedBadge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 35px 0 15px;
+        height: 28px;
+        background: #D8D8D8;
+        border-radius: 25px;
+        margin: 0 auto 0 -7px;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        width: fit-content;
+        min-width: 0;
+        max-width: calc(100% - 40px);
+        position: relative;
+        white-space: nowrap;
+        
+        .removeButton {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 15px;
+          height: 15px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          margin-left: 8px;
+          
+          .removeIcon {
+            width: 15px;
+            height: 15px;
+            background: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 13 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 4L9.10001 8.71429M9.10001 4L4 8.71429' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center center;
+          }
+        }
+      }
+    }
+    
+    .dropdown {
+      position: absolute;
+      width: 100%;
+      top: calc(100% - 15px);
+      left: 0;
+      background: #FFFFFF;
+      border: 1px solid #D8D8D8;
+      border-top: none;
+      border-radius: 0 0 35px 35px;
+      box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+      z-index: 150;
+      overflow: visible;
+      padding: 0;
+      margin: 0;
+      margin-top: -1px;
+      font-size: 0;
+      
+      .option {
+        position: relative;
+        padding: 10px 20px 13px 20px;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        cursor: pointer;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        
+        &:first-child {
+          padding-top: 10px;
+          margin-top: 0;
+        }
+        
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background: #FFFFFF;
+          z-index: -1;
+          transition: background 0.2s ease;
+        }
+        
+        &:hover::before {
+          background: #D8D8D8;
+        }
+        
+        &:last-child {
+          border-radius: 0 0 35px 35px;
+          
+          &::before {
+            border-radius: 0 0 35px 35px;
+          }
+        }
+        
+        // Special styling for Wine option
+        &[data-category="Category"][data-value="Wine"] {
+          min-height: 49px !important;
+          padding-top: 30px !important;
+          padding-bottom: 4px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: flex-start !important;
+        }
+        
+        // Special styling for Merlot option
+        &[data-value="Merlot"] {
+          min-height: 49px !important;
+          padding-top: 30px !important;
+          padding-bottom: 4px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: flex-start !important;
+        }
+        
+        // Direct targeting for Merlot by position
+        &:first-child {
+          min-height: 49px !important;
+          padding-top: 30px !important;
+          padding-bottom: 4px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: flex-start !important;
+        }
+      }
+    }
+  }
+}
+
+// Target the specific Merlot option based on visible class pattern in DevTools
+[class*="_dropdown_"], .dropdownList, div[data-first-child] {
+  top: calc(100% - 20px) !important;
+  border: 1px solid #D8D8D8 !important;
+  border-top: none !important;
+  border-radius: 0 0 35px 35px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25) !important;
+  z-index: 150 !important;
+  position: absolute !important;
+  width: 413px !important;
+  left: 0 !important;
+}
+
+// Styling för Merlot-alternativet i dropdown och Wine i Category
+.option[data-value="Wine"], .option[data-value="Merlot"], 
+[class*="_option_"]:first-child {
+  min-height: 49px !important;
+  padding-top: 30px !important;
+  padding-bottom: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 413px !important;
+}
+
+.option {
+  position: relative;
+  padding: 8px 20px !important;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 413px !important;
+  margin: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+// Specifika stilar för page2
+.page2 {
+  height: 850px;
+  margin: 70px auto 30px;
+
+  .formContent {
+    position: relative;
+    padding: 0 60px;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+
+    .description {
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0.03em;
+      color: #000000;
+      margin-bottom: 24px;
+      width: 1070px;
+    }
+
+    .ingredientsList {
+      position: relative;
+      margin: 30px auto 0 auto;
+      
+      label {
+        display: block;
+        width: 190px;
+        height: 24px;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        margin-bottom: 15px;
+      }
+
+      .selectDropdown {
+        position: relative;
+        box-sizing: border-box;
+        width: 1055px;
+        height: 122px;
+        background: #FFFFFF;
+        border: 1px solid #D8D8D8;
+        border-radius: 25px;
+        margin: 0;
+      }
+    }
+
+    .description {
+      position: relative;
+      width: 1000px;
+      margin: 60px auto 30px;
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0.03em;
+      color: #000000;
+      text-align: left;
+    }
+
+    .measurementsContainer {
+      width: 100%;
+      margin-top: 30px;
+
+      .measurementsGrid {
+        margin-left: 3px;
+        display: flex;
+        gap: 47px;
+        
+        .field {
+          position: relative;
+          width: 160px;
+          height: 84px;
+          
+          label {
+            font-family: 'Instrument Sans';
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24px;
+            color: #000000;
+            margin-bottom: 15px;
+            display: block;
+            white-space: nowrap;
+          }
+          
+          .inputWithUnit {
+            position: relative;
+            width: 160px;
+            height: 45px;
+            background: #FFFFFF;
+            border: 1px solid #D8D8D8;
+            border-radius: 35px;
+            
+            &:hover {
+              border-color: #B3B3B3;
+            }
+
+            .dateWrapper {
+              position: relative;
+              width: 100%;
+              height: 100%;
+              
+              input[type="date"] {
+                width: 100%;
+                height: 100%;
+                padding: 0 45px 0 15px;
+                font-family: 'Instrument Sans';
+                font-size: 20px;
+                color: transparent;
+                border: none;
+                background: transparent;
+                cursor: pointer;
+                position: relative;
+                z-index: 2;
+                
+                /* Ta bort standardpilarna i Chrome, Safari, Edge, Opera */
+                &::-webkit-calendar-picker-indicator {
+                  opacity: 0;
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  cursor: pointer;
+                  z-index: 3;
+                }
+              }
+              
+              .dateValue {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-family: 'Instrument Sans';
+                font-size: 16px;
+                color: #000000;
+                pointer-events: none;
+                z-index: 1;
+                white-space: nowrap;
+              }
+
+              .calendarIcon {
+                position: absolute;
+                right: 13px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1;
+                cursor: pointer;
+                pointer-events: none;
+              }
+            }
+            
+            .arrows {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              z-index: 1;
+              
+              button {
+                background: none;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+
+                &.arrowLeft {
+                  left: 15px;
+                }
+
+                &.arrowRight {
+                  right: 15px;
+                }
+              }
+            }
+            
+            input {
+              box-sizing: border-box;
+              width: 100%;
+              height: 100%;
+              padding: 0 40px;
+              font-family: 'Instrument Sans';
+              font-style: normal;
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              color: #000000;
+              text-align: center;
+              opacity: 0;
+              position: absolute;
+              top: 0;
+              left: 0;
+              
+              &::placeholder {
+                color: rgba(0, 0, 0, 0.4);
+                font-weight: 400;
+                text-align: center;
+              }
+
+              &::-webkit-outer-spin-button,
+              &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
+            }
+            
+            .valueUnitWrapper {
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translateX(-52%) translateY(-50%);
+              display: flex;
+              align-items: center;
+              gap: 2px;
+            }
+            
+            .value {
+              font-family: 'Instrument Sans';
+              font-size: 20px;
+              line-height: 24px;
+              color: #000000;
+              pointer-events: none;
+            }
+            
+            .unit {
+              font-family: 'Instrument Sans';
+              font-style: normal;
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              color: #999999;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Navigation buttons
+.navigation {
+  position: absolute;
+  width: calc(100% - 80px);
+  top: 55%;
+  transform: translateY(-50%);
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  z-index: 10;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    outline: none;
+
+    &:hover, &:focus, &:active {
+      outline: none;
+      background: none;
+    }
+
+    span {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 70px;
+      font-family: 'Instrument Sans';
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      text-align: center;
+      letter-spacing: 0.03em;
+      color: #000000;
+      width: max-content;
+    }
+  }
+
+  .previousButton {
+    .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #4E001D;
+      opacity: 0.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      .circle {
+        opacity: 0.3;
+      }
+      
+      span {
+        opacity: 0.6;
+      }
+    }
+
+    .arrow {
+      width: 12px;
+      height: 21px;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='21' viewBox='0 0 12 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.477124 11.6665L9.69575 21L12 18.667L3.9335 10.5L12 2.33297L9.69575 0L0.477124 9.33352C0.171621 9.64292 0 10.0625 0 10.5C0 10.9375 0.171621 11.3571 0.477124 11.6665Z' fill='white'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+
+  .nextButton {
+    .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #4E001D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      .circle {
+        opacity: 0.3;
+      }
+      
+      span {
+        opacity: 0.6;
+      }
+    }
+
+    .arrow {
+      width: 12px;
+      height: 21px;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='21' viewBox='0 0 12 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.5229 11.6665L2.30425 21L0 18.667L8.0665 10.5L0 2.33297L2.30425 0L11.5229 9.33352C11.8284 9.64292 12 10.0625 12 10.5C12 10.9375 11.8284 11.3571 11.5229 11.6665Z' fill='white'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+}
+
+// Add styles for the CustomDropdown component needed by page2
+.customDropdown {
+  position: relative;
+  width: 100%;
+
+  .dropdownHeader {
+    box-sizing: border-box;
+    width: 100%;
+    height: 45px;
+    padding: 0 20px 0 5px;
+    background: #FFFFFF;
+    border: 1px solid #D8D8D8;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+    color: #000000;
+
+    &:hover {
+      border-color: #B3B3B3;
+    }
+
+    svg {
+      transition: transform 0.2s;
+    }
+
+    &.open svg {
+      transform: rotate(180deg);
+    }
+
+    .selectedContainer {
+      display: flex;
+      flex-grow: 1;
+      justify-content: flex-start;
+      align-items: center;
+      margin-right: 10px;
+      padding-left: 0;
+      margin-left: 2px;
+    }
+    
+    span {
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: #000000;
+      opacity: 0.4;
+      padding-left: 10px;
+    }
+  }
+
+  .dropdownList {
+    position: absolute;
+    width: 100%;
+    top: calc(100% - 20px) !important;
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid #D8D8D8;
+    border-top: none;
+    border-radius: 0 0 35px 35px;
+    box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+    z-index: 150;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+    margin-top: -1px;
+    font-size: 0;
+  }
+
+  .option {
+    position: relative;
+    padding: 10px 20px 13px 20px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+    &:first-child {
+      padding-top: 30px;
+      margin-top: 0;
+      min-height: 49px;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: #FFFFFF;
+      z-index: -1;
+      transition: background 0.2s ease;
+    }
+    
+    &:hover::before {
+      background: #D8D8D8;
+    }
+    
+    &:last-child {
+      border-radius: 0 0 35px 35px;
+      
+      &::before {
+        border-radius: 0 0 35px 35px;
+      }
+    }
+  }
+
+  .option-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    height: 33px;
+    background: #D8D8D8;
+    border-radius: 25px;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    position: relative;
+    white-space: nowrap;
+    overflow: visible;
+    max-width: none;
+    
+    .remove-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      
+      svg {
+        width: 18px;
+        height: 18px;
+        
+        circle {
+          fill: #FFFFFF;
+        }
+        
+        path {
+          stroke: #D8D8D8;
+          stroke-width: 1;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+      }
+    }
+  }
+}
+
+// Öka z-index för dropdown header så att den ligger över dropdown listan
+[class*="_dropdownHeader_"] {
+  z-index: 500 !important;
+  position: relative !important;
+}
+
+._dropdownHeader_1wfk7_748, [class$="_dropdownHeader_1wfk7_748"] {
+  z-index: 500 !important;
+  position: relative !important;
+}
+
+// För dropdown trigger/header specifikt från bilden
+.customDropdown .dropdownHeader {
+  z-index: 500 !important;
+  position: relative !important;
+}
+
+// Animation för pilen på höger sidan
+[class*="_arrow_"] {
+  transition: transform 0.2s ease;
+}
+
+// Ta bort de generella selectorerna och använd mer specifika istället
+// När dropdown är öppen, rotera pilen uppåt - mer specifika selektorer
+[class*="_customSelect_"][aria-expanded="true"] > [class*="_arrow_"],
+div[data-open="true"] > [class*="_arrow_"],
+.grapeVariety:has(> [class*="_dropdown_"]:not([hidden])) > div > [class*="_arrow_"] {
+  transform: rotate(180deg) !important;
+}
+
+// Direkt selektor för den exakta dropdown som är aktiv
+div:has(> [class*="_dropdown_"]:not([hidden])) > [class*="_arrow_"] {
+  transform: rotate(180deg) !important;
+}
+
+// Använd parent-child förhållanden för att säkerställa att endast den aktiva pilens förälder påverkas
+[class*="_selectTrigger_"]:has(+ [class*="_dropdown_"]:not([hidden])) [class*="_arrow_"] {
+  transform: rotate(180deg) !important;
+}
+
+.inputWithUnit {
+  position: relative;
+  width: 160px;
+  height: 45px;
+  background: #FFFFFF;
+  border: 1px solid #D8D8D8;
+  border-radius: 35px;
+
+  &:hover {
+    border-color: #B3B3B3;
+  }
+}
+
+.selectTrigger {
+  position: relative;
+  z-index: 200;
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  background: #FFFFFF;
+  border: 1px solid #D8D8D8;
+  border-radius: 35px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #B3B3B3;
+  }
+}
+
+.dropdownHeader {
+  box-sizing: border-box;
+  width: 100%;
+  height: 45px;
+  padding: 0 20px 0 5px;
+  background: #FFFFFF;
+  border: 1px solid #D8D8D8;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: 'Instrument Sans';
+  font-size: 16px;
+  color: #000000;
+
+  &:hover {
+    border-color: #B3B3B3;
+  }
+}
+
+.percentageInput {
+  position: relative;
+  width: 160px;
+  height: 38px;
+  box-sizing: border-box;
+  border: 1px solid #D8D8D8;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+
+  &:hover {
+    border-color: #B3B3B3;
+  }
+}
+
+.grapeDropdown {
+  position: absolute !important;
+  width: 248px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #D8D8D8 !important;
+  border-radius: 0 0 35px 35px !important;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25) !important;
+  z-index: 150 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-top: -1px !important;
+  
+  .option {
+    position: relative !important;
+    padding: 10px 20px 13px 20px !important;
+    font-family: 'Instrument Sans' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    color: #000000 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    
+    &:first-child {
+      padding-top: 30px !important;
+      margin-top: 0 !important;
+      min-height: 49px !important;
+    }
+    
+    &:hover {
+      background: #D8D8D8 !important;
+    }
+    
+    &:last-child {
+      border-radius: 0 0 35px 35px !important;
+    }
+  }
+}
+
+// Målinriktning mot de faktiska DOM-elementen baserat på deras klassnamn
+[class*="_circle_1gu1c_"] {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  border-radius: 50% !important;
+}
+
+[class*="_arrow_1gu1c_"] {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 12px !important;
+  height: 21px !important;
+  background-position: center !important;
+}
+
+

@@ -1,0 +1,123 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "Instrument Sans", sans-serif;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.nutrition {
+  background-color: #FFF4EC;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: "Work Sans", sans-serif;
+}
+.nutrition h3 {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #313638;
+  margin: 0;
+  text-align: left;
+}
+.nutrition h4 {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #313638;
+  margin: 0;
+  padding-top: 0;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.nutrition .nutrition-values {
+  display: flex;
+  gap: 20px;
+}
+.nutrition .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.nutrition .input-group label {
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  color: #313638;
+}
+.nutrition .input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  color: #313638;
+  margin-bottom: 10px;
+}
+.nutrition .input-group input:focus {
+  outline: none;
+  border-color: #000000;
+}
+.nutrition .input-with-unit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.nutrition .input-with-unit input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  color: #313638;
+}
+.nutrition .input-with-unit input:focus {
+  outline: none;
+  border-color: #000000;
+}
+.nutrition .input-with-unit span {
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  color: #313638;
+  margin: 0;
+}
+.nutrition .small-text {
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #313638;
+  margin: 0;
+}
+.nutrition .small-text2 {
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  color: #313638;
+  margin: 0;
+}
+.nutrition .additional-info {
+  background: none;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  color: #313638;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}/*# sourceMappingURL=nutrition.module.css.map */

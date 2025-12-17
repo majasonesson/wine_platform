@@ -1,0 +1,792 @@
+@use 'productCommon.module.scss';
+
+// Variables for responsive design
+$tablet-width: 768px;
+$desktop-width: 1200px;
+
+// Mixins for responsive breakpoints
+@mixin tablet {
+  @media (max-width: #{$desktop-width - 1px}) and (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+// Common styles for options
+@mixin option-style {
+  position: relative;
+  padding: 10px 20px;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #d8d8d8;
+  }
+
+  &:last-child {
+    border-radius: 0 0 35px 35px;
+  }
+}
+
+// Container for the whole form
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+// Navigation with buttons outside the box
+.navigation {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 1350px) {
+    max-width: 89%;
+  }
+  @media (max-width: 1250px) {
+    max-width: 89%;
+  }
+
+}
+
+.previousButton,
+.nextButton {
+  position: relative;
+  z-index: 10;
+  bottom: 355px;
+}
+
+.previousButton {
+  float: right;
+  right: 90px;
+}
+
+.nextButton {
+  float: left;
+  left: 10px;
+}
+
+// Specifika stilar för page1
+.page1 {
+  display: flex;
+  flex-wrap: wrap;
+  @extend .page;
+  height: auto;
+  min-height: 575px;
+  margin: 70px auto -40px;
+
+  @media (max-width: 1350px) {
+    max-width: 1010px;
+  }
+
+  @media (max-width: 1250px) {
+    max-width: 955px;
+  }
+
+  @media (max-width: 1200px) {
+    max-width: 800px;
+  }
+
+  @media (max-width: 1030px) {
+    max-width: 700px;
+  }
+
+  @media (max-width: 900px) {
+    max-width: 500px;
+  }
+
+  @media (max-width: 800) {
+    max-width: 700px;
+  }
+
+  @include tablet {
+    width: 90%;
+    margin: 50px auto -30px;
+  }
+
+  @include mobile {
+    width: 95%;
+    margin: 30px auto -20px;
+  }
+
+  .titleContainer {
+    .titleWrapper {
+      position: relative;
+      width: 100%;
+
+      h2 {
+        padding-left: 0;
+        margin-left: -3px;
+      }
+    }
+  }
+
+  .formContent {
+    position: relative;
+    height: calc(100% - 80px);
+    padding: 25px 60px;
+    display: flex;
+    margin-top: 50px;
+
+    @media (max-width: 1350px) {
+      flex-wrap: wrap;
+    }
+
+    @include tablet {
+      padding: 0 30px;
+      flex-direction: column;
+    }
+
+    @include mobile {
+      padding: 0 20px;
+      flex-direction: column;
+    }
+  }
+
+  // Left column
+  .leftColumn {
+    display: flex;
+    position: relative;
+    margin: 20px 20px 20px 0px;
+    z-index: 200;
+    flex-wrap: wrap;
+
+    @include tablet {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    @include mobile {
+      width: 100%;
+      margin: 15px 0;
+    }
+
+    .field {
+      width: 100%;
+      max-width: 415px;
+      margin-bottom: 57px;
+      position: relative;
+      z-index: 200;
+
+      @include tablet {
+        margin-bottom: 40px;
+      }
+
+      @include mobile {
+        margin-bottom: 30px;
+      }
+
+      &:first-child {
+        z-index: 600;
+      }
+      &:nth-child(2) {
+        z-index: 90;
+      }
+      &:nth-child(3) {
+        z-index: 80;
+      }
+
+      label {
+        width: 190px;
+        display: block;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        margin-bottom: 28px;
+
+        &::after {
+          content: '*';
+          margin-left: 4px;
+        }
+      }
+
+      select {
+        display: none;
+      }
+    }
+  }
+
+  // Grape section styling
+  .grapeSection {
+    position: relative;
+    width: 614px;
+    margin-top: 0px;
+    z-index: auto;
+    overflow: visible;
+
+    @include tablet {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 20px;
+    }
+
+    @include mobile {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 20px;
+    }
+
+    h3 {
+      width: auto;
+      height: auto;
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: #000000;
+      margin-bottom: 26px;
+    }
+
+    .grapeGrid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 250px);
+      grid-template-rows: repeat(2, 205px);
+      column-gap: 34px;
+      row-gap: 6px;
+      overflow: visible;
+
+      @media (max-width: 1350px) {
+        display: flex;
+      }
+
+      @media (max-width: 1199px) {
+        flex-wrap: wrap;
+      }
+
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        column-gap: 20px;
+      }
+
+      @include mobile {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        row-gap: 20px;
+      }
+    }
+
+    .grapeVariety {
+      position: relative;
+      overflow: visible;
+      width: 250px;
+      box-sizing: border-box;
+
+      @include tablet {
+        width: 100%;
+      }
+
+      @include mobile {
+        width: 100%;
+      }
+
+      .customSelect,
+      [class*='_customSelect_'] {
+        width: 100%;
+        position: relative;
+
+        .dropdown,
+        [class*='_dropdown_'] {
+          width: 100%;
+          box-sizing: border-box;
+        }
+      }
+
+      // Z-index for stacking dropdowns properly
+      &:first-child {
+        z-index: 100;
+      }
+      &:nth-child(2) {
+        z-index: 90;
+      }
+      &:nth-child(3) {
+        z-index: 80;
+      }
+      &:nth-child(4) {
+        z-index: 70;
+      }
+
+      .grapeLabel {
+        width: 100%;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #000000;
+        margin-bottom: 8px;
+
+        // Remove fixed dimensions and positions
+        &.major,
+        &.third,
+        &.secondary,
+        &.fourth {
+          width: auto;
+          height: auto;
+          position: relative;
+          left: auto;
+          top: auto;
+        }
+      }
+
+      .percentageContainer {
+        margin-top: 20px;
+
+        .percentageWrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .percentageLabel {
+          font-family: 'Instrument Sans';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 15px;
+          color: #000000;
+
+          // Only show asterisk for Major Grape
+          &.majorGrape::after {
+            content: '*';
+          }
+        }
+
+        .percentageInput {
+          position: relative;
+          width: 160px;
+          height: 38px;
+          box-sizing: border-box;
+          border-radius: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 15px;
+
+          input {
+            border: none;
+            font-weight: 100;
+            font-size: 18px;
+            text-align: center;
+            width: 40px;
+
+            // Remove spinner/arrows in Chrome, Safari, Edge, Opera
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+
+            // Remove spinner/arrows in Firefox
+            -moz-appearance: textfield;
+          }
+
+          @include tablet {
+            width: 140px;
+          }
+
+          @include mobile {
+            width: 120px;
+          }
+
+          &:hover {
+            border-color: #b3b3b3;
+          }
+
+          .arrowLeft,
+          .arrowRight {
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 10px;
+            height: 10px;
+
+            &:hover {
+              opacity: 0.8;
+            }
+
+            svg {
+              width: 15px;
+              height: 15px;
+              display: block;
+              cursor: pointer;
+              padding: 10px;
+              margin: -15px; // Negative margin to expand clickable area without changing visual size
+              box-sizing: content-box; // Ensures padding adds to element size
+            }
+          }
+
+          .valueContainer {
+            display: flex;
+            align-items: center;
+            align-content: center;
+
+            .value {
+              font-family: 'Instrument Sans';
+              font-style: normal;
+              font-weight: 300;
+              font-size: 20px;
+              line-height: 24px;
+              color: #000000;
+              border: none;
+            }
+
+            .unit {
+              font-family: 'Instrument Sans';
+              font-style: normal;
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              color: #999999;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Page 1 Dropdown Styles
+  .customSelect {
+    position: relative;
+    z-index: inherit;
+    width: 100%;
+    box-sizing: border-box;
+
+    .selectTrigger {
+      position: relative;
+      z-index: 200;
+      box-sizing: border-box;
+      width: 100%;
+      height: 38px;
+      background: #ffffff;
+      border: 1px solid #d8d8d8;
+      border-radius: 35px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+
+      &:hover {
+        border-color: #b3b3b3;
+      }
+
+      .arrow {
+        width: 23px;
+        height: 14px;
+        background-image: url("data:image/svg+xml,%3Csvg width='23' height='14' viewBox='0 0 23 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 1L11.5 12L1 1' stroke='%23717171' stroke-width='2'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: transform 0.2s;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+
+      &.open .arrow {
+        transform: rotate(180deg);
+      }
+
+      // Badge style for selected grape
+      .selectedBadge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 35px 0 15px;
+        height: 28px;
+        background: #d8d8d8;
+        border-radius: 25px;
+        margin: 0 auto 0 -7px;
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        width: fit-content;
+        min-width: 0;
+        max-width: calc(100% - 40px);
+        position: relative;
+        white-space: nowrap;
+
+        .removeButton {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 15px;
+          height: 15px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          margin-left: 8px;
+
+          .removeIcon {
+            width: 15px;
+            height: 15px;
+            background: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 13 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 4L9.10001 8.71429M9.10001 4L4 8.71429' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+              no-repeat center center;
+          }
+        }
+      }
+    }
+
+    .dropdown {
+      position: absolute;
+      width: 100%;
+      top: calc(100% - 15px);
+      left: 0;
+      background: #ffffff;
+      border: 1px solid #d8d8d8;
+      border-top: none;
+      border-radius: 0 0 35px 35px;
+      box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+      z-index: 150;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      margin-top: -1px;
+      font-size: 0;
+      box-sizing: border-box;
+
+      .option {
+        @include option-style;
+        padding: 10px 20px 13px 20px;
+
+        &:first-child {
+          padding-top: 10px;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  // Common dropdown styles using attribute selectors
+  [class*='_dropdown_'],
+  .dropdownList,
+  div[data-first-child] {
+    position: absolute;
+    width: 100%;
+    border: 1px solid #d8d8d8;
+    border-top: none;
+    border-radius: 0 0 35px 35px;
+    background: #ffffff;
+    box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+    z-index: 150;
+    left: 0;
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  // Specific adjustments for different sections
+  .leftColumn [class*='_dropdown_'],
+  .leftColumn .dropdownList,
+  .leftColumn div[data-first-child] {
+    top: calc(100% - 20px);
+  }
+
+  .grapeSection [class*='_dropdown_'],
+  .grapeSection .dropdownList,
+  .grapeSection div[data-first-child] {
+    top: calc(100% - 21px);
+  }
+
+  // Option styling for different contexts
+  .option[data-value='Wine'],
+  .option[data-value='Merlot'],
+  [class*='_option_']:first-child {
+    min-height: 49px;
+    padding-top: 30px;
+    padding-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .leftColumn .option[data-value='Wine'],
+  .leftColumn .option[data-value='Merlot'],
+  .leftColumn [class*='_option_']:first-child {
+    min-height: 49px;
+    padding-top: 30px;
+    padding-bottom: 4px;
+    width: 100%;
+    max-width: 413px;
+
+    @include tablet {
+      width: 100%;
+    }
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+  .grapeSection .option[data-value='Wine'],
+  .grapeSection .option[data-value='Merlot'],
+  .grapeSection [class*='_option_']:first-child {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+// Grape dropdown specific styles
+.grapeDropdown {
+  position: absolute;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+  z-index: 150;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  margin-top: -1px;
+  top: calc(100% - 21px);
+  box-sizing: border-box;
+  left: 0;
+
+  .option {
+    @include option-style;
+    padding: 10px 12px;
+
+    &:first-child {
+      padding-top: 26px;
+      padding-bottom: 10px;
+      margin-top: 0;
+      min-height: 60px;
+    }
+  }
+}
+
+// Dropdown list styles for the CustomDropdown in left column
+.dropdownList {
+  position: absolute;
+  width: 100%;
+  top: calc(100% - 20px);
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-top: none;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+  z-index: 5;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  margin-top: -1px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: block;
+  box-sizing: border-box;
+
+  .option {
+    @include option-style;
+  }
+}
+
+// Custom dropdown component styling
+.customDropdown {
+  position: relative;
+  width: 100%;
+
+  .dropdownHeader {
+    box-sizing: border-box;
+    width: 100%;
+    height: 45px;
+    padding: 0 20px 0 5px;
+    background: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+    color: #000000;
+    z-index: 20;
+    position: relative;
+
+    &:hover {
+      border-color: #b3b3b3;
+    }
+
+    svg {
+      transition: transform 0.2s;
+    }
+
+    &.open svg {
+      transform: rotate(180deg);
+    }
+
+    .selectedContainer {
+      display: flex;
+      flex-grow: 1;
+      justify-content: flex-start;
+      align-items: center;
+      margin-right: 10px;
+      padding-left: 0;
+      margin-left: 2px;
+
+      button {
+        padding: 0.25rem 0.5rem;
+        align-items: center;
+        color: black;
+        background: #d8d8d8;
+        border-radius: 25px;
+        font-weight: 400;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .option {
+    @include option-style;
+  }
+}

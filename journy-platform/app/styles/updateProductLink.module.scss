@@ -1,0 +1,16 @@
+.updateProductLink {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  border-radius: 1.25rem;
+  font-weight: 570;
+  transition: background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+
+  &:focus {
+    outline: 2px solid #c2b6f9;
+    outline-offset: 2px;
+  }
+}

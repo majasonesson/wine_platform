@@ -1,0 +1,102 @@
+.sustainability-certification {
+  background-color: #FFF4EC;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+}
+.sustainability-certification h3 {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #313638;
+  margin-bottom: 10px;
+}
+.sustainability-certification .sustainability-content {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+}
+.sustainability-certification .upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  flex: 0 0 150px;
+}
+.sustainability-certification .upload-wrapper:hover {
+  opacity: 0.8;
+}
+.sustainability-certification .upload-wrapper img {
+  width: 150px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 10px;
+}
+.sustainability-certification .upload-wrapper input {
+  display: none;
+}
+.sustainability-certification .checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 6px 10px;
+  transition: background-color 0.3s ease;
+  height: 50px;
+  flex-shrink: 0;
+  align-self: center;
+  /* Style for "Organic Wine" text */
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  color: #313638;
+}
+.sustainability-certification .toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+.sustainability-certification .toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.sustainability-certification .toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #c6c6c6;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+.sustainability-certification .toggle-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.sustainability-certification .toggle-switch input:checked + .slider {
+  background-color: #FA8657;
+}
+.sustainability-certification .toggle-switch input:checked + .slider:before {
+  transform: translateX(20px);
+}/*# sourceMappingURL=sustainabilityCertificationLogo.module.css.map */

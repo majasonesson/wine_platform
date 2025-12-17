@@ -1,0 +1,327 @@
+.wrapper {
+  min-height: calc(100vh - 106px); // Återställ till original
+  display: flex;
+  flex-direction: column;
+  padding: 126px 20px 80px; // Increased bottom padding to make room for footer
+  background-color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.content-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.submitButtonEditWine {
+  background-color: #4e001d;
+
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  border: none !important;
+  outline: none !important;
+  margin-top: 90px;
+}
+
+.submitButtonEditWine:hover {
+  background-color: #313638;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stepsContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1268px;
+  height: 115px;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 50px);
+    height: 1px;
+    background: #d9d9d9;
+    opacity: 0.9;
+    top: 29px;
+    left: 25px;
+    z-index: 0;
+  }
+}
+
+.step {
+  position: relative;
+  width: 138px;
+  text-align: center;
+  display: inline-block;
+  margin-right: 219px;
+  z-index: 1;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  .stepNumber {
+    width: 58px;
+    height: 58px;
+    background: #d8d8d8; // Default grå färg
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    color: #ffffff;
+    position: relative;
+  }
+
+  &.active .stepNumber {
+    background: #4e001d; // Aktiv steg får vinröd färg
+  }
+
+  // Lägg till completed state om du vill markera genomförda steg
+  &.completed .stepNumber {
+    background: #4e001d; // Genomförda steg får också vinröd färg
+  }
+
+  .stepTitle {
+    margin-top: 9px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+  }
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+
+  .selectInput {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+
+    // När dropdown är öppen
+    &.open {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: none;
+    }
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+
+    .option {
+      padding: 12px 16px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+    }
+  }
+}
+
+.nextButton {
+  position: relative;
+  width: 60px;
+  height: 89px; // Höjd för hela komponenten inklusive text
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    width: 60px;
+    height: 60px;
+    background: #4e001d;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 8px;
+
+    &::before {
+      // Pil-ikonen
+      content: '';
+      position: absolute;
+      left: 40%;
+      right: 40%;
+      top: 22.47%;
+      bottom: 53.93%;
+      background: #ffffff;
+      mask: url('path-to-your-arrow-icon.svg') no-repeat center;
+      -webkit-mask: url('path-to-your-arrow-icon.svg') no-repeat center;
+    }
+  }
+
+  span {
+    // Text under knappen
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #000000;
+  }
+}
+
+.backButton {
+  position: fixed;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  top: 100px;
+  left: 145px;
+  display: flex;
+  align-items: center;
+
+  svg {
+    position: static;
+    background: transparent;
+
+    path {
+      stroke: #808080;
+    }
+  }
+
+  span {
+    position: absolute;
+    width: 45px;
+    height: 24px;
+    left: 25px;
+    top: -1px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #808080;
+  }
+
+  &:hover {
+    background: transparent;
+
+    svg path {
+      stroke: #717171;
+    }
+
+    span {
+      color: #717171;
+    }
+  }
+}
+
+.headerSection {
+  padding-left: 0;
+  margin-top: 200px;
+  margin-bottom: 40px;
+}
+
+.formContainer {
+  width: 100%;
+  flex: 1; // Lägg tillbaka flex: 1
+  margin-bottom: 40px;
+}
+
+// Add footer styles
+.footer {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+
+  span {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+    opacity: 0.4;
+  }
+}

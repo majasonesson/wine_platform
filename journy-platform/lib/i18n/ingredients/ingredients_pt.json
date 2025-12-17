@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Geral",
+      "items": {
+        "Grapes": "Uvas",
+        "Sucrose": "Sacarose",
+        "Aleppo pine resin": "Resina de pinheiro de Alepo",
+        "Caramel": "Caramelo",
+        "Concentrated grape must": "Mosto de uva concentrado",
+        "Grape must": "Mosto de uva",
+        "Rectified concentrated grape must": "Mosto de uva concentrado retificado",
+        "Filling dosage": "Dosagem de enchimento",
+        "Shipping dosage": "Dosagem de envio"
+      }
+    },
+    {
+      "category": "Gases e gases de embalagem",
+      "items": {
+        "Argon (E 938)": "Argônio (E 938)",
+        "Nitrogen (E 941)": "Nitrogênio (E 941)",
+        "Carbon dioxide (E 290)": "Dióxido de carbono (E 290)",
+        "Packaged under protective atmosphere": "Embalado sob atmosfera protetora"
+      }
+    },
+    {
+      "category": "Reguladores de acidez",
+      "items": {
+        "Tartaric acid (E 334)": "Ácido tartárico (E 334)",
+        "Malic acid (E 296)": "Ácido málico (E 296)",
+        "Lactic acid (E 270)": "Ácido lático (E 270)",
+        "Calcium sulphate (E 516)": "Sulfato de cálcio (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Regulador de acidez: Ácido cítrico (E 330)"
+      }
+    },
+    {
+      "category": "Agentes estabilizantes",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Agente estabilizante: Ácido cítrico (E 330)",
+        "Metatartaric acid (E 353)": "Ácido metatartárico (E 353)",
+        "Gum arabic (E 414)": "Goma arábica (E 414)",
+        "Yeast mannoproteins": "Manoproteínas de levedura",
+        "Carboxymethylcellulose (E 466)": "Carboximetilcelulose (E 466)",
+        "Potassium polyaspartate (E 456)": "Poliaspartato de potássio (E 456)",
+        "Fumaric acid (E 297)": "Ácido fumárico (E 297)"
+      }
+    },
+    {
+      "category": "Conservantes e antioxidantes",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorbato de potássio (E 202)",
+        "Lysozyme (E 1105)": "Lisozima (E 1105)",
+        "L ascorbic acid (E 300)": "Ácido ascórbico (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetildicarbonato (DMDC)",
+        "Sulphites": "Sulfitos",
+        "Sulfur dioxide": "Dióxido de enxofre",
+        "Potassium bisulfite": "Bissulfito de potássio",
+        "Potassium metabisulfite": "Metabissulfito de potássio"
+      }
+    },
+    {
+      "category": "Ajudantes de processamento",
+      "items": {
+        "Egg": "Ovo",
+        "Milk": "Leite"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+.container {
+  background-color: #e6e6e6;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #313638;
+  margin-bottom: 20px;
+}
+
+.image {
+  border-radius: 8px;
+  max-height: 150px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.info-section {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.field {
+  margin-bottom: 10px;
+}
+
+.field-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #313638;
+  margin-bottom: 5px;
+}/*# sourceMappingURL=productPassport.module.css.map */

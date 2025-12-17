@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Obecné",
+      "items": {
+        "Grapes": "Hrozny",
+        "Sucrose": "Sacharóza",
+        "Aleppo pine resin": "Pryskyřice z borovice alepské",
+        "Caramel": "Karamel",
+        "Concentrated grape must": "Koncentrovaný hroznový mošt",
+        "Grape must": "Hroznový mošt",
+        "Rectified concentrated grape must": "Rektifikovaný koncentrovaný hroznový mošt",
+        "Filling dosage": "Dávkování plnění",
+        "Shipping dosage": "Dávkování přepravy"
+      }
+    },
+    {
+      "category": "Plyny a obalové plyny",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Dusík (E 941)",
+        "Carbon dioxide (E 290)": "Oxid uhličitý (E 290)",
+        "Packaged under protective atmosphere": "Balené v ochranné atmosféře"
+      }
+    },
+    {
+      "category": "Regulátory kyselosti",
+      "items": {
+        "Tartaric acid (E 334)": "Kyselina vinná (E 334)",
+        "Malic acid (E 296)": "Kyselina jablečná (E 296)",
+        "Lactic acid (E 270)": "Kyselina mléčná (E 270)",
+        "Calcium sulphate (E 516)": "Síran vápenatý (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Regulátor kyselosti: Kyselina citronová (E 330)"
+      }
+    },
+    {
+      "category": "Stabilizační látky",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabilizační látka: Kyselina citronová (E 330)",
+        "Metatartaric acid (E 353)": "Metavinná kyselina (E 353)",
+        "Gum arabic (E 414)": "Arabská guma (E 414)",
+        "Yeast mannoproteins": "Kvasinkové manoproteiny",
+        "Carboxymethylcellulose (E 466)": "Karbomethylcelulóza (E 466)",
+        "Potassium polyaspartate (E 456)": "Polyaspartát draselný (E 456)",
+        "Fumaric acid (E 297)": "Kyselina fumarová (E 297)"
+      }
+    },
+    {
+      "category": "Konzervanty a antioxidanty",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorbát draselný (E 202)",
+        "Lysozyme (E 1105)": "Lysozym (E 1105)",
+        "L ascorbic acid (E 300)": "L kyselina askorbová (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimethyldikarbonát (DMDC)",
+        "Sulphites": "Siričitany",
+        "Sulfur dioxide": "Oxid siřičitý",
+        "Potassium bisulfite": "Hydrogensiřičitan draselný",
+        "Potassium metabisulfite": "Metabisulfát draselný"
+      }
+    },
+    {
+      "category": "Pomocné látky",
+      "items": {
+        "Egg": "Vejce",
+        "Milk": "Mléko"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1037 @@
+.general-product-information {
+  .general-wrapper {
+    background-color: #fff4ec;
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      color: #313638;
+      margin-bottom: 0px;
+    }
+
+    input {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 10px;
+      border: 1px solid #ffffff;
+      border-radius: 10px;
+      width: 100%;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+
+      &::placeholder {
+        color: #999999;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #313638;
+      }
+    }
+  }
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 35px;
+  position: relative;
+  top: 60px;
+  margin-bottom: 10px;
+
+  h2 {
+    text-align: left;
+    margin-left: 6px;
+    margin-top: -10px;
+    font-family: 'Neue Regrade';
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 50px;
+    color: #000000;
+    margin-bottom: 44px;
+  }
+}
+
+.backButton {
+  position: absolute;
+  left: 30px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 18px;
+  color: #000000;
+  cursor: pointer;
+  text-decoration: none;
+
+  svg {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 218px 1fr;
+  gap: 72px;
+  position: relative;
+  min-height: 350px;
+}
+
+.imageUpload {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+
+  .imagePreview {
+    width: 218px;
+    height: 263px;
+    background: #d8d8d8;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    overflow: hidden;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .uploadPlaceholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 52px;
+        height: 52px;
+      }
+    }
+  }
+
+  .uploadButton {
+    font-family: 'Instrument Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-decoration-line: underline;
+    color: #000000;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    margin-left: 45px;
+  }
+}
+
+.formFields {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: visible;
+  min-height: 350px;
+
+  .field {
+    position: absolute;
+    width: 290px;
+
+    label[data-name='brand'] {
+      margin-bottom: -1rem;
+      margin-top: 1.7rem;
+    }
+
+    // Product Name
+    &:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+
+    // EAN
+    &:nth-child(2) {
+      top: 0;
+      left: 373px;
+    }
+
+    // Year - Fast position
+    &:nth-child(3) {
+      top: 164px;
+      left: 0;
+      z-index: 1;
+    }
+
+    // Certificates - Kan vara hur högt som helst utan att påverka Year
+    &:nth-child(4) {
+      top: 164px;
+      left: 373px;
+      z-index: 2;
+
+      :global(.certificatesSelect) {
+        /* Grundstyling för certifikat-selektorn */
+        &.selectDropdownWrapper {
+          width: 290px;
+          min-height: 45px;
+          position: relative;
+        }
+
+        .container {
+          border: 1px solid #d8d8d8;
+          border-radius: 35px;
+          min-height: 45px;
+          height: 45px; /* Fast höjd */
+          max-height: 45px; /* Begränsa initial höjd */
+          box-sizing: border-box;
+          padding: 0 40px 0 5px; /* Extremt liten vänster padding */
+          position: relative;
+          z-index: 150;
+          overflow: hidden; /* Dölj overflow initialt */
+          transition: max-height 0.2s ease, height 0.2s ease;
+
+          &.required {
+            border-color: #d8d8d8;
+          }
+
+          &.open {
+            border-radius: 35px 35px 0 0;
+            border-bottom: none;
+            padding-left: 5px; /* Matcha vänster padding */
+          }
+
+          /* När två alternativ är valda, anpassa höjden */
+          &.has-multiple-values:not(.has-three-plus-values) {
+            height: auto !important; /* Tillåt höjden att anpassas för två alternativ */
+            min-height: 75px !important; /* Öka minimihöjden för att säkerställa att två alternativ får plats */
+            max-height: 80px !important; /* Begränsa maximal höjd men tillåt två alternativ */
+            overflow: visible !important; /* Visa allt innehåll */
+            padding: 5px 40px 5px 5px !important; /* Utökad padding för att ge mer utrymme */
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-start !important;
+
+            /* När container är öppen med två alternativ */
+            &.open {
+              border-radius: 35px !important; /* Behåll rundade kanter även när öppen */
+              border: 1px solid #d8d8d8 !important; /* Behåll full border */
+            }
+          }
+
+          /* Styling för value container */
+          .value {
+            position: relative !important;
+            z-index: 300 !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+            align-items: center !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            margin-left: -10px !important; /* Justera 5px till höger från -15px */
+          }
+
+          // Ytterligare negativ marginal för första badge
+          &:first-child {
+            margin-left: -15px !important; /* Justera 5px till höger från -20px */
+          }
+
+          /* Tillåt expansion ENDAST när innehållet faktiskt överflödar */
+          &.content-overflow {
+            height: auto;
+            max-height: none;
+            overflow: visible;
+          }
+        }
+
+        /* Styling för badge-elementen */
+        .option-badge {
+          height: 33px;
+          padding: 0 30px 0 12px;
+          margin: 2px;
+          margin-left: -10px; /* Justera 5px till höger från -15px */
+          font-size: 20px !important;
+          line-height: 24px;
+          font-family: 'Instrument Sans';
+          font-style: normal;
+          font-weight: 400;
+          border-radius: 25px;
+          position: relative;
+          background-color: #d8d8d8;
+          overflow: visible !important;
+          white-space: nowrap !important;
+          text-overflow: clip !important;
+          max-width: none !important;
+          width: auto !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          color: #000000;
+          box-sizing: border-box !important;
+          vertical-align: middle !important;
+
+          // När det finns två badges, optimera storleken och positioneringen
+          &:not(:only-child) {
+            margin: 3px 2px !important;
+            margin-left: -10px !important; /* Justera 5px till höger från -15px */
+
+            /* Special styling för första badge i två-alternativ-läge */
+            &:first-child {
+              margin-left: -10px !important; /* Reducerad marginal för första badge */
+              margin-bottom: 1px !important; /* Reducerad marginal mellan första och andra badge */
+            }
+
+            /* Special styling för andra badge i två-alternativ-läge */
+            &:nth-child(2) {
+              margin-left: -10px !important; /* Lägg badge undernära första */
+              margin-top: 1px !important; /* Reducerad marginal mellan första och andra badge */
+            }
+          }
+
+          .remove-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 13px;
+            height: 13px;
+
+            svg {
+              width: 13px;
+              height: 13px;
+
+              circle {
+                fill: #e7e7e7;
+              }
+
+              path {
+                stroke: #d8d8d8;
+                stroke-width: 1;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+              }
+            }
+          }
+
+          span {
+            overflow: visible !important;
+            white-space: nowrap !important;
+            text-overflow: clip !important;
+            width: auto !important;
+            display: inline !important;
+            max-width: none !important;
+          }
+        }
+
+        /* Styr dropdown positionen relativt till certifikat-selektorn */
+        .dropdownContainer {
+          width: 290px !important;
+          top: 24px !important;
+          border-radius: 0 0 35px 35px !important;
+          position: absolute !important;
+          transform: none !important;
+          min-height: 180px !important; /* För att säkerställa plats för alla alternativ */
+        }
+
+        /* Position för öppen dropdown med valda options */
+        &.has-value .dropdownContainer,
+        .container.open ~ .dropdownContainer,
+        .container.open + .dropdownContainer {
+          top: 24px !important;
+          position: absolute !important;
+          transform: none !important;
+        }
+
+        /* Styling för options-listan */
+        .optionsList {
+          padding: 5px 0 10px 0 !important;
+          max-height: none !important;
+        }
+
+        /* Styling för enskilda options */
+        .optionsList .option {
+          padding: 12px 20px !important;
+          line-height: 24px !important;
+          font-size: 20px !important;
+          border-radius: 0 !important;
+          background-color: transparent !important;
+          cursor: pointer !important;
+
+          &:last-child {
+            border-bottom-left-radius: 35px !important;
+            border-bottom-right-radius: 35px !important;
+            padding-bottom: 15px !important;
+          }
+
+          &:first-child {
+            padding-top: 15px !important;
+          }
+
+          &:hover {
+            background-color: 0 !important;
+          }
+        }
+      }
+    }
+
+    label {
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: #000000;
+      margin-bottom: 11px;
+      display: block;
+    }
+  }
+}
+
+// Standardiserad bas-stil för alla input-liknande element
+%input-base {
+  box-sizing: border-box;
+  width: 290px;
+  height: 45px;
+  border: 1px solid #d8d8d8;
+  border-radius: 35px;
+  padding: 10px 18px;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  background: #ffffff;
+
+  &::placeholder {
+    color: #000000;
+    opacity: 0.4;
+  }
+
+  &:hover {
+    border-color: #b3b3b3;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #4e001d;
+  }
+}
+
+// Applicera bas-stilen på alla input-typer
+.field {
+  input,
+  .select,
+  .input {
+    @extend %input-base;
+  }
+}
+
+.inputContainer {
+  position: relative;
+  width: 290px;
+  height: 45px;
+
+  input {
+    @extend %input-base;
+  }
+
+  .calendarIcon {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 23px;
+    height: 26px;
+    background: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 23px;
+      height: 26px;
+      background-image: url("data:image/svg+xml,%3Csvg width='23' height='26' viewBox='0 0 23 26' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.4444 23.4H2.55556V9.1H20.4444M16.6111 0V2.6H6.38889V0H3.83333V2.6H2.55556C1.13722 2.6 0 3.757 0 5.2V23.4C0 24.0896 0.269245 24.7509 0.748505 25.2385C1.22776 25.7261 1.87778 26 2.55556 26H20.4444C21.1222 26 21.7722 25.7261 22.2515 25.2385C22.7308 24.7509 23 24.0896 23 23.4V5.2C23 4.51044 22.7308 3.84912 22.2515 3.36152C21.7722 2.87393 21.1222 2.6 20.4444 2.6H19.1667V0M17.8889 14.3H11.5V20.8H17.8889V14.3Z' fill='%23808080'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+}
+
+.certificatesContainer {
+  display: none;
+}
+
+.certificatesDropdown {
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  width: 290px;
+  z-index: 1000;
+
+  .dropdownToggle {
+    @extend %input-base;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1001;
+    background: #ffffff;
+    min-height: 45px;
+    height: auto;
+    padding: 5px 30px 5px 15px;
+
+    .selectedBadge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 26px 0 12px;
+      height: 30px;
+      background: #d8d8d8;
+      border-radius: 20px;
+      margin: 2px;
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 30px;
+      color: #000000;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: calc(100% - 40px);
+
+      .removeButton {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 2;
+      }
+    }
+  }
+
+  .dropdownContent {
+    position: absolute;
+    top: calc(100% - 25px);
+    left: 0;
+    width: 288px;
+    background: white;
+    border: 1px solid #d8d8d8;
+    border-top: none;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+
+    .certificateOption {
+      padding: 10px 18px;
+      cursor: pointer;
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: #000000;
+      background: #ffffff;
+
+      &:first-of-type {
+        padding-top: 35px;
+        padding-bottom: 10px;
+      }
+
+      &:hover {
+        background: #d8d8d8;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: 35px;
+        border-bottom-right-radius: 35px;
+      }
+    }
+  }
+}
+
+.buttonContainer {
+  position: absolute;
+  width: 60px;
+  height: 89px;
+  right: -130px;
+  top: calc(50% - 44.5px);
+  z-index: 1000;
+}
+
+.nextButton {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 0;
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:hover,
+  &:focus,
+  &:active {
+    outline: none;
+    background: none !important;
+    border: none !important;
+  }
+
+  .circle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50% !important;
+    background-color: #4e001d;
+    overflow: hidden !important;
+    margin: 0 auto;
+  }
+
+  &:hover {
+    .circle {
+      opacity: 0.3;
+    }
+
+    span {
+      opacity: 0.6;
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 21px;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='21' viewBox='0 0 12 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.5229 11.6665L2.30425 21L0 18.667L8.0665 10.5L0 2.33297L2.30425 0L11.5229 9.33352C11.8284 9.64292 12 10.0625 12 10.5C12 10.9375 11.8284 11.3571 11.5229 11.6665Z' fill='white'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  span {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: calc(100% + 8px);
+    left: 0;
+    transform: none;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.03em;
+    color: #000000;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1268px;
+  margin: -40px auto 0;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+}
+
+.selectedContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  margin-right: 20px;
+  padding: 0;
+  margin-left: 0;
+  width: calc(100% - 40px);
+  max-width: none;
+  overflow: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.option-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 30px 0 12px;
+  height: 33px;
+  background: #d8d8d8;
+  border-radius: 25px;
+  margin: 2px 0;
+  border: none;
+  cursor: default;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  position: relative;
+  white-space: nowrap;
+  overflow: visible;
+  max-width: none;
+
+  .remove-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg {
+      width: 13px;
+      height: 13px;
+
+      circle {
+        fill: #e7e7e7;
+      }
+
+      path {
+        stroke: #d8d8d8;
+        stroke-width: 1;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    }
+  }
+}
+
+.multipleSelected {
+  .dropdownContent {
+    &::before,
+    &::after {
+      height: 32px;
+    }
+  }
+}
+
+.selectContainer {
+  position: relative;
+  width: 290px;
+  height: 45px;
+
+  .select {
+    @extend %input-base;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 8px;
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23717171' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1440px) {
+  .container {
+    max-width: 75%;
+    margin: 0 auto;
+  }
+
+  .content {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 1340px) {
+  .container {
+    max-width: 65%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .formFields {
+    width: 100%;
+  }
+
+  .field {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 1130px) {
+  .formFields {
+    .field {
+      position: relative !important;
+      top: auto !important;
+      left: 0 !important;
+      margin-bottom: 20px;
+
+      // Reset positions for all fields
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(4) {
+        position: relative;
+        top: auto;
+        left: 0;
+        width: 290px; // Keep original width
+      }
+
+      // Maintain original input widths
+      input,
+      .select,
+      .input,
+      :global(.certificatesSelect) .selectDropdownWrapper {
+        width: 290px; // Keep original width
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container h2 {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+    max-width: 40%;
+  }
+
+  .imageUpload {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .imagePreview {
+    height: 200px;
+  }
+
+  .uploadButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .field {
+    margin-bottom: 1rem;
+
+    label {
+      font-size: 14px;
+    }
+
+    input {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+
+  .buttonContainer {
+    margin-top: 2rem;
+  }
+
+  .nextButton {
+    font-size: 14px;
+    padding: 1px 1px;
+
+    .circle {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .container {
+    width: 75%;
+    padding: 1rem;
+  }
+
+  .container h2 {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .imageUpload {
+    max-width: 250px;
+  }
+
+  .imagePreview {
+    height: 150px;
+  }
+
+  .field {
+    margin-bottom: 0.75rem;
+
+    label {
+      font-size: 12px;
+    }
+
+    input {
+      font-size: 12px;
+      padding: 6px;
+    }
+  }
+
+  .inputContainer {
+    svg {
+      width: 18px;
+      height: 20px;
+      right: 8px;
+    }
+  }
+
+  .nextButton {
+    font-size: 12px;
+    padding: 6px 0px;
+    left: auto;
+
+    .circle {
+      width: 50px;
+      height: 50px;
+    }
+
+    .arrow {
+      border-width: 6px;
+    }
+  }
+
+  .formFields {
+    .field {
+      position: relative; // Override absolute positioning
+      top: auto;
+      left: 320px;
+      margin-bottom: 20px;
+      width: 100%;
+
+      // Reset positions for all fields
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(4) {
+        position: relative;
+        top: auto;
+        left: 320px;
+      }
+
+      // Make inputs full width
+      input,
+      .select,
+      .input,
+      :global(.certificatesSelect) .selectDropdownWrapper {
+        width: 100%;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 530px) {
+  .nextButton {
+    font-size: 12px;
+    padding: 6px 0px;
+    right: 10px;
+
+    .arrow {
+      border-width: 6px;
+    }
+  }
+
+  .formFields {
+    .field {
+      position: relative;
+      width: 240px; // Smaller width
+      margin: 0 auto 15px;
+      left: 0; // Reset left positioning
+
+      // Reset positions and set width for all fields
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(4) {
+        position: relative;
+        top: auto;
+        left: 0;
+        width: 240px; // Smaller width
+      }
+
+      label {
+        font-size: 16px; // Smaller font
+      }
+
+      // Make inputs and selector smaller
+      input,
+      .select,
+      .input,
+      :global(.certificatesSelect) .selectDropdownWrapper {
+        width: 240px; // Match parent width
+        height: 40px; // Slightly smaller height
+        font-size: 16px; // Smaller font
+        padding: 8px 15px;
+      }
+
+      .inputContainer {
+        width: 240px;
+        height: 40px;
+      }
+    }
+  }
+}

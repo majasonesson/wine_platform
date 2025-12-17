@@ -1,0 +1,254 @@
+.producer-product-details {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: #fff;
+
+  .content-container {
+    max-width: 720px;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.previewTitle {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: -350px;
+  display: flex;
+  color: #111;
+  margin-top: 8rem;
+
+  @media (max-width: 1700px) {
+    margin-left: -250px;
+  }
+
+  @media (max-width: 1550px) {
+    margin-left: -210px;
+  }
+
+  @media (max-width: 1450px) {
+    margin-left: -150px;
+  }
+
+  @media (max-width: 1330px) {
+    margin-left: -80px;
+  }
+
+  @media (max-width: 1115px) {
+    margin-left: -50px;
+  }
+
+  @media (max-width: 920px) {
+    margin-left: -3px;
+  }
+}
+
+.appHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 2rem;
+
+  .appName {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+
+  .disclaimer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 0.75rem;
+    gap: 2rem;
+
+    .infoIcon {
+      width: 28px;
+      height: 28px;
+      background-color: #4e001d;
+      color: white;
+      border-radius: 50%;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .disclaimerText {
+      font-size: 0.875rem;
+      line-height: 1.4;
+      max-width: 370px;
+    }
+  }
+}
+
+.passportGrid {
+  display: flex;
+  grid-template-columns: 1fr auto;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: -7rem;
+}
+
+.passportRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  margin-left: 200px;
+
+  /* FIXME: when image is not selected qr code breaks*/
+  @media (max-width: 1430px) {
+    margin-left: 100px;
+  }
+
+  @media (max-width: 1115px) {
+    margin-left: 50px;
+  }
+}
+
+.qrTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.qrBox {
+  width: 260px;
+  height: 260px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qrImage {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+.labelButtons {
+  width: 270px;
+  height: 40px;
+  font-size: 1.01rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.cardSection {
+  background: #f9f9f9;
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  width: 27rem;
+}
+
+.responsibilityTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.responsibilityContent {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+  line-height: 1.5;
+
+  .responsibilityList {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+
+    li {
+      list-style-type: disc;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.backButton {
+  position: fixed;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  top: 100px;
+  left: 145px;
+  display: flex;
+  align-items: center;
+
+  svg {
+    position: static;
+    background: transparent;
+
+    path {
+      stroke: #808080;
+    }
+  }
+
+  span {
+    position: absolute;
+    width: 45px;
+    height: 24px;
+    left: 25px;
+    top: -1px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #808080;
+  }
+
+  &:hover {
+    background: transparent;
+
+    svg path {
+      stroke: #717171;
+    }
+
+    span {
+      color: #717171;
+    }
+  }
+}
+
+.journyFooterContent {
+  text-align: center;
+  margin-right: 15rem;
+  gap: 1rem;
+}
+
+.journyFooterTitle {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.journyFooter {
+  display: flex;
+  justify-content: center;
+
+  p {
+    font-size: 30px;
+    background-color: #fff4d0;
+    padding: 0.17rem 4.9rem;
+    border-radius: 35px;
+    display: inline-block;
+    margin: 0;
+  }
+}

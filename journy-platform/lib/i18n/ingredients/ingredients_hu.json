@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Általános",
+      "items": {
+        "Grapes": "Szőlő",
+        "Sucrose": "Szacharóz",
+        "Aleppo pine resin": "Aleppói fenyőgyanta",
+        "Caramel": "Karamell",
+        "Concentrated grape must": "Koncentrált szőlőmust",
+        "Grape must": "Szőlőmust",
+        "Rectified concentrated grape must": "Rektifikált koncentrált szőlőmust",
+        "Filling dosage": "Töltési adag",
+        "Shipping dosage": "Szállítási adag"
+      }
+    },
+    {
+      "category": "Gázok és csomagoló gázok",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Nitrogén (E 941)",
+        "Carbon dioxide (E 290)": "Szén-dioxid (E 290)",
+        "Packaged under protective atmosphere": "Védőgázos csomagolásban"
+      }
+    },
+    {
+      "category": "Savasító szerek",
+      "items": {
+        "Tartaric acid (E 334)": "Borkősav (E 334)",
+        "Malic acid (E 296)": "Almasav (E 296)",
+        "Lactic acid (E 270)": "Tejsav (E 270)",
+        "Calcium sulphate (E 516)": "Kalcium-szulfát (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Savasító szer: Citromsav (E 330)"
+      }
+    },
+    {
+      "category": "Stabilizáló szerek",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabilizáló szer: Citromsav (E 330)",
+        "Metatartaric acid (E 353)": "Metaborkősav (E 353)",
+        "Gum arabic (E 414)": "Arábiai gumi (E 414)",
+        "Yeast mannoproteins": "Élesztő mannoproteinek",
+        "Carboxymethylcellulose (E 466)": "Karboszimetil-cellulóz (E 466)",
+        "Potassium polyaspartate (E 456)": "Kálium-poli-aszpartát (E 456)",
+        "Fumaric acid (E 297)": "Fumársav (E 297)"
+      }
+    },
+    {
+      "category": "Tartósítószerek és antioxidánsok",
+      "items": {
+        "Potassium sorbate (E 202)": "Kálium-szorbát (E 202)",
+        "Lysozyme (E 1105)": "Lizozim (E 1105)",
+        "L ascorbic acid (E 300)": "L-aszkorbinsav (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetil-dikarbonát (DMDC)",
+        "Sulphites": "Szulfitok",
+        "Sulfur dioxide": "Kén-dioxid",
+        "Potassium bisulfite": "Kálium-biszulfit",
+        "Potassium metabisulfite": "Kálium-metabiszulfit"
+      }
+    },
+    {
+      "category": "Feldolgozási segédanyagok",
+      "items": {
+        "Egg": "Tojás",
+        "Milk": "Tej"
+      }
+    }
+  ]
+}

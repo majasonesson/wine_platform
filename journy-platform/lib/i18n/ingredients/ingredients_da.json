@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Generel",
+      "items": {
+        "Grapes": "Druer",
+        "Sucrose": "Sukrose",
+        "Aleppo pine resin": "Aleppo fyrharpiks",
+        "Caramel": "Karamel",
+        "Concentrated grape must": "Koncentreret druemost",
+        "Grape must": "Druemost",
+        "Rectified concentrated grape must": "Rektificeret koncentreret druemost",
+        "Filling dosage": "Fyldningsdosering",
+        "Shipping dosage": "Forsendelsesdosering"
+      }
+    },
+    {
+      "category": "Gasser og emballagegasser",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Nitrogen (E 941)",
+        "Carbon dioxide (E 290)": "Kuldioxid (E 290)",
+        "Packaged under protective atmosphere": "Pakket under beskyttende atmosfære"
+      }
+    },
+    {
+      "category": "Surhedsregulatorer",
+      "items": {
+        "Tartaric acid (E 334)": "Vinsyre (E 334)",
+        "Malic acid (E 296)": "Æblesyre (E 296)",
+        "Lactic acid (E 270)": "Mælkesyre (E 270)",
+        "Calcium sulphate (E 516)": "Calciumsulfat (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Surhedsregulator: Citronsyre (E 330)"
+      }
+    },
+    {
+      "category": "Stabiliseringsmidler",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabiliseringsmiddel: Citronsyre (E 330)",
+        "Metatartaric acid (E 353)": "Metavinsyre (E 353)",
+        "Gum arabic (E 414)": "Gummi arabicum (E 414)",
+        "Yeast mannoproteins": "Gærmannoproteiner",
+        "Carboxymethylcellulose (E 466)": "Carboxymethylcellulose (E 466)",
+        "Potassium polyaspartate (E 456)": "Kaliumpolyaspartat (E 456)",
+        "Fumaric acid (E 297)": "Fumarsyre (E 297)"
+      }
+    },
+    {
+      "category": "Konserveringsmidler og antioxidanter",
+      "items": {
+        "Potassium sorbate (E 202)": "Kaliumsorbat (E 202)",
+        "Lysozyme (E 1105)": "Lysozym (E 1105)",
+        "L ascorbic acid (E 300)": "L ascorbinsyre (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimethyldicarbonat (DMDC)",
+        "Sulphites": "Sulfitter",
+        "Sulfur dioxide": "Svovldioxid",
+        "Potassium bisulfite": "Kaliumbisulfit",
+        "Potassium metabisulfite": "Kalium metabisulfit"
+      }
+    },
+    {
+      "category": "Forarbejdningshjælpemidler",
+      "items": {
+        "Egg": "Æg",
+        "Milk": "Mælk"
+      }
+    }
+  ]
+}

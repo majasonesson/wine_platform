@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Yleinen",
+      "items": {
+        "Grapes": "Rypäleet",
+        "Sucrose": "Sakkaroosi",
+        "Aleppo pine resin": "Aleppon männyn pihka",
+        "Caramel": "Karamelli",
+        "Concentrated grape must": "Tiivistetty rypälemehu",
+        "Grape must": "Rypälemehu",
+        "Rectified concentrated grape must": "Oikaistu tiivistetty rypälemehu",
+        "Filling dosage": "Täyttöannos",
+        "Shipping dosage": "Lähetysannos"
+      }
+    },
+    {
+      "category": "Kaasut ja pakkauskaasut",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Typpi (E 941)",
+        "Carbon dioxide (E 290)": "Hiilidioksidi (E 290)",
+        "Packaged under protective atmosphere": "Paketointi suojakaasussa"
+      }
+    },
+    {
+      "category": "Happamuudensäätöaineet",
+      "items": {
+        "Tartaric acid (E 334)": "Viinihappo (E 334)",
+        "Malic acid (E 296)": "Omenahappo (E 296)",
+        "Lactic acid (E 270)": "Maitohappo (E 270)",
+        "Calcium sulphate (E 516)": "Kalsiumsulfaatti (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Happamuudensäätöaine: Sitruunahappo (E 330)"
+      }
+    },
+    {
+      "category": "Stabilointiaineet",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabilointiaine: Sitruunahappo (E 330)",
+        "Metatartaric acid (E 353)": "Metaviinihappo (E 353)",
+        "Gum arabic (E 414)": "Arabikumi (E 414)",
+        "Yeast mannoproteins": "Hiivan mannoproteiinit",
+        "Carboxymethylcellulose (E 466)": "Karboksimetyyliselluloosa (E 466)",
+        "Potassium polyaspartate (E 456)": "Kaliumpoliaspartaatti (E 456)",
+        "Fumaric acid (E 297)": "Fumariinihappo (E 297)"
+      }
+    },
+    {
+      "category": "Säilöntäaineet ja antioksidantit",
+      "items": {
+        "Potassium sorbate (E 202)": "Kaliumsorbaatti (E 202)",
+        "Lysozyme (E 1105)": "Lysotsyymi (E 1105)",
+        "L ascorbic acid (E 300)": "L askorbiinihappo (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetyylidikarbonaatti (DMDC)",
+        "Sulphites": "Sulfiitit",
+        "Sulfur dioxide": "Rikkidioksidi",
+        "Potassium bisulfite": "Kaliumbisulfiitti",
+        "Potassium metabisulfite": "Kaliummetabisulfiitti"
+      }
+    },
+    {
+      "category": "Prosessointiaineet",
+      "items": {
+        "Egg": "Muna",
+        "Milk": "Maito"
+      }
+    }
+  ]
+}

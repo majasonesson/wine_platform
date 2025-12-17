@@ -1,0 +1,553 @@
+@import './global';
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&display=swap');
+@import './_typography';
+
+.pageWrapper {
+  min-height: calc(100vh - 106px);
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  max-width: 1440px;
+  margin: 106px auto 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.headerSection {
+  padding-left: 0;
+  margin-bottom: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pageTitle {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #000000;
+  letter-spacing: 0.02em;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 400px;
+  height: 45px;
+  border: 1px solid #D8D8D8;
+  border-radius: 35px;
+  padding: 0 20px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+
+  &:hover, &:focus {
+    border-color: #B3B3B3;
+    outline: none;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.productGrid {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+.productList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1440px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+}
+
+.productListItem {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.productCard {
+  width: 100%;
+  max-width: 400px;
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 30px;
+  padding: 30px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    color: #000000;
+  }
+
+  p {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    color: #3A3A3A;
+  }
+}
+
+.connectButton {
+  height: 45px;
+  border-radius: 35px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: #4E001D;
+  color: #FFFFFF;
+  margin-top: 20px;
+  width: 100%;
+
+  &:hover:not(:disabled) {
+    background: #3A0016;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  &.pending {
+    background: #D8D8D8;
+    color: #3A3A3A;
+    cursor: not-allowed;
+
+    &:hover {
+      background: #D8D8D8;
+    }
+  }
+
+  &.connected {
+    background: #4E001D;
+    color: #FFFFFF;
+    cursor: not-allowed;
+
+    &:hover {
+      background: #4E001D;
+    }
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 430px) {
+  .pageWrapper {
+    padding: 0 16px;
+  }
+
+  .pageTitle {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  .productCard {
+    padding: 20px;
+    
+    h3 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .connectButton {
+    height: 40px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+}
+
+.viewButton {
+  margin-top: auto;
+  padding: 0.5rem 1.2rem;
+  background: #2a3a4b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
+  width: auto;
+
+  &:hover {
+    background: #1a2533;
+  }
+}
+
+.noProductsMessage {
+  color: #b0b8c1;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.syncContainer, .downloadContainer {
+  position: relative;
+}
+
+.syncButton, .downloadButton {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-align: center;
+  min-width: 160px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.syncButton {
+  background-color: #4CAF50;
+  color: white;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}
+
+.downloadButton {
+  background-color: #2196F3;
+  color: white;
+
+  &:hover {
+    background-color: #1976D2;
+  }
+}
+
+.syncOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  margin-top: 4px;
+  overflow: hidden;
+  min-width: 160px;
+
+  button {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+
+    &:hover {
+      background-color: #f5f5f5;
+      color: #000;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #eee;
+    }
+  }
+}
+
+.syncStatus {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 45px);
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+  
+  &.syncing {
+    color: #1976D2;
+    border: 1px solid #90CAF9;
+    background-color: #E3F2FD;
+  }
+  
+  &.success {
+    color: #2e7d32;
+    border: 1px solid #A5D6A7;
+    background-color: #E8F5E9;
+  }
+  
+  &.error {
+    color: #d32f2f;
+    border: 1px solid #EF9A9A;
+    background-color: #FFEBEE;
+  }
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  strong {
+    font-weight: 600;
+    color: #666;
+  }
+
+  span {
+    font-size: 1.1rem;
+  }
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: none;
+
+  &:hover {
+    color: #333;
+    background-color: transparent;
+  }
+}
+
+.viewProductCard {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .productHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    h2 {
+      margin: 0;
+      color: #333;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+  }
+
+  h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.3rem;
+    color: #1a2533;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 3.2rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    color: #3a4a5d;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cardActionButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: auto;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .syncContainer, .downloadContainer {
+      position: relative;
+    }
+
+    .syncButton, .downloadButton {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      text-align: center;
+      min-width: 160px;
+    }
+
+    .syncButton {
+      background-color: #4CAF50;
+      color: white;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+
+    .downloadButton {
+      background-color: #2196F3;
+      color: white;
+
+      &:hover {
+        background-color: #1976D2;
+      }
+    }
+
+    .syncOptions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      margin-top: 4px;
+      overflow: hidden;
+      min-width: 160px;
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #eee;
+        }
+      }
+    }
+
+    .syncStatus {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      position: absolute;
+      left: 0;
+      right: 0;
+      
+      &.success {
+        color: #4CAF50;
+      }
+      
+      &.error {
+        color: #f44336;
+      }
+    }
+  }
+}
+
+.syncedBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.syncButton {
+  &.synced {
+    background-color: #45a049;
+    
+    &:hover {
+      background-color: #3d8b40;
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}

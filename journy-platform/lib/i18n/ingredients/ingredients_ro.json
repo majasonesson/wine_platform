@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "General",
+      "items": {
+        "Grapes": "Struguri",
+        "Sucrose": "Zahăr",
+        "Aleppo pine resin": "Rășină de pin Aleppo",
+        "Caramel": "Caramel",
+        "Concentrated grape must": "Must de struguri concentrat",
+        "Grape must": "Must de struguri",
+        "Rectified concentrated grape must": "Must de struguri concentrat rectificat",
+        "Filling dosage": "Dozaj de umplere",
+        "Shipping dosage": "Dozaj de expediere"
+      }
+    },
+    {
+      "category": "Gaze și gaze de ambalare",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Azot (E 941)",
+        "Carbon dioxide (E 290)": "Dioxid de carbon (E 290)",
+        "Packaged under protective atmosphere": "Ambalat în atmosferă protectoare"
+      }
+    },
+    {
+      "category": "Regulatori de aciditate",
+      "items": {
+        "Tartaric acid (E 334)": "Acid tartric (E 334)",
+        "Malic acid (E 296)": "Acid malic (E 296)",
+        "Lactic acid (E 270)": "Acid lactic (E 270)",
+        "Calcium sulphate (E 516)": "Sulfat de calciu (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Regulator de aciditate: Acid citric (E 330)"
+      }
+    },
+    {
+      "category": "Agenți de stabilizare",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Agent de stabilizare: Acid citric (E 330)",
+        "Metatartaric acid (E 353)": "Acid metatartric (E 353)",
+        "Gum arabic (E 414)": "Gumă arabică (E 414)",
+        "Yeast mannoproteins": "Mannoproteine din drojdie",
+        "Carboxymethylcellulose (E 466)": "Carboximetilceluloză (E 466)",
+        "Potassium polyaspartate (E 456)": "Poliaspartat de potasiu (E 456)",
+        "Fumaric acid (E 297)": "Acid fumaric (E 297)"
+      }
+    },
+    {
+      "category": "Conservanți și antioxidanți",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorat de potasiu (E 202)",
+        "Lysozyme (E 1105)": "Lizozim (E 1105)",
+        "L ascorbic acid (E 300)": "Acid ascorbic (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetildicarbonat (DMDC)",
+        "Sulphites": "Sulfiți",
+        "Sulfur dioxide": "Dioxid de sulf",
+        "Potassium bisulfite": "Bisulfit de potasiu",
+        "Potassium metabisulfite": "Metabisulfit de potasiu"
+      }
+    },
+    {
+      "category": "Agenți de procesare",
+      "items": {
+        "Egg": "Ou",
+        "Milk": "Lapte"
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+/* Font imports */
+
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('/fonts/NeueRegrade-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Font definitions */
+:root {
+  /* Colors */
+  --text-color: #000000;
+
+  /* Headings */
+  --h1-desktop: 700 70px 'Neue Regrade', sans-serif;
+  --h2-desktop: 600 40px 'Neue Regrade', sans-serif;
+  --h3-desktop: 500 30px 'Instrument Sans', sans-serif;
+  
+  /* Text styles */
+  --subtitle-desktop: 400 25px 'Instrument Sans', sans-serif;
+  --section-desktop: 400 17px/15px 'Instrument Sans', sans-serif;
+  --big-text-desktop: 600 45px 'Neue Regrade', sans-serif;
+  --body-medium-desktop: 400 25px 'Instrument Sans', sans-serif;
+  --body-small-desktop: 400 20px 'Instrument Sans', sans-serif;
+  --smallissimo-desktop: 400 12px 'Instrument Sans', sans-serif;
+  
+  /* Button text */
+  --button-primary-desktop: 500 25px/normal 'Instrument Sans', sans-serif;
+  --button-small-desktop: 500 18px/normal 'Instrument Sans', sans-serif;
+
+  --title-font: 'Neue Regrade', sans-serif;
+  --body-font: 'Instrument Sans', sans-serif;
+}
+
+/* Utility classes */
+.h1-desktop, .h2-desktop, .h3-desktop,
+.subtitle-desktop, .section-desktop,
+.big-text-desktop, .body-medium-desktop,
+.body-small-desktop, .smallissimo-desktop,
+.button-small-desktop {
+  color: var(--text-color);
+}
+
+.h1-desktop {
+  font: var(--h1-desktop);
+}
+
+.h2-desktop {
+  font: var(--h2-desktop);
+}
+
+.h3-desktop {
+  font: var(--h3-desktop);
+}
+
+.subtitle-desktop {
+  font: var(--subtitle-desktop);
+}
+
+.section-desktop {
+  font: var(--section-desktop);
+  letter-spacing: 5px;
+}
+
+.big-text-desktop {
+  font: var(--big-text-desktop);
+}
+
+.body-medium-desktop {
+  font: var(--body-medium-desktop);
+}
+
+.body-small-desktop {
+  font: var(--body-small-desktop);
+}
+
+.smallissimo-desktop {
+  font: var(--smallissimo-desktop);
+}
+
+.button-primary-desktop {
+  font: var(--button-primary-desktop);
+  letter-spacing: 3px;
+}
+
+.button-small-desktop {
+  font: var(--button-small-desktop);
+  letter-spacing: 3px;
+} 

@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Allgemein",
+      "items": {
+        "Grapes": "Trauben",
+        "Sucrose": "Saccharose",
+        "Aleppo pine resin": "Aleppo-Kiefernharz",
+        "Caramel": "Karamell",
+        "Concentrated grape must": "Konzentrierter Traubenmost",
+        "Grape must": "Traubenmost",
+        "Rectified concentrated grape must": "Rektifizierter konzentrierter Traubenmost",
+        "Filling dosage": "Fülldosage",
+        "Shipping dosage": "Versanddosage"
+      }
+    },
+    {
+      "category": "Gase und Verpackungsgase",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Stickstoff (E 941)",
+        "Carbon dioxide (E 290)": "Kohlendioxid (E 290)",
+        "Packaged under protective atmosphere": "Verpackt unter Schutzatmosphäre"
+      }
+    },
+    {
+      "category": "Säureregulatoren",
+      "items": {
+        "Tartaric acid (E 334)": "Weinsäure (E 334)",
+        "Malic acid (E 296)": "Äpfelsäure (E 296)",
+        "Lactic acid (E 270)": "Milchsäure (E 270)",
+        "Calcium sulphate (E 516)": "Calciumsulfat (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Säureregulator: Zitronensäure (E 330)"
+      }
+    },
+    {
+      "category": "Stabilisatoren",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabilisator: Zitronensäure (E 330)",
+        "Metatartaric acid (E 353)": "Metatartarinsäure (E 353)",
+        "Gum arabic (E 414)": "Gummi arabicum (E 414)",
+        "Yeast mannoproteins": "Hefemannoproteine",
+        "Carboxymethylcellulose (E 466)": "Carboxymethylcellulose (E 466)",
+        "Potassium polyaspartate (E 456)": "Kalium-Polyaspartat (E 456)",
+        "Fumaric acid (E 297)": "Fumarsäure (E 297)"
+      }
+    },
+    {
+      "category": "Konservierungsstoffe und Antioxidantien",
+      "items": {
+        "Potassium sorbate (E 202)": "Kaliumsorbat (E 202)",
+        "Lysozyme (E 1105)": "Lysozym (E 1105)",
+        "L ascorbic acid (E 300)": "L-Ascorbinsäure (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimethyldicarbonat (DMDC)",
+        "Sulphites": "Sulfite",
+        "Sulfur dioxide": "Schwefeldioxid",
+        "Potassium bisulfite": "Kaliumbisulfit",
+        "Potassium metabisulfite": "Kaliumdisulfit"
+      }
+    },
+    {
+      "category": "Verarbeitungshilfsstoffe",
+      "items": {
+        "Egg": "Ei",
+        "Milk": "Milch"
+      }
+    }
+  ]
+}

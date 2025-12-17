@@ -1,0 +1,238 @@
+@use './global.scss';
+
+.nutrition {
+  background-color: #fff4ec;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 'Work Sans', sans-serif;
+
+  h3 {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #313638;
+    margin: 0;
+    text-align: left;
+  }
+
+  h4 {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #313638;
+    margin: 0;
+    padding-top: 0;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .nutrition-values {
+    display: flex;
+    gap: 20px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    label {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 14px;
+      color: #313638;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 14px;
+      color: #313638;
+      margin-bottom: 10px;
+
+      &:focus {
+        outline: none;
+        border-color: #000000;
+      }
+    }
+  }
+
+  .input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 14px;
+      color: #313638;
+
+      &:focus {
+        outline: none;
+        border-color: #000000;
+      }
+    }
+
+    span {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 14px;
+      color: #313638;
+      margin: 0;
+    }
+  }
+
+  .small-text {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #313638;
+    margin: 0;
+  }
+
+  .small-text2 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 200;
+    color: #313638;
+    margin: 0;
+  }
+
+  .additional-info {
+    background: none;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    color: #313638;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.nutrition-table {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0;
+  background: none;
+  font-size: 8px;
+
+  .nutrient-type,
+  .nutrient-per100 {
+    font-size: 8px;
+    color: #000;
+  }
+
+  .nutrition-label {
+    color: #000;
+    font-size: 8px;
+  }
+
+  .nutrition-value {
+    font-size: 8px;
+    font-weight: 500;
+    color: #000;
+  }
+
+  .nutrition-footer small {
+    font-size: 8px;
+    color: #000;
+  }
+}
+
+.nutrient-type,
+.nutrient-per100 {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.25rem;  // Reduced from 0.75rem to 0.25rem
+}
+
+.nutrient-type {
+  float: left;
+}
+
+.nutrient-per100 {
+  float: right;
+}
+
+.nutrition-row {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  width: 100%;
+
+  &:first-child {
+    border-bottom: 1px solid #eee;
+  }
+
+  .nutrition-label {
+    color: #000;
+    font-size: 8px;
+    text-align: left;
+    flex: 1;
+  }
+
+  .nutrition-value {
+    font-size: 8px;
+    font-weight: 500;
+    color: #000;
+    text-align: right;
+    flex: 1;
+  }
+}
+
+.nutrition-cell {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+
+  &:first-child {
+    border-right: 1px solid #eee;
+  }
+}
+
+.nutrition-label {
+  color: #000;
+  font-size: 8px;
+}
+
+.nutrition-value {
+  font-weight: 500;
+  color: #000;
+}
+
+.nutrition-footer {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+
+  small {
+    color: #000;
+    font-size: 8px;
+  }
+}
+
+.energy-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 0.5rem;
+}
