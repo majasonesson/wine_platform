@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Général",
+      "items": {
+        "Grapes": "Raisins",
+        "Sucrose": "Saccharose",
+        "Aleppo pine resin": "Résine de pin d'Alep",
+        "Caramel": "Caramel",
+        "Concentrated grape must": "Moût de raisin concentré",
+        "Grape must": "Moût de raisin",
+        "Rectified concentrated grape must": "Moût de raisin concentré rectifié",
+        "Filling dosage": "Dosage de remplissage",
+        "Shipping dosage": "Dosage d'expédition"
+      }
+    },
+    {
+      "category": "Gaz et gaz d'emballage",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Azote (E 941)",
+        "Carbon dioxide (E 290)": "Dioxyde de carbone (E 290)",
+        "Packaged under protective atmosphere": "Emballé sous atmosphère protectrice"
+      }
+    },
+    {
+      "category": "Régulateurs d'acidité",
+      "items": {
+        "Tartaric acid (E 334)": "Acide tartrique (E 334)",
+        "Malic acid (E 296)": "Acide malique (E 296)",
+        "Lactic acid (E 270)": "Acide lactique (E 270)",
+        "Calcium sulphate (E 516)": "Sulfate de calcium (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Régulateur d'acidité : Acide citrique (E 330)"
+      }
+    },
+    {
+      "category": "Agents stabilisants",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Agent stabilisant : Acide citrique (E 330)",
+        "Metatartaric acid (E 353)": "Acide métatartrique (E 353)",
+        "Gum arabic (E 414)": "Gomme arabique (E 414)",
+        "Yeast mannoproteins": "Mannoprotéines de levure",
+        "Carboxymethylcellulose (E 466)": "Carboxyméthylcellulose (E 466)",
+        "Potassium polyaspartate (E 456)": "Polyaspartate de potassium (E 456)",
+        "Fumaric acid (E 297)": "Acide fumarique (E 297)"
+      }
+    },
+    {
+      "category": "Conservateurs et antioxydants",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorbate de potassium (E 202)",
+        "Lysozyme (E 1105)": "Lysozyme (E 1105)",
+        "L ascorbic acid (E 300)": "Acide L-ascorbique (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Diméthyldicarbonate (DMDC)",
+        "Sulphites": "Sulfites",
+        "Sulfur dioxide": "Dioxyde de soufre",
+        "Potassium bisulfite": "Bisulfite de potassium",
+        "Potassium metabisulfite": "Métabisulfite de potassium"
+      }
+    },
+    {
+      "category": "Auxiliaires de traitement",
+      "items": {
+        "Egg": "Œuf",
+        "Milk": "Lait"
+      }
+    }
+  ]
+}

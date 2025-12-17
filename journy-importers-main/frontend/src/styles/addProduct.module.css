@@ -1,0 +1,62 @@
+.wrapper {
+  padding: 20px;
+  background-color: #ffffff;
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  box-sizing: border-box;
+}
+.wrapper .content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.wrapper .content-container h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.wrapper .content-container .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.wrapper .content-container .form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.addWineButton {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 150px;
+  height: 35px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  border: none !important;
+  outline: none !important;
+}
+
+.addWineButton:hover {
+  background-color: #313638;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}/*# sourceMappingURL=addProduct.module.css.map */

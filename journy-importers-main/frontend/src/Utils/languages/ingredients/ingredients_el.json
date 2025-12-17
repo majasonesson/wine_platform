@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Γενικά",
+      "items": {
+        "Grapes": "Σταφύλια",
+        "Sucrose": "Σακχαρόζη",
+        "Aleppo pine resin": "Ρητίνη πεύκου Χαλεπίου",
+        "Caramel": "Καραμέλα",
+        "Concentrated grape must": "Συμπυκνωμένος μούστος σταφυλιών",
+        "Grape must": "Μούστος σταφυλιών",
+        "Rectified concentrated grape must": "Ορθωμένος συμπυκνωμένος μούστος σταφυλιών",
+        "Filling dosage": "Δοσολογία πλήρωσης",
+        "Shipping dosage": "Δοσολογία αποστολής"
+      }
+    },
+    {
+      "category": "Αέρια και αέρια συσκευασίας",
+      "items": {
+        "Argon (E 938)": "Άργο (E 938)",
+        "Nitrogen (E 941)": "Άζωτο (E 941)",
+        "Carbon dioxide (E 290)": "Διοξείδιο του άνθρακα (E 290)",
+        "Packaged under protective atmosphere": "Συσκευασμένο υπό προστατευτική ατμόσφαιρα"
+      }
+    },
+    {
+      "category": "Ρυθμιστές οξύτητας",
+      "items": {
+        "Tartaric acid (E 334)": "Τρυγικό οξύ (E 334)",
+        "Malic acid (E 296)": "Μηλικό οξύ (E 296)",
+        "Lactic acid (E 270)": "Γαλακτικό οξύ (E 270)",
+        "Calcium sulphate (E 516)": "Θειικό ασβέστιο (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Ρυθμιστής οξύτητας: Κιτρικό οξύ (E 330)"
+      }
+    },
+    {
+      "category": "Σταθεροποιητές",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Σταθεροποιητής: Κιτρικό οξύ (E 330)",
+        "Metatartaric acid (E 353)": "Μετατρυγικό οξύ (E 353)",
+        "Gum arabic (E 414)": "Αραβικό κόμμι (E 414)",
+        "Yeast mannoproteins": "Μαννοπρωτεΐνες ζύμης",
+        "Carboxymethylcellulose (E 466)": "Καροξυμεθυλοκυτταρίνη (E 466)",
+        "Potassium polyaspartate (E 456)": "Πολυασπαρτικό κάλιο (E 456)",
+        "Fumaric acid (E 297)": "Φουμαρικό οξύ (E 297)"
+      }
+    },
+    {
+      "category": "Συντηρητικά και αντιοξειδωτικά",
+      "items": {
+        "Potassium sorbate (E 202)": "Σορβικό κάλιο (E 202)",
+        "Lysozyme (E 1105)": "Λυσοζύμη (E 1105)",
+        "L ascorbic acid (E 300)": "L ασκορβικό οξύ (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Διμεθυλοδιάνθρακας (DMDC)",
+        "Sulphites": "Θειώδη",
+        "Sulfur dioxide": "Διοξείδιο του θείου",
+        "Potassium bisulfite": "Διθειώδες κάλιο",
+        "Potassium metabisulfite": "Μεταδιθειώδες κάλιο"
+      }
+    },
+    {
+      "category": "Βοηθητικά επεξεργασίας",
+      "items": {
+        "Egg": "Αυγό",
+        "Milk": "Γάλα"
+      }
+    }
+  ]
+}

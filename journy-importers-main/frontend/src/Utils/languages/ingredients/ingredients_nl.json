@@ -1,0 +1,70 @@
+{
+  "ingredients": [
+    {
+      "category": "Algemeen",
+      "items": {
+        "Grapes": "Druiven",
+        "Sucrose": "Sacharose",
+        "Aleppo pine resin": "Aleppo pijnboomhars",
+        "Caramel": "Karamel",
+        "Concentrated grape must": "Geconcentreerd druivensap",
+        "Grape must": "Druivensap",
+        "Rectified concentrated grape must": "Gerectificeerd geconcentreerd druivensap",
+        "Filling dosage": "Vuldosering",
+        "Shipping dosage": "Verzenddosering"
+      }
+    },
+    {
+      "category": "Gassen en verpakkingsgassen",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Stikstof (E 941)",
+        "Carbon dioxide (E 290)": "Kooldioxide (E 290)",
+        "Packaged under protective atmosphere": "Verpakt onder beschermende atmosfeer"
+      }
+    },
+    {
+      "category": "Zuurteregelaars",
+      "items": {
+        "Tartaric acid (E 334)": "Wijnsteenzuur (E 334)",
+        "Malic acid (E 296)": "Appelzuur (E 296)",
+        "Lactic acid (E 270)": "Melkzuur (E 270)",
+        "Calcium sulphate (E 516)": "Calciumsulfaat (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Zuurteregelaar: Citroenzuur (E 330)"
+      }
+    },
+    {
+      "category": "Stabilisatoren",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabiliserend middel: Citroenzuur (E 330)",
+        "Metatartaric acid (E 353)": "Metawijnsteenzuur (E 353)",
+        "Gum arabic (E 414)": "Arabische gom (E 414)",
+        "Yeast mannoproteins": "Gistmannoproteïnen",
+        "Carboxymethylcellulose (E 466)": "Carboxymethylcellulose (E 466)",
+        "Potassium polyaspartate (E 456)": "Kalium polyaspartaat (E 456)",
+        "Fumaric acid (E 297)": "Fumarinezuur (E 297)"
+      }
+    },
+    {
+      "category": "Conserveermiddelen en antioxidanten",
+      "items": {
+        "Potassium sorbate (E 202)": "Kaliumsorbaat (E 202)",
+        "Lysozyme (E 1105)": "Lysozym (E 1105)",
+        "L ascorbic acid (E 300)": "L ascorbinezuur (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimethyldicarbonate (DMDC)",
+        "Sulphites": "Sulfieten",
+        "Sulfur dioxide": "Zwaveldioxide",
+        "Potassium bisulfite": "Kaliumbisulfiet",
+        "Potassium metabisulfite": "Kalium metabisulfiet"
+      }
+    },
+    {
+      "category": "Verwerkingsadditieven",
+      "items": {
+        "Egg": "Ei",
+        "Milk": "Melk"
+      }
+    }
+  ]
+}
+

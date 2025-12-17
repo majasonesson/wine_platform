@@ -1,0 +1,76 @@
+.productionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 0 0 8px 8px; /* Remove top border radius */
+  margin-left: -0.40rem;
+  margin-top: -1px; /* Connect to the box above */
+  margin-bottom: 16px;
+  border-top: none; /* Remove top border */
+}
+
+.productionItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.itemLabel {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  color: #777;
+  margin: 0 0 0.25rem 0;
+}
+
+.processDetail {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.itemText {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 8px;
+  font-weight: normal;
+  color: #000;
+  line-height: 1.4;
+}
+
+/* Add a section title that matches other sections */
+.sectionTitle {
+  font-family: "Arial", sans-serif;
+  font-size: 11px;
+  font-weight: 520;
+  text-align: left;
+  color: #000;
+  margin: 0 0 0.5rem 0;
+  position: relative;
+  grid-column: 1 / -1;
+}
+
+/* Container for the entire sparkling wine section */
+.sparklingWineSection {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+/* Responsive adjustments for mobile preview */
+@media (max-width: 768px) {
+  .productionGrid {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+  }
+  
+  .itemLabel {
+    font-size: 8px;
+  }
+  
+  .itemText {
+    font-size: 7px;
+  }
+}

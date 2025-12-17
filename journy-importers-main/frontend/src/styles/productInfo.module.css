@@ -1,0 +1,89 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "Instrument Sans", sans-serif;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.product-information {
+  background-color: #FFF4EC;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+.product-information h3 {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #313638;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.product-information input,
+.product-information select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  color: #9c9c9c;
+}
+.product-information input:focus,
+.product-information select:focus {
+  outline: none;
+}
+.product-information .flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.product-information .flex input {
+  flex: 1;
+}
+.product-information .flex p {
+  font-family: "Work Sans", sans-serif;
+  font-size: 13px;
+  color: #9c9c9c;
+  margin: 0;
+}
+
+.inputWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.iconContainer svg {
+  width: 100%;
+  height: 100%;
+  color: #313638;
+}/*# sourceMappingURL=productInfo.module.css.map */

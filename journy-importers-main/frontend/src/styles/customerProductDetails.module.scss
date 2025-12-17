@@ -1,0 +1,146 @@
+.journyHeader {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+.inputField {
+  max-width: 100%;
+  padding: 0.55rem;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-family: instrument sans;
+  font-weight: 400;
+  max-height: 39px;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+}
+
+.producer-product-details {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: #fff;
+
+  .content-container {
+    max-width: 720px;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+}
+
+.appHeader {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  flex-direction: column;
+  width: 82%;
+
+  .appName {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+
+  .disclaimer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 0.75rem;
+    gap: 2rem;
+
+    .infoIcon {
+      min-width: 28px;
+      min-height: 28px;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      background-color: #4e001d;
+      color: white;
+      border-radius: 50%;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .disclaimerText {
+      font-size: 0.875rem;
+      line-height: 1.4;
+      max-width: 370px;
+    }
+  }
+}
+
+.passportGrid {
+  display: flex;
+  grid-template-columns: 1fr auto;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  margin-right: 10px;
+}
+
+.cardSection {
+  background: #f9f9f9;
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  max-width: 21rem;
+}
+
+.responsibilityTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.responsibilityContent {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+  line-height: 1.5;
+
+  .responsibilityList {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+
+    li {
+      list-style-type: disc;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.journyFooterContent {
+  text-align: center;
+  gap: 1rem;
+}
+
+.journyFooterTitle {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.journyFooter {
+  display: flex;
+  justify-content: center;
+
+  p {
+    font-size: 30px;
+    background-color: #fff4d0;
+    padding: 0.17rem 4.9rem;
+    border-radius: 35px;
+    display: inline-block;
+    margin: 0;
+  }
+}

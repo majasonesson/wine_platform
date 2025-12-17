@@ -1,0 +1,896 @@
+.selectDropdownWrapper {
+  position: relative;
+  width: 1000px;
+  max-width: 100%;
+  font-family: 'Instrument Sans', sans-serif;
+}
+
+.selectDropdownWrapper.required .container {
+  border-color: #d8d8d8;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 45px;
+  height: 45px;
+  max-height: 45px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 10px 40px 10px 5px;
+  border-radius: 35px;
+  border: 1px solid #d8d8d8;
+  outline: none;
+  font-size: 14px;
+  color: #323138;
+  transition: max-height 0.2s ease, height 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  z-index: 250;
+  overflow: hidden;
+}
+
+.container.required {
+  border-color: #d8d8d8;
+}
+
+/* Keep exact same shape when dropdown is open */
+.container.open {
+  position: relative;
+  border-radius: 25px 25px 0 0;
+  border: 1px solid #d8d8d8;
+  border-bottom: none;
+  background: #ffffff;
+  z-index: 300;
+}
+
+.selectButton {
+  display: flex;
+  min-width: 0;
+  justify-content: center;
+}
+
+.selectButton span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-width: calc(100% - 10px);
+  margin-left: -10px;
+}
+
+/* Add new class for container content */
+.container.open .value {
+  position: relative;
+  z-index: 200;
+}
+
+.container:focus {
+  border: 1px solid #d8d8d8;
+}
+
+.container:not(:has(.optionsList)) {
+  padding: 15px;
+  border-radius: 25px;
+  border: 1px solid #d8d8d8;
+}
+
+.category {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000000;
+  padding: 16px 8px 8px 8px;
+  background: transparent;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 10px;
+}
+
+.valueContainer {
+  flex: 1;
+  width: 100%;
+}
+
+.value {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #313638;
+  overflow-x: auto;
+  align-items: center;
+}
+
+.clear-btn {
+  background: none;
+  color: #777;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.25em;
+}
+
+.divider {
+  background-color: #ddd;
+  align-self: stretch;
+  width: 0.05em;
+}
+
+.caret {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 23px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg width='23' height='14' viewBox='0 0 23 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 1L11.5 12L1 1' stroke='%23717171' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  z-index: 200;
+  transition: transform 0.3s ease;
+}
+
+.container.open .caret {
+  transform: rotate(180deg);
+}
+
+/* Dropdown container with rounded corners */
+.dropdownContainer {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: calc(100% - 2px);
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-top: none;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+  z-index: 149;
+  overflow: hidden;
+}
+
+/* Options list */
+.optionsList {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  width: 100%;
+  top: auto;
+}
+
+.optionsList::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+/* All options get the same styling */
+.option {
+  position: relative;
+  padding: 12px 20px 15px 20px;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Styling for options in certificatesSelect - ensures consistent appearance */
+.certificatesSelect .optionsList .option {
+  padding: 12px 20px;
+  line-height: 24px;
+  font-size: 20px;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+/* Last option gets rounded corners */
+.certificatesSelect .optionsList .option:last-child {
+  border-bottom-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+  padding-bottom: 15px;
+}
+
+/* First option gets extra padding at the top */
+.certificatesSelect .optionsList .option:first-child {
+  padding-top: 15px;
+}
+
+/* Hover effect with ::before pseudo-element */
+.option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: -1;
+  transition: background 0.2s ease;
+}
+
+/* Reset any zebra-stripes or alternating row styling */
+.option:nth-child(odd)::before,
+.option:nth-child(even)::before {
+  background: transparent;
+}
+
+/* ONLY hover should give gray background in dropdown list */
+.option:hover::before {
+  background: #d8d8d8;
+}
+
+/* Remove gray background for selected/highlighted options in the dropdown list */
+.optionsList .option.selected::before,
+.dropdownContainer .option.selected::before,
+.optionsList .option.highlighted::before,
+.dropdownContainer .option.highlighted::before,
+.optionsList .option[aria-selected='true']::before,
+.dropdownContainer .option[aria-selected='true']::before {
+  background: transparent;
+}
+
+/* But keep hover effect even for selected/highlighted options */
+.optionsList .option.selected:hover::before,
+.dropdownContainer .option.selected:hover::before,
+.optionsList .option.highlighted:hover::before,
+.dropdownContainer .option.highlighted:hover::before,
+.optionsList .option[aria-selected='true']:hover::before,
+.dropdownContainer .option[aria-selected='true']:hover::before {
+  background: #d8d8d8;
+}
+
+/* Ensure dropdown container is tall enough for all options */
+.certificatesSelect .dropdownContainer {
+  min-height: 180px;
+}
+
+/* Nicer inner padding for dropdown container */
+.certificatesSelect .optionsList {
+  padding: 5px 0 10px 0;
+  max-height: none;
+}
+
+/* Remove hover effect for firstOptionWrapper elements since they have their own hover */
+.firstOptionWrapper .option::before,
+.firstOptionWrapper .option:hover::before {
+  background: transparent;
+}
+
+.option-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 30px 6px 12px;
+  background: #d8d8d8;
+  border-radius: 25px;
+  border: none;
+  margin: 2px;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  cursor: pointer;
+  width: auto;
+  max-width: none;
+  overflow: visible;
+  white-space: nowrap;
+  text-overflow: clip;
+  position: relative;
+  height: 33px;
+  box-sizing: border-box;
+}
+
+/* When there are multiple badges, optimize size */
+.option-badge:not(:only-child) {
+  margin: 1px 2px;
+}
+
+.option-label {
+  display: inline-block;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  width: auto;
+  min-width: 10px;
+  max-width: none;
+}
+
+/* Container without multiple values */
+.container:not(.has-multiple-values) .option-badge {
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  width: auto;
+}
+
+/* Fix to handle overflow of badge text nicely */
+.option-badge span:not(.remove-btn) {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  width: auto;
+  display: inline;
+  max-width: none;
+}
+
+.option-badge:hover,
+.option-badge:focus {
+  background-color: #d8d8d8;
+  border-color: #b3b3b3;
+}
+
+.option-badge:hover > .remove-btn,
+.option-badge:focus > .remove-btn {
+  color: #717171;
+}
+
+.option-badge .remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 13px;
+  height: 13px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.option-badge .remove-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.option-badge .remove-btn svg circle {
+  fill: #e7e7e7;
+}
+
+.option-badge .remove-btn svg path {
+  stroke: #d8d8d8;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.firstOptionWrapper {
+  position: relative;
+  width: calc(100% + 2px);
+  margin-left: -1px;
+  min-height: 75px;
+  display: flex;
+  align-items: center;
+  margin-top: -2px;
+  background-color: transparent;
+}
+
+.firstOptionWrapper:hover {
+  background-color: #d8d8d8;
+}
+
+.firstOptionWrapper li {
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  min-height: inherit;
+}
+
+/* Certificate Select specific styles - refactored */
+/* Base styles for certificatesSelect */
+.certificatesSelect .dropdownContainer {
+  top: 24px;
+  bottom: auto;
+  position: absolute;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-radius: 0 0 35px 35px;
+  border-top: none;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  overflow: hidden;
+  margin-top: 0;
+  transform: none;
+}
+
+/* Container styling when dropdown is open */
+.certificatesSelect .container.open {
+  border-radius: 35px 35px 0 0;
+  border-bottom: none;
+  border-top: 1px solid #d8d8d8;
+  z-index: 300;
+}
+
+/* Adjust container for selected items so dropdown positions correctly */
+.certificatesSelect .container .value {
+  position: relative;
+  z-index: 200;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-left: -10px;
+}
+
+/* Certificate-specific badge styling */
+.certificatesSelect .option-badge {
+  margin: 2px;
+  margin-left: -10px;
+  position: relative;
+  z-index: 200;
+  width: auto;
+  display: inline-flex;
+  max-width: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  padding: 0 30px 0 12px;
+  height: 33px;
+  font-size: 20px;
+  line-height: 24px;
+  border-radius: 25px;
+  background: #d8d8d8;
+  align-items: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+/* Multiple badges optimization */
+.certificatesSelect .option-badge:not(:only-child) {
+  margin: 1px 2px;
+  margin-left: -10px;
+}
+
+.certificatesSelect .option-label {
+  display: inline;
+  width: auto;
+  max-width: none;
+  overflow: visible;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+
+/* Override restrictions for first option-badge */
+.certificatesSelect .container:not(.has-multiple-values) .option-badge {
+  width: auto;
+  max-width: none;
+  overflow: visible;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+
+/* Fix caret rotation for certificatesSelect */
+.certificatesSelect .container.open .caret {
+  transform: rotate(180deg);
+}
+
+/* Options list styling for certificates */
+.certificatesSelect .optionsList,
+.certificatesSelect [class*='optionsList'],
+.certificatesSelect ul[class*='options'] {
+  max-height: 180px;
+  overflow-y: auto;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  margin-top: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 200;
+}
+
+/* Styles for various states of dropdown */
+/* Dropdown open - standard case */
+.certificatesSelect:not(.has-multiple-values) .container.open {
+  border-radius: 35px 35px 0 0;
+  border-bottom: none;
+  z-index: 300;
+}
+
+/* Dropdown container - standard case */
+.certificatesSelect:not(.has-multiple-values)
+  .container.open
+  + .dropdownContainer,
+.certificatesSelect:not(.has-multiple-values)
+  .container.open
+  ~ .dropdownContainer {
+  border-radius: 0 0 35px 35px;
+  border-top: none;
+  margin-top: -1px;
+  top: calc(100% - 22px);
+}
+
+/* Special styling for the multi-value case */
+/* 2 selected options */
+.certificatesSelect.has-multiple-values:not(.has-three-plus-values)
+  .container.open {
+  border-radius: 35px;
+  border: 1px solid #d8d8d8;
+  overflow: visible;
+  z-index: 300;
+}
+
+.certificatesSelect.has-multiple-values:not(.has-three-plus-values)
+  .container.open
+  + .dropdownContainer,
+.certificatesSelect.has-multiple-values:not(.has-three-plus-values)
+  .container.open
+  ~ .dropdownContainer {
+  border-radius: 35px;
+  border: 1px solid #d8d8d8;
+  margin-top: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 200;
+  background: white;
+  top: 100%;
+}
+
+/* 3+ selected options */
+.certificatesSelect.has-three-plus-values .container.open {
+  border-radius: 35px;
+  border: 1px solid #d8d8d8;
+  overflow: visible;
+  z-index: 300;
+}
+
+.certificatesSelect.has-three-plus-values .container.open + .dropdownContainer,
+.certificatesSelect.has-three-plus-values .container.open ~ .dropdownContainer {
+  border-radius: 35px;
+  border: 1px solid #d8d8d8;
+  margin-top: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 200;
+  background: white;
+  top: 100%;
+}
+
+/* Error message styling */
+.error {
+  color: #808080;
+  font-family: 'Instrument Sans';
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 8px;
+  margin-left: 5px;
+}
+
+.certificatesSelect .error {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+}
+
+/* Container height management */
+.container.has-multiple-values {
+  height: 45px;
+  min-height: 45px;
+  max-height: 45px;
+  overflow: hidden;
+}
+
+.container.has-three-plus-values {
+  height: auto;
+  min-height: 45px;
+  max-height: none;
+  overflow: visible;
+}
+
+/* Single option case */
+.container:not(.has-multiple-values) .option-badge {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Content overflow case */
+.container.content-overflow {
+  max-height: none;
+  height: auto;
+  overflow: visible;
+}
+
+/* First badge positioning */
+.certificatesSelect .option-badge:first-child {
+  margin-left: -15px;
+}
+
+.certificatesSelect .option-badge:not(:only-child):first-child {
+  margin-left: -15px;
+}
+
+/* Background color management for options and their hover states */
+.dropdownContainer .option::before,
+.optionsList .option::before {
+  background: #ffffff;
+}
+
+.option:hover::before,
+.dropdownContainer .option:hover::before,
+.optionsList .option:hover::before {
+  background: #d8d8d8;
+}
+
+/* CUSTOM OVERRIDE FOR CERTIFICATES DROPDOWN - Add at the end of your file */
+:global(.certificatesSelect.certificatesDropdownTop) {
+  position: relative;
+  z-index: 300;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Container styling for certificates dropdown */
+:global(.certificatesSelect.certificatesDropdownTop) .container {
+  height: auto !important;
+  min-height: 45px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 5px 40px 5px 5px !important;
+  z-index: 300 !important;
+  border-radius: 35px !important;
+  position: relative !important;
+  border: 1px solid #d8d8d8 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+}
+
+/* Make the container look correct when open */
+:global(.certificatesSelect.certificatesDropdownTop) .container.open {
+  border: 1px solid #d8d8d8 !important;
+  border-radius: 35px !important;
+  z-index: 400 !important;
+}
+
+/* Fixed positioning for the dropdown container */
+:global(.certificatesSelect.certificatesDropdownTop) .dropdownContainer {
+  position: absolute !important;
+  width: 99% !important;
+  border: 1px solid #d8d8d8 !important;
+  border-radius: 5px 5px 35px 35px !important;
+  margin-top: -28px !important;
+  top: 100% !important;
+  left: 0 !important;
+  z-index: 350 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+  background: white !important;
+}
+
+/* Ensure values are visible and properly wrapped */
+:global(.certificatesSelect.certificatesDropdownTop) .value {
+  width: 100% !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 5px !important;
+  position: relative !important;
+  z-index: 400 !important;
+  padding-left: 10px !important;
+}
+
+/* Style badges for certificates with proper responsiveness */
+:global(.certificatesSelect.certificatesDropdownTop) .option-badge {
+  margin: 2px !important;
+  position: relative !important;
+  z-index: 400 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  background-color: #d8d8d8 !important;
+  border-radius: 25px !important;
+  padding: 0 30px 0 12px !important;
+  height: 33px !important;
+  font-size: 20px;
+  line-height: 24px !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* Badge label text should not break */
+:global(.certificatesSelect.certificatesDropdownTop) .option-label {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* Better layout for smaller screens */
+@media (max-width: 768px) {
+  :global(.certificatesSelect.certificatesDropdownTop) .option-badge {
+    font-size: 14px !important;
+    padding: 0 25px 0 10px !important;
+  }
+}
+
+/* Better layout for very small screens */
+@media (max-width: 480px) {
+  :global(.certificatesSelect.certificatesDropdownTop) .option-badge {
+    font-size: 12px !important;
+    height: 30px !important;
+    padding: 0 22px 0 8px !important;
+  }
+
+  :global(.certificatesSelect.certificatesDropdownTop) .container {
+    padding: 3px 30px 3px 5px !important;
+  }
+}
+
+/* Fixes for when multiple values are selected */
+:global(.certificatesSelect.certificatesDropdownTop).has-multiple-values
+  .container,
+:global(.certificatesSelect.certificatesDropdownTop)
+  .container.has-multiple-values {
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* Ensure dropdown is always positioned below all selected values */
+:global(.certificatesSelect.certificatesDropdownTop).has-multiple-values
+  .dropdownContainer,
+:global(.certificatesSelect.certificatesDropdownTop)
+  .container.has-multiple-values
+  ~ .dropdownContainer,
+:global(.certificatesSelect.certificatesDropdownTop)
+  .container.has-multiple-values
+  + .dropdownContainer {
+  top: calc(100% + 5px) !important;
+}
+
+/* Special handling for 3+ values */
+:global(.certificatesSelect.certificatesDropdownTop).has-three-plus-values
+  .container,
+:global(.certificatesSelect.certificatesDropdownTop)
+  .container.has-three-plus-values {
+  padding-bottom: 5px !important;
+  padding-top: 5px !important;
+}
+
+/* Target empty dropdown containers */
+.dropdownContainer:empty,
+.dropdownContainer:not(:has(.option)),
+.dropdownContainer:has(.optionsList:empty) {
+  display: none !important;
+}
+
+/* Also handle the case where the options list exists but is empty */
+.dropdownContainer .optionsList:empty,
+.dropdownContainer:has(.optionsList:not(:has(*))) {
+  display: none !important;
+}
+
+/* Specifically target certificatesDropdownTop when empty */
+:global(.certificatesSelect.certificatesDropdownTop) .dropdownContainer:empty,
+:global(.certificatesSelect.certificatesDropdownTop)
+  .dropdownContainer:not(:has(.option)),
+:global(.certificatesSelect.certificatesDropdownTop)
+  .dropdownContainer:has(.optionsList:empty) {
+  display: none !important;
+}
+
+/* Revert any styling that might be applied to the container when dropdown is empty */
+.container.open:has(+ .dropdownContainer:empty),
+.container.open:has(+ .dropdownContainer:not(:has(.option))),
+.container.open:has(+ .dropdownContainer:has(.optionsList:empty)) {
+  border-radius: 35px !important;
+  border: 1px solid #d8d8d8 !important;
+}
+
+/* CUSTOM OVERRIDE FOR INGREDIENTS DROPDOWN - Add at the end of your file */
+:global(.ingredientsSelectDropdown) {
+  position: relative;
+  z-index: 300;
+}
+
+/* Container styling for ingredients dropdown */
+:global(.ingredientsSelectDropdown) .container {
+  display: flex;
+  height: auto !important;
+  min-height: 150px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 6px 40px 5px 5px !important;
+  z-index: 300 !important;
+  border-radius: 25px !important;
+  position: relative !important;
+  align-items: flex-start;
+}
+
+/* Make the container look correct when open */
+:global(.ingredientsSelectDropdown) .container.open {
+  border: 1px solid #d8d8d8 !important;
+  border-radius: 35px !important;
+  z-index: 400 !important;
+}
+
+/* Clear positioning for the dropdown container */
+:global(.ingredientsSelectDropdown) .dropdownContainer {
+  position: absolute !important;
+  width: 100% !important;
+  border: 1px solid #d8d8d8 !important;
+  border-radius: 35px !important;
+  margin-top: -40px !important;
+  top: 100% !important;
+  left: 0 !important;
+  z-index: 350 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Ensure values are visible */
+:global(.ingredientsSelectDropdown) .value {
+  width: 100% !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 5px !important;
+  position: relative !important;
+  z-index: 400 !important;
+}
+
+/* Style badges for the ingredients dropdown */
+:global(.ingredientsSelectDropdown) .option-badge {
+  margin: 2px !important;
+  position: relative !important;
+  z-index: 400 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* CUSTOM OVERRIDE FOR PAGE2 EXPANSION WITH INGREDIENTS - Add at the end of your file */
+:global(.page2) {
+  height: auto !important;
+  min-height: fit-content !important;
+  overflow: visible !important;
+}
+
+:global(.page2 .ingredientsSelectDropdown) {
+  overflow: visible !important;
+}
+
+:global(.page2 .ingredientsSelectDropdown) .container.has-multiple-values,
+:global(.page2 .ingredientsSelectDropdown) .container.has-three-plus-values {
+  height: auto !important;
+  min-height: 45px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 5px 40px 5px 5px !important;
+}
+
+:global(.page2) .formContent {
+  height: auto !important;
+  min-height: fit-content !important;
+  overflow: visible !important;
+}
+
+:global(.page2) .ingredientsList {
+  height: auto !important;
+  min-height: fit-content !important;
+  overflow: visible !important;
+  margin-bottom: 20px !important;
+}
+
+/* Fix dropdown position for ingredients in page2 */
+:global(.page2 .ingredientsSelectDropdown) .container.open ~ .dropdownContainer,
+:global(.page2 .ingredientsSelectDropdown)
+  .container.open
+  + .dropdownContainer {
+  margin-top: 5px !important;
+  top: 100% !important;
+}

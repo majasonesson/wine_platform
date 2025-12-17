@@ -1,0 +1,26 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.iconText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.iconText svg {
+  width: 24px;
+  height: 24px;
+  color: #4a5568;
+}
+.iconText p {
+  margin: 0;
+}/*# sourceMappingURL=productionProcess.module.css.map */

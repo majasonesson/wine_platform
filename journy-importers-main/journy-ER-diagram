@@ -1,0 +1,222 @@
+---
+id: d3a36760-547a-407b-b1a8-80b300020024
+---
+erDiagram
+    direction TB
+    USER {
+        uuid id PK ""  
+        string email  ""  
+        string password_hash  ""  
+        string role  "Producer | Distributor"  
+    }
+
+    PRODUCER {
+        uuid id PK ""  
+        uuid user_id FK "References USER.id"  
+        string gln  "Global Location Number (GS1)"  
+        string winery_name  ""  
+        string company_reg_number  ""  
+        string producer_address  ""  
+    }
+
+    DISTRIBUTOR {
+        uuid id PK ""  
+        uuid user_id FK "References USER.id"  
+        string gln  "Global Location Number (GS1)"  
+        string organization_name  ""  
+        string company_reg_number  ""  
+        string distributor_address  ""  
+    }
+
+    DISTRIBUTION_PORTFOLIO {
+        uuid id PK ""  
+        uuid distributor_id FK "References DISTRIBUTOR.id"  
+        string product_gtin FK "References PRODUCT_WINE.gtin"  
+        datetime linked_at  ""  
+        boolean is_synced_to_validoo  "" 
+        boolean is_synced_to_visma  ""
+        boolean is_synced_to_wordpress  ""
+    }
+
+    PRODUCT_WINE {
+        string gtin PK "Global Trade Item Number (GS1)"  
+        uuid producer_id FK "References PRODUCER.id (Owner)"  
+        string lot_number  "Batch/LOT nr"  
+        string wine_name  ""  
+        string wine_type  "Red | White | Rose | Orange | Sweet | Sparkling "  
+        int vintage  ""  
+        float bottle_volume_ml  ""  
+        string aging_potential  ""  
+        string process_summary  ""  
+        string target_market  "ISO Country Code (e.g., SE)"  
+    }
+
+    WINE_GRAPE {
+        string gtin PK,FK ""  
+        string grape_name PK,FK ""  
+        float percentage  "E.g., 60.0"  
+    }
+
+    GEO_REGION {
+        uuid id PK ""  
+        string country_code  "ISO Country"  
+        string geographical_area  "e.g., Prosecco, Napa Valley"  
+        string designation_type  "DOC | AOC | PDO | etc"  
+    }
+    
+    WINE_REGION {
+        string gtin PK,FK ""
+        uuid region_id PK,FK ""
+    }
+
+    VITICULTURE_INFO {
+        string product_gtin PK,FK "References PRODUCT_WINE.gtin"  
+        string vineyard_location  "E.g, Town, coordinates, or map reference"  
+        float vineyard_size_ha  ""  
+        string soil_type  "E.g, Limestone, clay, limestone & oysters etc."  
+        string cultivation_system  ""  
+        string altitude  ""  
+        string row_orientation  "E.g, southwest"  
+        string slope_of_vineyard  "E.g, flat, gentle slope, steep"  
+        string planting_density  "E.g, vines per hectar"  
+        string farming_method  "Organic | Biodynamic | Conventional | etc"  
+        int avg_vine_age_years  ""  
+        string harvest_timing_month  ""  
+        float total_wine_produced_bottles  ""  
+    }
+
+    VINIFICATION_INFO {
+        string product_gtin PK,FK "References PRODUCT_WINE.gtin"  
+        string technique  "E.g, steel tank, oak barrel, concrete"  
+        string vessel  "E.g, steel tank, oak barrel, concrete"  
+        int duration_days  ""  
+        int fermentation_temperature  ""  
+        string yeast_type  ""  
+        string maturation_vessel  ""  
+        string aging_duration  ""  
+        boolean aged_on_lees  ""  
+        boolean lees_stirred  ""  
+        string treatments_before_bottling  ""  
+    }
+
+    TECHNIQUE_CODE { string code PK "E.g., stl_tank, oak_barrel, cement_egg" }
+    
+    VINIFICATION_PROCESS {
+        string gtin PK,FK ""
+        string technique_code PK,FK "References TECHNIQUE_CODE.code"
+    }
+
+    AROMA_CODE { string code PK "E.g., citrus, black_currant, leather, smoke" }
+    TASTE_CODE { string code PK "E.g., crisp, tannic, buttery, dry, mineral" }
+    TEXTURE_CODE { string code PK "E.g., creamy, light_body, long_finish" }
+    
+    WINE_AROMA { 
+        string gtin PK,FK "" 
+        string aroma_code PK,FK ""
+    }
+    
+    WINE_TASTE { 
+        string gtin PK,FK "" 
+        string taste_code PK,FK ""
+    }
+    
+    WINE_TEXTURE { 
+        string gtin PK,FK ""
+        string texture_code PK,FK ""
+    }
+
+    TECHNICAL_DATA {
+        string product_gtin PK,FK "References PRODUCT_WINE.gtin"  
+        float alcohol_content_percent  ""  
+        float residual_sugar_gpl  ""  
+        float total_acidity_gpl  ""  
+        float ph_value  ""  
+        float so2_total_mgpl  ""  
+        float weight_finished_product_g  ""  
+        float serving_temp_min_c  ""  
+        float serving_temp_max_c  ""  
+        float energy_kcal_per_100ml  ""  
+    }
+
+    PACKAGING_DETAIL {
+        uuid id PK ""  
+        string product_gtin FK ""  
+        string bottle_type  "e.g., Glass bottle"  
+        string material_code_bottle  "e.g., GL 71"  
+        string closure_type  "Cork | Screw cap | etc"  
+        string material_code_closure  "e.g., FOR 51"  
+        string capsule_type  "e.g, Aluminum"  
+        string material_code_capsule  "e.g., GC/ALU 90"  
+        string cage_type  "e.g, Metal"  
+        string material_code_cage  "e.g., FE 40"  
+        string shellac_type  "e.g, Shellac"  
+        string material_code_shellac  "e.g, 200301"  
+    }
+
+    DESCRIPTIVE_INFO {
+        string product_gtin PK,FK "References PRODUCT_WINE.gtin"  
+        string aroma_description  ""  
+        string taste_profile  ""  
+        string texture_finish  ""  
+        string food_pairing_text  ""  
+    }
+
+    AWARD {
+        uuid id PK ""  
+        string product_gtin FK ""  
+        string year  ""  
+        string organization  ""  
+        string award_name  ""  
+        string certification_type  "Organic | Biodynamic | etc"  
+        string document_url  ""  
+    }
+
+    GRAPE_VARIETY {
+        string name PK ""  
+    }
+    
+    PAIRING_CODE {
+        string name PK "e.g., fish_white, chicken_red"
+    }
+    
+    WINE_PAIRING {
+        string gtin PK,FK "References PRODUCT_WINE.gtin"
+        string pairing_code PK,FK "References PAIRING_CODE.name"
+    }
+
+    USER ||--o| PRODUCER : "authenticates"
+    USER ||--o| DISTRIBUTOR : "authenticates"
+    PRODUCER ||--o{ PRODUCT_WINE : "produces"
+
+    PRODUCT_WINE ||--o| VITICULTURE_INFO : "has"
+    PRODUCT_WINE ||--o| VINIFICATION_INFO : "has"
+    PRODUCT_WINE ||--o| TECHNICAL_DATA : "has"
+    PRODUCT_WINE ||--o| DESCRIPTIVE_INFO : "has"
+
+    PRODUCT_WINE ||--o{ PACKAGING_DETAIL : "uses"
+    PRODUCT_WINE ||--o{ AWARD : "has"
+
+    %% M:M relations 
+    PRODUCT_WINE }|--o{ WINE_AROMA : "has_aroma"
+    AROMA_CODE }|--o{ WINE_AROMA : "is_code_for"
+    
+    PRODUCT_WINE }|--o{ WINE_TASTE : "has_taste"
+    TASTE_CODE }|--o{ WINE_TASTE : "is_code_for"
+
+    PRODUCT_WINE }|--o{ WINE_TEXTURE : "has_texture"
+    TEXTURE_CODE }|--o{ WINE_TEXTURE : "is_code_for"
+
+    PRODUCT_WINE }|--o{ VINIFICATION_PROCESS : "uses"
+    TECHNIQUE_CODE }|--o{ VINIFICATION_PROCESS : "is_technique"
+
+    PRODUCT_WINE }|--o{ WINE_GRAPE : "is_made_with"
+    GRAPE_VARIETY }|--o{ WINE_GRAPE : "is_part_of"
+    
+    PRODUCT_WINE }|--o{ WINE_REGION : "is_from"
+    GEO_REGION }|--o{ WINE_REGION : "defines"
+
+    PRODUCT_WINE }|--o{ WINE_PAIRING : "suggests"
+    PAIRING_CODE }|--o{ WINE_PAIRING : "is_suggestion_code"
+
+    DISTRIBUTOR ||--o{ DISTRIBUTION_PORTFOLIO : "manages"
+    PRODUCT_WINE ||--o{ DISTRIBUTION_PORTFOLIO : "included_in"

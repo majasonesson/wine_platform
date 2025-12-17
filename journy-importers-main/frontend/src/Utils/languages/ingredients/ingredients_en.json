@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "General",
+      "items": {
+        "Grapes": "Grapes",
+        "Sucrose": "Sucrose",
+        "Aleppo pine resin": "Aleppo pine resin",
+        "Caramel": "Caramel",
+        "Concentrated grape must": "Concentrated grape must",
+        "Grape must": "Grape must",
+        "Rectified concentrated grape must": "Rectified concentrated grape must",
+        "Filling dosage": "Filling dosage",
+        "Shipping dosage": "Shipping dosage"
+      }
+    },
+    {
+      "category": "Gases and packaging gases",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Nitrogen (E 941)",
+        "Carbon dioxide (E 290)": "Carbon dioxide (E 290)",
+        "Packaged under protective atmosphere": "Packaged under protective atmosphere"
+      }
+    },
+    {
+      "category": "Acidity regulators",
+      "items": {
+        "Tartaric acid (E 334)": "Tartaric acid (E 334)",
+        "Malic acid (E 296)": "Malic acid (E 296)",
+        "Lactic acid (E 270)": "Lactic acid (E 270)",
+        "Calcium sulphate (E 516)": "Calcium sulphate (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Acidity regulator: Citric Acid (E 330)"
+      }
+    },
+    {
+      "category": "Stabilising agents",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabilising agent: Citric Acid (E 330)",
+        "Metatartaric acid (E 353)": "Metatartaric acid (E 353)",
+        "Gum arabic (E 414)": "Gum arabic (E 414)",
+        "Yeast mannoproteins": "Yeast mannoproteins",
+        "Carboxymethylcellulose (E 466)": "Carboxymethylcellulose (E 466)",
+        "Potassium polyaspartate (E 456)": "Potassium polyaspartate (E 456)",
+        "Fumaric acid (E 297)": "Fumaric acid (E 297)"
+      }
+    },
+    {
+      "category": "Preservatives and antioxidants",
+      "items": {
+        "Potassium sorbate (E 202)": "Potassium sorbate (E 202)",
+        "Lysozyme (E 1105)": "Lysozyme (E 1105)",
+        "L ascorbic acid (E 300)": "L ascorbic acid (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimethyldicarbonate (DMDC)",
+        "Sulphites": "Sulphites",
+        "Sulfur dioxide": "Sulfur dioxide",
+        "Potassium bisulfite": "Potassium bisulfite",
+        "Potassium metabisulfite": "Potassium metabisulfite"
+      }
+    },
+    {
+      "category": "Processing aids",
+      "items": {
+        "Egg": "Egg",
+        "Milk": "Milk"
+      }
+    }
+  ]
+}

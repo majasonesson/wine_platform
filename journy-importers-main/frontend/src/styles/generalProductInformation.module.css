@@ -1,0 +1,38 @@
+.general-product-information .general-wrapper {
+  background-color: #FFF4EC;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.general-product-information .general-wrapper h2 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #313638;
+  margin-bottom: 0px;
+}
+.general-product-information .general-wrapper input {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+.general-product-information .general-wrapper input::-moz-placeholder {
+  color: #999999;
+}
+.general-product-information .general-wrapper input::placeholder {
+  color: #999999;
+}
+.general-product-information .general-wrapper input:focus {
+  outline: none;
+  border-color: #313638;
+}/*# sourceMappingURL=generalProductInformation.module.css.map */

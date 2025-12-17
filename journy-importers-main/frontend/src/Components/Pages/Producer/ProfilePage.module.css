@@ -1,0 +1,118 @@
+.container {
+  display: grid;
+  max-width: 1280px;
+  padding: 20px;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-areas: "title buttons buttons" "image form certs";
+  gap: 20px;
+}
+
+h1 {
+  grid-area: title;
+  margin: 0;
+}
+
+.uploadImage {
+  grid-area: image;
+  width: 190px;
+  height: 230px;
+}
+
+.certifications {
+  grid-area: certs;
+  order: 5;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.certifications img {
+  max-width: 204px;
+  max-height: 172px;
+}
+.certifications .boxShadow {
+  box-shadow: 0px 0px 5px grey;
+}
+
+.buttons {
+  grid-area: buttons;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.formGroup {
+  grid-area: form;
+  order: 4;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-bottom: -2.5rem;
+  padding: 2rem;
+}
+@media (max-width: 767px) {
+  .formGroup {
+    max-width: 100%;
+    min-width: 300px;
+    padding: 1.5rem;
+    margin: 0 auto;
+    border-radius: 20px;
+    gap: 1.3rem;
+  }
+}
+.formGroup div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+@media (max-width: 767px) {
+  .formGroup div {
+    gap: 0.3rem;
+  }
+}
+.formGroup label {
+  font-weight: 500;
+  color: #333;
+}
+
+button {
+  padding: 0.75rem 5rem;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 20px;
+  box-shadow: grey 0px 0px 1px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+button:hover {
+  background-color: grey;
+}
+@media (max-width: 767px) {
+  button {
+    padding: 0.5rem 5rem;
+    font-size: 0.9rem;
+  }
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.55rem;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+.inputField:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+@media (max-width: 767px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-areas: "title" "buttons" "image" "form" "certs";
+  }
+}/*# sourceMappingURL=ProfilePage.module.css.map */

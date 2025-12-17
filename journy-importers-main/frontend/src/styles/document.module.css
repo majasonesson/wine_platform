@@ -1,0 +1,67 @@
+.uploadDocument {
+  background-color: #FFF4EC;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+.uploadDocument .title {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #313638;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.uploadDocument .uploadWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.uploadDocument .uploadWrapper:hover {
+  opacity: 0.8;
+}
+.uploadDocument .uploadWrapper img {
+  width: 550px;
+  height: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 10px;
+}
+.uploadDocument .uploadWrapper input {
+  display: none;
+}
+.uploadDocument .documentItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.uploadDocument .documentItem .documentName {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #313638;
+}
+.uploadDocument .documentItem .removeButton {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+.uploadDocument .documentItem .removeButton:hover {
+  color: #f50000;
+}/*# sourceMappingURL=document.module.css.map */

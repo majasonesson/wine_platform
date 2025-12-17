@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Общи",
+      "items": {
+        "Grapes": "Грозде",
+        "Sucrose": "Захароза",
+        "Aleppo pine resin": "Смола от алепски бор",
+        "Caramel": "Карамел",
+        "Concentrated grape must": "Концентриран гроздов сок",
+        "Grape must": "Гроздов сок",
+        "Rectified concentrated grape must": "Ректифициран концентриран гроздов сок",
+        "Filling dosage": "Доза за пълнене",
+        "Shipping dosage": "Доза за доставка"
+      }
+    },
+    {
+      "category": "Газове и опаковъчни газове",
+      "items": {
+        "Argon (E 938)": "Аргон (E 938)",
+        "Nitrogen (E 941)": "Азот (E 941)",
+        "Carbon dioxide (E 290)": "Въглероден диоксид (E 290)",
+        "Packaged under protective atmosphere": "Опакован под защитна атмосфера"
+      }
+    },
+    {
+      "category": "Регулатори на киселинността",
+      "items": {
+        "Tartaric acid (E 334)": "Тартарова киселина (E 334)",
+        "Malic acid (E 296)": "Ябълчена киселина (E 296)",
+        "Lactic acid (E 270)": "Млечна киселина (E 270)",
+        "Calcium sulphate (E 516)": "Калциев сулфат (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Регулатор на киселинността: Лимонена киселина (E 330)"
+      }
+    },
+    {
+      "category": "Стабилизатори",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Стабилизатор: Лимонена киселина (E 330)",
+        "Metatartaric acid (E 353)": "Метатартарова киселина (E 353)",
+        "Gum arabic (E 414)": "Арабска гума (E 414)",
+        "Yeast mannoproteins": "Манопротеини от дрожди",
+        "Carboxymethylcellulose (E 466)": "Карбоксиметилцелулоза (E 466)",
+        "Potassium polyaspartate (E 456)": "Калиев полиаспартат (E 456)",
+        "Fumaric acid (E 297)": "Фумарова киселина (E 297)"
+      }
+    },
+    {
+      "category": "Консерванти и антиоксиданти",
+      "items": {
+        "Potassium sorbate (E 202)": "Калиев сорбат (E 202)",
+        "Lysozyme (E 1105)": "Лизозим (E 1105)",
+        "L ascorbic acid (E 300)": "L аскорбинова киселина (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Диметилдикарбонат (DMDC)",
+        "Sulphites": "Сулфити",
+        "Sulfur dioxide": "Серен диоксид",
+        "Potassium bisulfite": "Калиев бисулфит",
+        "Potassium metabisulfite": "Калиев метабисулфит"
+      }
+    },
+    {
+      "category": "Помощни средства за обработка",
+      "items": {
+        "Egg": "Яйце",
+        "Milk": "Мляко"
+      }
+    }
+  ]
+}

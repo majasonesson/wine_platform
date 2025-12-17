@@ -1,0 +1,1041 @@
+:root {
+  --z-base: 1;
+  --z-field: 10;
+  --z-field-active: 100;
+  --z-dropdown-list: 50;
+  --z-dropdown-header: 150;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.iconText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: #4a5568;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.input {
+  height: 45px;
+  border: 1px solid #d8d8d8;
+  border-radius: 35px;
+  padding: 0 15px;
+  font-family: 'Instrument Sans';
+  font-size: 16px;
+
+  &:hover {
+    border-color: #b3b3b3;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #b3b3b3;
+  }
+}
+
+.titleContainer {
+  margin-bottom: 40px;
+
+  .title {
+    font-family: 'Instrument Sans';
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+  }
+}
+
+/* Container with margin space for navigation buttons */
+.formContent {
+  width: 100%;
+  max-width: 85%; /* Leave 15% space for buttons */
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+
+  @media (max-width: 768px) {
+    max-width: 80%; /* More space for buttons on tablets */
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 75%; /* Even more space on mobile */
+    padding: 10px;
+  }
+}
+
+/* Make form content responsive */
+.formContent {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  max-width: 1153px;
+  min-height: 485px;
+  height: auto; /* Allow height to expand */
+  margin: 73px auto 0;
+  padding: 40px;
+  border: 1px solid #d9d9d9;
+  border-radius: 35px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  background: #ffffff;
+  z-index: var(--z-base);
+
+  @media (max-width: 768px) {
+    padding: 30px;
+    margin-top: 50px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px;
+    margin-top: 30px;
+  }
+}
+
+.title {
+  font-family: 'Neue Regrade';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 50px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* Adjust fields container for responsive layout */
+.fieldsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 40px;
+  row-gap: 50px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  padding-top: 0;
+  margin-top: -10px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* Stack in single column on smaller screens */
+    row-gap: 30px;
+  }
+
+  @media (max-width: 980px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.field {
+  width: 100%;
+
+  /* Ensure dropdown widths match container */
+  .customDropdown {
+    width: 100%;
+
+    .dropdownHeader {
+      width: 100%;
+    }
+
+    .dropdownList {
+      width: 100%;
+      max-height: 40vh; /* Limit height on small screens */
+      overflow-y: auto;
+    }
+  }
+
+  /* Improve spacing for field with number input */
+  .flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+
+    input {
+      flex: 0 1 150px;
+      min-width: 80px;
+    }
+  }
+}
+
+.field {
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+
+  &.activeField {
+    z-index: var(--z-field-active);
+  }
+
+  p {
+    font-family: 'Instrument Sans';
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 5px;
+  }
+
+  select {
+    width: 300px;
+    height: 45px;
+    background: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-radius: 35px;
+    padding: 0 20px;
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+    color: #000000;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='23' height='14' viewBox='0 0 23 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 1L11.5 12L1 1' stroke='%23717171' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+  }
+}
+
+.agingMonths {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+
+  input {
+    width: 120px;
+    height: 45px;
+    background: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-radius: 35px;
+    padding: 0 20px;
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+    color: #000000;
+
+    &:focus {
+      outline: none;
+      border-color: #4e001d;
+    }
+  }
+
+  span {
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+    color: #000000;
+  }
+}
+
+/* Updated navigation styles for responsive behavior */
+.navigation {
+  position: absolute;
+  width: 100%; /* Use 100% width instead of fixed width */
+  max-width: 1153px; /* Maximum width to match original design */
+  top: calc(50% - 40px);
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  z-index: 10;
+  pointer-events: none;
+  padding: 0 20px; /* Add padding to prevent buttons from touching edges */
+  box-sizing: border-box;
+
+  /* Make sure buttons stay visible on all screen sizes */
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    outline: none;
+    pointer-events: auto;
+
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+      background: none;
+    }
+
+    span {
+      position: absolute;
+      left: 0%;
+      right: 0%;
+      top: 110.28%;
+      bottom: 0%;
+      font-family: 'Instrument Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      text-align: center;
+      letter-spacing: 0.03em;
+      color: #000000;
+      width: max-content;
+      transform: translateX(-50%);
+      left: 50%;
+
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .previousButton {
+    position: absolute;
+    left: 0;
+    transform: translateX(-50%);
+
+    @media (max-width: 768px) {
+      transform: translateX(-25%);
+    }
+
+    @media (max-width: 480px) {
+      transform: translateX(0);
+    }
+
+    .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #4e001d;
+      opacity: 0.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (max-width: 480px) {
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    &:hover {
+      .circle {
+        opacity: 0.3;
+      }
+
+      span {
+        opacity: 0.6;
+      }
+    }
+
+    .arrow {
+      width: 12px;
+      height: 21px;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='21' viewBox='0 0 12 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.477124 11.6665L9.69575 21L12 18.667L3.9335 10.5L12 2.33297L9.69575 0L0.477124 9.33352C0.171621 9.64292 0 10.0625 0 10.5C0 10.9375 0.171621 11.3571 0.477124 11.6665Z' fill='white'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      @media (max-width: 480px) {
+        width: 10px;
+        height: 18px;
+      }
+    }
+  }
+
+  .nextButton {
+    position: absolute;
+    right: 0;
+    transform: translateX(50%);
+
+    @media (max-width: 768px) {
+      transform: translateX(25%);
+    }
+
+    @media (max-width: 480px) {
+      transform: translateX(0);
+    }
+
+    .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #4e001d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (max-width: 480px) {
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    &:hover {
+      .circle {
+        opacity: 0.3;
+      }
+
+      span {
+        opacity: 0.6;
+      }
+    }
+
+    .arrow {
+      width: 12px;
+      height: 21px;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='21' viewBox='0 0 12 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.5229 11.6665L2.30425 21L0 18.667L8.0665 10.5L0 2.33297L2.30425 0L11.5229 9.33352C11.8284 9.64292 12 10.0625 12 10.5C12 10.9375 11.8284 11.3571 11.5229 11.6665Z' fill='white'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      @media (max-width: 480px) {
+        width: 10px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+.customDropdown {
+  position: relative;
+  width: 425px;
+  z-index: var(--z-field);
+
+  &:has(.dropdownHeader.open),
+  &:has(.open) {
+    z-index: var(--z-field-active);
+  }
+}
+
+.dropdownHeader {
+  box-sizing: border-box;
+  width: 100%;
+  height: 45px;
+  padding: 0 20px 0 5px;
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: 'Instrument Sans';
+  font-size: 16px;
+  color: #000000;
+  position: relative;
+  z-index: var(--z-dropdown-header);
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  width: calc(100% - 2px);
+  max-width: calc(100% - 2px);
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-top: 1px solid #d8d8d8;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 0;
+  margin-top: -20px;
+  overflow: hidden;
+
+  /* Namnge options div för att kunna rikta styling */
+  > div[class^='option'],
+  > div[class*=' option'] {
+    max-width: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .option {
+    position: relative;
+    padding: 12px 0;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    display: block;
+    overflow: visible;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -20px;
+      right: -20px;
+      bottom: 0;
+      width: calc(100% + 40px);
+      background-color: transparent;
+      transition: background-color 0.2s ease;
+      z-index: -1;
+    }
+
+    &:hover::before,
+    &.selected::before {
+      background-color: #d8d8d8;
+    }
+
+    &:first-child {
+      border-top: none;
+      border-radius: 0;
+      padding-top: 20px;
+    }
+
+    &:last-child {
+      border-radius: 0 0 35px 35px;
+      padding-bottom: 17px;
+    }
+
+    > span {
+      padding: 0 20px;
+      display: block;
+    }
+  }
+}
+
+.field:has(.customDropdown:has(.dropdownHeader.open)) {
+  z-index: var(--z-field-active);
+}
+
+[class*='_dropdownHeader_'].open,
+.dropdownHeader.open {
+  z-index: 100;
+}
+
+.sparklingSelect {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d8d8d8;
+  border-radius: 35px;
+  font-family: 'Instrument Sans';
+  font-size: 16px;
+  margin-top: 10px;
+
+  &:hover {
+    border-color: #b3b3b3;
+  }
+}
+
+.sparklingInput {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d8d8d8;
+  border-radius: 35px;
+  font-family: 'Instrument Sans';
+  font-size: 16px;
+  margin-top: 10px;
+
+  &:hover {
+    border-color: #b3b3b3;
+  }
+}
+
+.sparklingContainer {
+  position: relative;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.processCard {
+  box-sizing: border-box;
+  width: 1131px;
+  height: 540px;
+  margin: 0 auto;
+  border: 1px solid #d9d9d9;
+  border-radius: 35px;
+  position: relative;
+  padding: 30px;
+}
+
+.sectionTitle {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.radioGroup {
+  margin-bottom: 25px;
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.radioBullet {
+  width: 31px;
+  height: 31px;
+  background: #d8d8d8;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  margin-right: 20px;
+  box-sizing: border-box;
+
+  &.selected {
+    background: #4e001d;
+  }
+}
+
+.radioLabel {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.columnsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  height: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: 160px;
+  height: 45px;
+  border: 1px solid #d8d8d8;
+  border-radius: 35px;
+  padding: 0 15px;
+  font-family: 'Instrument Sans';
+  font-size: 16px;
+
+  &:hover {
+    border-color: #b3b3b3;
+  }
+}
+
+.select {
+  width: 290px;
+  height: 45px;
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-radius: 35px;
+  padding: 0 15px;
+  font-family: 'Instrument Sans';
+  font-size: 16px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='23' height='14' viewBox='0 0 23 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 1L11.5 12L1 1' stroke='%23717171' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #b3b3b3;
+  }
+}
+
+.sparklingWineContainer {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+}
+
+/* .title {
+  position: absolute;
+  width: 415px;
+  height: 50px;
+  left: 368px;
+  top: 356px;
+  font-family: 'Neue Regrade';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 50px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+} */
+
+[class*='_dropdownHeader_'] {
+  z-index: var(--z-field);
+  position: relative !important;
+}
+
+.customDropdown .dropdownHeader {
+  z-index: var(--z-field);
+  position: relative !important;
+}
+
+[class*='_arrow_'] {
+  transition: transform 0.2s ease;
+}
+
+.customDropdown .dropdownHeader.open svg,
+[class*='_dropdownHeader_'].open svg,
+div[aria-expanded='true'] > svg,
+div[data-open='true'] > svg {
+  transform: rotate(180deg) !important;
+}
+
+.activeField {
+  z-index: var(--z-field-active);
+  position: relative;
+}
+
+.option-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 33px;
+  background: #d8d8d8;
+  border-radius: 25px;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  position: relative;
+  white-space: nowrap;
+  overflow: visible;
+  max-width: none;
+
+  &:hover,
+  &:focus {
+    background-color: #d8d8d8 !important;
+    color: #000000 !important;
+    border-color: #d8d8d8 !important;
+  }
+
+  .remove-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg {
+      width: 18px;
+      height: 18px;
+
+      circle {
+        fill: #ffffff;
+      }
+
+      path {
+        stroke: #d8d8d8;
+        stroke-width: 1;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    }
+  }
+}
+
+div:has(> [class*='_dropdownList_']:not([hidden])) > svg,
+div:has(+ [class*='_dropdownList_']:not([hidden])) svg {
+  transform: rotate(180deg) !important;
+}
+
+/* Direkt riktad styling för Handpicked */
+.dropdownList > div:first-of-type {
+  padding-top: 23px !important;
+  padding-bottom: 17px !important;
+}
+
+.option:first-child {
+  padding-bottom: 15px !important; /* Ökar med 3px från standardvärdet 12px */
+}
+
+.option:first-child > span {
+  display: block;
+  padding-top: 8px;
+}
+
+/* Make dropdown options more touch-friendly on mobile */
+.option {
+  padding: 12px 15px;
+
+  @media (max-width: 480px) {
+    padding: 14px 12px;
+  }
+}
+
+/* Ensure title is responsive */
+.title {
+  text-align: center;
+  margin-bottom: 25px;
+
+  @media (max-width: 768px) {
+    font-size: 95%;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 90%;
+    margin-bottom: 15px;
+  }
+}
+
+/* Adjust form content to leave space for buttons */
+.formContent {
+  width: 90% !important; /* Wider form but still leaves room for buttons */
+  max-width: 1000px !important; /* Increased max-width */
+  box-sizing: border-box;
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  @media (max-width: 768px) {
+    width: 85% !important;
+    max-width: 800px !important;
+  }
+
+  @media (max-width: 480px) {
+    width: 80% !important;
+    max-width: 450px !important;
+  }
+}
+
+/* Position the navigation relative to the container */
+.navigation {
+  position: absolute !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
+  padding: 0 !important;
+  z-index: 200 !important;
+}
+
+/* Move previous button outside the form */
+.navigation .previousButton {
+  position: absolute !important;
+  left: -30px !important; /* Position to the left of the form */
+  transform: translateX(-100%) !important; /* Move completely outside */
+  pointer-events: auto !important;
+
+  @media (max-width: 768px) {
+    left: -20px !important;
+  }
+
+  @media (max-width: 480px) {
+    left: -15px !important;
+  }
+}
+
+/* Move next button outside the form */
+.navigation .nextButton {
+  position: absolute !important;
+  right: -30px !important; /* Position to the right of the form */
+  transform: translateX(100%) !important; /* Move completely outside */
+  pointer-events: auto !important;
+
+  @media (max-width: 768px) {
+    right: -20px !important;
+  }
+
+  @media (max-width: 480px) {
+    right: -15px !important;
+  }
+}
+
+/* Container wrapper for better positioning context */
+.container {
+  position: relative !important;
+  width: 100% !important;
+}
+
+/* UPDATED NAVIGATION POSITIONING FOR SMALL SCREENS */
+
+/* Adjust form content width for better visibility of buttons */
+.formContent {
+  width: 80% !important; /* Further reduce width to ensure buttons stay visible */
+  max-width: 850px !important;
+
+  @media (max-width: 768px) {
+    width: 75% !important;
+    max-width: 650px !important;
+  }
+
+  @media (max-width: 480px) {
+    width: 70% !important;
+    max-width: 400px !important;
+  }
+}
+
+/* Updated button positioning for all screen sizes */
+.navigation {
+  position: fixed !important; /* Change to fixed positioning */
+  width: 100% !important;
+  max-width: 1200px !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
+  padding: 0 !important;
+  z-index: 200 !important;
+}
+
+/* Improved previous button positioning */
+.navigation .previousButton {
+  position: absolute !important;
+  left: 0 !important;
+  transform: translateX(-10px) !important; /* Keep slightly inside viewport */
+  pointer-events: auto !important;
+
+  @media (max-width: 1240px) {
+    left: 0 !important;
+    transform: translateX(-5px) !important;
+  }
+
+  @media (max-width: 1225px) {
+    left: 0 !important;
+    transform: translateX(0) !important;
+  }
+
+  /* Adjust label for small screens */
+  span {
+    @media (max-width: 480px) {
+      display: none !important; /* Hide text on very small screens */
+    }
+  }
+}
+
+/* Improved next button positioning */
+.navigation .nextButton {
+  position: absolute !important;
+  right: 0 !important;
+  transform: translateX(-10px) !important; /* Keep slightly inside viewport */
+  pointer-events: auto !important;
+
+  @media (max-width: 768px) {
+    right: 0 !important;
+    transform: translateX(-5px) !important;
+  }
+
+  @media (max-width: 480px) {
+    right: 0 !important;
+    transform: translateX(0) !important;
+  }
+
+  /* Adjust label for small screens */
+  span {
+    @media (max-width: 480px) {
+      display: none !important; /* Hide text on very small screens */
+    }
+  }
+}
+
+/* Make buttons smaller on very small screens */
+@media (max-width: 380px) {
+  .navigation .previousButton .circle,
+  .navigation .nextButton .circle {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .navigation .previousButton .arrow,
+  .navigation .nextButton .arrow {
+    width: 8px !important;
+    height: 16px !important;
+  }
+}
+
+/* FINAL WIDTH ADJUSTMENT - Add at the very end of your file */
+.formContent {
+  width: 85% !important; /* Wider form but still leaves room for buttons */
+  max-width: 1050px !important; /* Increased from 850px */
+
+  @media (max-width: 768px) {
+    width: 85% !important;
+    max-width: 800px !important; /* Increased from 650px */
+  }
+
+  @media (max-width: 480px) {
+    width: 80% !important;
+    max-width: 450px !important; /* Increased from 400px */
+  }
+}
+
+/* FINAL BUTTON POSITIONING FIX - Add this at the very end of your file */
+@media screen and (max-width: 1200px) {
+  .navigation .previousButton {
+    position: fixed !important;
+    left: 10px !important;
+    transform: none !important;
+    top: 50% !important;
+    margin-top: -30px !important;
+  }
+
+  .navigation .nextButton {
+    position: fixed !important;
+    right: 10px !important;
+    transform: none !important;
+    top: 50% !important;
+    margin-top: -30px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navigation .previousButton {
+    left: 5px !important;
+  }
+
+  .navigation .nextButton {
+    right: 5px !important;
+  }
+}

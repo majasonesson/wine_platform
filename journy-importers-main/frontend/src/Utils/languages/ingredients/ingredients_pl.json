@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Ogólne",
+      "items": {
+        "Grapes": "Winogrona",
+        "Sucrose": "Sacharoza",
+        "Aleppo pine resin": "Żywica sosny alepskiej",
+        "Caramel": "Karmel",
+        "Concentrated grape must": "Skoncentrowany moszcz winogronowy",
+        "Grape must": "Moszcz winogronowy",
+        "Rectified concentrated grape must": "Rektyfikowany skoncentrowany moszcz winogronowy",
+        "Filling dosage": "Dawka napełniająca",
+        "Shipping dosage": "Dawka wysyłkowa"
+      }
+    },
+    {
+      "category": "Gazy i gazy opakowaniowe",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Azot (E 941)",
+        "Carbon dioxide (E 290)": "Dwutlenek węgla (E 290)",
+        "Packaged under protective atmosphere": "Pakowane w atmosferze ochronnej"
+      }
+    },
+    {
+      "category": "Regulatory kwasowości",
+      "items": {
+        "Tartaric acid (E 334)": "Kwas winowy (E 334)",
+        "Malic acid (E 296)": "Kwas jabłkowy (E 296)",
+        "Lactic acid (E 270)": "Kwas mlekowy (E 270)",
+        "Calcium sulphate (E 516)": "Siarczan wapnia (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Regulator kwasowości: Kwas cytrynowy (E 330)"
+      }
+    },
+    {
+      "category": "Środki stabilizujące",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Środek stabilizujący: Kwas cytrynowy (E 330)",
+        "Metatartaric acid (E 353)": "Kwas metawynowy (E 353)",
+        "Gum arabic (E 414)": "Guma arabska (E 414)",
+        "Yeast mannoproteins": "Mannoproteiny drożdżowe",
+        "Carboxymethylcellulose (E 466)": "Karboksymetyloceluloza (E 466)",
+        "Potassium polyaspartate (E 456)": "Poliasparaginian potasu (E 456)",
+        "Fumaric acid (E 297)": "Kwas fumarowy (E 297)"
+      }
+    },
+    {
+      "category": "Konserwanty i przeciwutleniacze",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorbian potasu (E 202)",
+        "Lysozyme (E 1105)": "Lizozym (E 1105)",
+        "L ascorbic acid (E 300)": "Kwas L-askorbinowy (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetyldikarbaminian (DMDC)",
+        "Sulphites": "Siarczyny",
+        "Sulfur dioxide": "Dwutlenek siarki",
+        "Potassium bisulfite": "Wodorosiarczyn potasu",
+        "Potassium metabisulfite": "Metawodorosiarczyn potasu"
+      }
+    },
+    {
+      "category": "Środki pomocnicze w przetwórstwie",
+      "items": {
+        "Egg": "Jajko",
+        "Milk": "Mleko"
+      }
+    }
+  ]
+}

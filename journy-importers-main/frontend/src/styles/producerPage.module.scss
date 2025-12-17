@@ -1,0 +1,494 @@
+@import './global'; 
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&display=swap');
+@import './_typography';
+
+@font-face {
+  font-family: 'NeueRegrade-Semibold';
+  src: url('../../assets/fonts/NeueRegrade-Semibold.woff2') format('woff2'),
+       url('../../assets/fonts/NeueRegrade-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Header Styles */
+.header {
+  width: 100%;
+  height: 106px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #D8D8D8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.headerContent {
+  max-width: 1440px;
+  height: 68px;
+  margin: 19px auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.logo {
+  font-family: 'Neue Regrade', sans-serif;
+  font-size: 45px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLink {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.profileCircle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid #9E9E9E;
+  position: relative;
+  overflow: hidden;
+
+  &::before {  // Profile head
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 23px;
+    top: 17px;
+    background: #9E9E9E;
+    border-radius: 50%;
+  }
+
+  &::after {  // Profile body
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    left: 11px;
+    top: 42px;
+    background: #9E9E9E;
+    border-radius: 50%;
+  }
+}
+
+/* Main Content Styles */
+.pageWrapper {
+  min-height: calc(100vh - 106px);
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.headerSection {
+  padding-left: 0;
+  margin-top: 106px;
+  margin-bottom: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pageTitle {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #000000;
+  letter-spacing: 0.02em;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+}
+
+.addProductButton {
+  /* Box Medium Desktop */
+  position: relative;
+  width: 290px;
+  height: 45px;
+  margin-left: 5px;
+  box-shadow: none;
+
+  /* Rectangle 90 */
+  box-sizing: border-box;
+  border: 1px solid #D8D8D8;
+  border-radius: 35px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: #B3B3B3;
+  }
+}
+
+.addProductLink {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #3A3A3A;
+  background-color: #FFFFFF;
+  position: relative;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #000000;
+  }
+}
+
+.addProductText {
+  position: absolute;
+  width: 138px;
+  height: 22px;
+  left: 18px;
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.03em;
+  color: #3A3A3A;
+  white-space: nowrap;
+  text-align: left;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.plusIcon {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  right: 15px;
+  background: #D8D8D8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+
+  .addProductLink:hover & {
+    background: #B3B3B3;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 3px;
+  }
+
+  &::before {
+    width: 12px;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &::after {
+    width: 2px;
+    height: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Product Grid Styles */
+.productGrid {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
+  margin-top: 40px;
+}
+
+.productList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 1440px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.productListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productCard {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 30px;
+  padding: 30px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    color: #000000;
+  }
+
+  p {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    color: #3A3A3A;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.actionButton {
+  flex: 1;
+  height: 45px;
+  border-radius: 35px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+
+  &.acceptButton {
+    background: #4E001D;
+    color: #FFFFFF;
+
+    &:hover {
+      background: #3A0016;
+    }
+  }
+
+  &.rejectButton {
+    background: #FFFFFF;
+    color: #4E001D;
+    border: 1px solid #4E001D;
+
+    &:hover {
+      background: #FFF1F5;
+    }
+  }
+}
+
+.noRequestsMessage {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 20px;
+  color: #3A3A3A;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 400px;
+  height: 45px;
+  border: 1px solid #D8D8D8;
+  border-radius: 35px;
+  padding: 0 20px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+
+  &:hover, &:focus {
+    border-color: #B3B3B3;
+    outline: none;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+/* Responsive Styles - Ordered from largest to smallest */
+@media (min-width: 1440px) {
+  .headerContent {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .headerContent {
+    padding: 0 20px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1300px) {
+  .productList {
+    /* TODO: Use in other pages as well, for better responsivness */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .productList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .productList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 430px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .header {
+    height: 80px;
+  }
+
+  .headerContent {
+    height: 54px;
+    margin: 13px auto;
+  }
+
+  .logo {
+    font-size: 36px;
+  }
+
+  .navLink {
+    font-size: 16px;
+  }
+
+  .profileCircle {
+    width: 54px;
+    height: 54px;
+
+    &::before {
+      width: 18px;
+      height: 18px;
+      left: 18px;
+      top: 14px;
+    }
+
+    &::after {
+      width: 36px;
+      height: 36px;
+      left: 9px;
+      top: 34px;
+    }
+  }
+
+  .pageWrapper {
+    margin: 80px auto 0;
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  .pageTitle {
+    font-size: 40px;
+    margin-bottom: 32px;
+    margin-left: -63px;
+  }
+
+  .addProductButton {
+    width: 232px;
+    height: 36px;
+  }
+
+  .addProductText {
+    font-size: 14px;
+    left: 14px;
+  }
+
+  .plusIcon {
+    width: 21px;
+    height: 21px;
+    right: 12px;
+  }
+
+  .productList {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .productListItem {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .qrButton {
+    margin-top: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    width: auto;
+  }
+}
+
+
+

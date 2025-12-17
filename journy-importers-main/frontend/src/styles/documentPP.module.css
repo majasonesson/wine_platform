@@ -1,0 +1,36 @@
+.documents-container {
+  background-color: #FFF4EC !important;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.documents-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #313638;
+  margin-bottom: 10px;
+}
+
+.documents-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.document-item {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.document-link {
+  color: #555;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+.document-link:hover {
+  color: #313638;
+}/*# sourceMappingURL=documentPP.module.css.map */

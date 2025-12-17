@@ -1,0 +1,459 @@
+@import './typography';
+
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('/fonts/NeueRegrade-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+.product-information {
+  background-color: #FFF4EC; 
+  padding: 20px;
+  border-radius: 20px; 
+  max-width: 95%; 
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start; 
+
+  h3 {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 17px; 
+    color: #313638;
+    margin-bottom: 20px;
+    text-align: left; 
+  }
+
+  input,
+  select {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff; 
+    border: none; 
+    border-radius: 8px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    color: #9c9c9c;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    flex-wrap: wrap;
+
+    input {
+      flex: 1;
+    }
+
+    p {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 13px; 
+      color: #9c9c9c;
+      margin: 0;
+    }
+  }
+}
+
+.inputWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    color: #313638;
+  }
+}
+
+.wrapper {
+  width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.stepsContainer {
+  position: absolute;
+  width: 1268px;
+  height: 115px;
+  left: 172px;
+  top: 150px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 1268px;
+    height: 0px;
+    left: 0;
+    top: 29px;
+    opacity: 0.9;
+    border: 1px solid #D9D9D9;
+  }
+}
+
+.step {
+  position: relative;
+  width: 138px;
+  height: 115px;
+  text-align: center;
+
+  &:nth-child(1) { left: 28px; }
+  &:nth-child(2) { left: 357px; }
+  &:nth-child(3) { left: 686px; }
+  &:nth-child(4) { left: 1015px; }
+
+  .stepNumber {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto;
+    background: #D8D8D8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Sans';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    color: #FFFFFF;
+
+    &.active {
+      background: #4E001D;
+    }
+  }
+
+  .stepTitle {
+    margin-top: 9px;
+    font-family: 'Instrument Sans';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+  }
+}
+
+.backButton {
+  position: absolute;
+  width: 71px;
+  height: 24px;
+  left: 170px;
+  top: 90px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .backArrow {
+    width: 11px;
+    height: 22px;
+    border: 2px solid #808080;
+    border-right: none;
+    border-bottom: none;
+    transform: rotate(-45deg);
+  }
+
+  span {
+    font-family: 'Instrument Sans';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #808080;
+  }
+}
+
+.formContainer {
+  width: 1073px;
+  height: 495px;
+  margin: 325px auto 0;
+  border: 1px solid #D9D9D9;
+  border-radius: 35px;
+  padding: 31px 50px;
+}
+
+.buttonContainer {
+  position: absolute;
+  top: 150px;
+  right: 183px;
+  width: 60px;
+  height: 89px;
+  z-index: 1000;
+}
+
+.nextButton {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #4E001D;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 12px;
+    height: 21px;
+  }
+
+  span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 8px);
+    font-family: 'Instrument Sans';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #000000;
+  }
+}
+
+.navigationContainer {
+  display: none;
+}
+
+.container {
+  position: relative;
+  width: 1131px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid #D9D9D9;
+  border-radius: 35px;
+
+  .formContent {
+    display: grid;
+    grid-template-columns: 385px 1fr;
+    gap: 75px;
+    padding: 0 40px;
+
+    .leftColumn {
+      .field {
+        margin-bottom: 50px;
+
+        label {
+          font-family: 'Instrument Sans';
+          font-size: 20px;
+          margin-bottom: 10px;
+          display: block;
+        }
+
+        select {
+          width: 385px;
+          height: 45px;
+          border: 2px solid red;
+          border-radius: 35px;
+          padding: 0 18px;
+          background: #ffeeee;
+          font-family: 'Instrument Sans';
+          font-size: 20px;
+          appearance: none;
+        }
+
+        .inputWrapper {
+          position: relative;
+
+          .dropdownArrow {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid red;
+            border-bottom: 2px solid red;
+          }
+        }
+      }
+    }
+
+    .grapeSection {
+      .grapeHeader {
+        font-family: 'Instrument Sans';
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        margin-bottom: 26px;
+      }
+
+      .grapeColumns {
+        display: grid;
+        grid-template-columns: repeat(2, 290px);
+        gap: 34px;
+
+        .grapeVariety {
+          margin-bottom: 30px;
+
+          .grapeLabel {
+            font-family: 'Instrument Sans';
+            font-size: 12px;
+            line-height: 15px;
+            color: #000000;
+            margin-bottom: 10px;
+          }
+
+          .grapeTag {
+            background: #D8D8D8;
+            border-radius: 25px;
+            height: 33px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+              font-family: 'Instrument Sans';
+              font-size: 20px;
+              color: #000000;
+            }
+
+            .removeButton {
+              width: 13px;
+              height: 13px;
+              background: #E7E7E7;
+              border-radius: 50%;
+              border: none;
+              cursor: pointer;
+              position: relative;
+
+              &::before,
+              &::after {
+                content: '';
+                position: absolute;
+                width: 7px;
+                height: 1px;
+                background: #D8D8D8;
+                top: 50%;
+                left: 50%;
+              }
+
+              &::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+              }
+
+              &::after {
+                transform: translate(-50%, -50%) rotate(-45deg);
+              }
+            }
+          }
+
+          .percentageInput {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            label {
+              font-family: 'Instrument Sans';
+              font-size: 12px;
+              line-height: 15px;
+              color: #000000;
+            }
+
+            input {
+              width: 135px;
+              height: 45px;
+              border: 1px solid #D8D8D8;
+              border-radius: 35px;
+              padding: 0 18px;
+              font-family: 'Instrument Sans';
+              font-size: 20px;
+              text-align: right;
+            }
+
+            span {
+              font-family: 'Instrument Sans';
+              font-size: 20px;
+              color: #999999;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.navigation {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: -120px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 136px;
+
+  .navButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 8px;
+
+    .buttonCircle {
+      width: 60px;
+      height: 60px;
+      background: #4E001D;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.previous .buttonCircle {
+      opacity: 0.5;
+    }
+
+    span {
+      font-family: 'Instrument Sans';
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      text-align: center;
+      letter-spacing: 0.03em;
+      color: #000000;
+    }
+  }
+}

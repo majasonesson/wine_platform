@@ -1,0 +1,120 @@
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #313638;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/************************************* HOMEPAGE ************************************************/
+.button, .loginWrapper .contentBox .buttonsContainer .loginButton {
+  background-color: #000000;
+  color: #E8E9EB;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+.button:hover, .loginWrapper .contentBox .buttonsContainer .loginButton:hover {
+  background-color: #313638;
+  color: #FFF4EC;
+}
+
+/************************************* PRODUCER PAGE ************************************************/
+.add-product-button {
+  background-color: #313638;
+  color: #FFF4EC;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+}
+.add-product-button:hover {
+  background-color: #FFF4EC;
+  color: #313638;
+}
+
+/************************************* PRODUCER PAGE ************************************************/
+.loginWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.loginWrapper .contentBox {
+  background-color: #FFF4EC;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  margin-top: -10%;
+}
+.loginWrapper .contentBox h1 {
+  font-size: 36px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 100;
+  color: #313638;
+  margin-bottom: 20px;
+}
+.loginWrapper .contentBox .formLogin {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.loginWrapper .contentBox .formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+  font-family: "Work Sans", sans-serif;
+}
+.loginWrapper .contentBox .inputField {
+  font-family: "Work Sans", sans-serif;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+.loginWrapper .contentBox .inputField:focus {
+  outline: none;
+  border-color: #313638;
+}
+.loginWrapper .contentBox .buttonsContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.loginWrapper .contentBox .buttonsContainer .loginButton {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 25px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 200;
+  padding: 10px 30px;
+}
+.loginWrapper .contentBox .buttonsContainer .loginButton:hover {
+  background-color: rgba(0, 0, 0, 0.7294117647);
+  color: #FFF4EC;
+}/*# sourceMappingURL=login.module.css.map */

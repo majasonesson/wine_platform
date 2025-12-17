@@ -1,0 +1,82 @@
+.sidebar {
+    height: 100vh; /* Full höjd för sidan */
+    width: 18rem; /* 72px = 18rem */
+    background-color: #ffffff;
+    border-right: 2px solid #cccccc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .profileContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 3.5rem; /* Tailwind: mt-14 */
+  }
+  
+  .profileImage {
+    width: 7rem; /* h-28 w-28 i Tailwind */
+    height: 7rem;
+    border-radius: 50%;
+    margin-bottom: 0.5rem; /* mb-2 i Tailwind */
+  }
+  
+  .username {
+    font-size: 1.125rem; /* text-lg i Tailwind */
+    font-weight: 500; /* font-medium i Tailwind */
+  }
+  
+  .navLinks {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem; /* ml-4 i Tailwind */
+    margin-top: 2rem; /* mt-8 i Tailwind */
+  }
+  
+  .navLink {
+    padding-left: 1rem; /* pl-4 i Tailwind */
+    height: 3rem; /* h-12 i Tailwind */
+    display: flex;
+    align-items: center;
+    color: #000;
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth color transition */
+    border-radius: 1.5rem 0 0 1.5rem; /* rounded-l-xl i Tailwind */
+  }
+  
+  .navLink:hover {
+    color: #4a5568; /* Hoverfärg, likt Tailwind hover:text-slate-700 */
+  }
+  
+  .navIcon {
+    margin-right: 1rem; /* mr-4 i Tailwind */
+  }
+  
+  .logoutContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 1rem; /* mb-2 i Tailwind */
+  }
+  
+  .logoutButton {
+    background-color: transparent;
+    color: #000;
+    border-radius: 2rem; 
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logoutButton:hover {
+    background-color: #f3f4f6; 
+  }
+  

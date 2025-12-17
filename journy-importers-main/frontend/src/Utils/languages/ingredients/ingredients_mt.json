@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Ġenerali",
+      "items": {
+        "Grapes": "Għeneb",
+        "Sucrose": "Sukrożju",
+        "Aleppo pine resin": "Reżina tal-arżnu ta' Aleppo",
+        "Caramel": "Karamella",
+        "Concentrated grape must": "Must tal-għeneb ikkonċentrat",
+        "Grape must": "Must tal-għeneb",
+        "Rectified concentrated grape must": "Must tal-għeneb ikkonċentrat rettifikat",
+        "Filling dosage": "Doża ta' mili",
+        "Shipping dosage": "Doża ta' tbaħħir"
+      }
+    },
+    {
+      "category": "Gassijiet u gassijiet tal-ippakkjar",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Nitroġenu (E 941)",
+        "Carbon dioxide (E 290)": "Dijossidu tal-karbonju (E 290)",
+        "Packaged under protective atmosphere": "Ippakkjat taħt atmosfera protettiva"
+      }
+    },
+    {
+      "category": "Regolaturi tal-aċidità",
+      "items": {
+        "Tartaric acid (E 334)": "Aċidu tartariku (E 334)",
+        "Malic acid (E 296)": "Aċidu malik (E 296)",
+        "Lactic acid (E 270)": "Aċidu lattiku (E 270)",
+        "Calcium sulphate (E 516)": "Sulfat tal-kalċju (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Regolatur tal-aċidità: Aċidu ċitriku (E 330)"
+      }
+    },
+    {
+      "category": "Aġenti stabilizzanti",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Aġent stabilizzanti: Aċidu ċitriku (E 330)",
+        "Metatartaric acid (E 353)": "Aċidu metatartariku (E 353)",
+        "Gum arabic (E 414)": "Gomma arabika (E 414)",
+        "Yeast mannoproteins": "Mannoproteini tal-ħmira",
+        "Carboxymethylcellulose (E 466)": "Karboximetilċelluloża (E 466)",
+        "Potassium polyaspartate (E 456)": "Poliaspartat tal-potassju (E 456)",
+        "Fumaric acid (E 297)": "Aċidu fumariku (E 297)"
+      }
+    },
+    {
+      "category": "Preservattivi u antiossidanti",
+      "items": {
+        "Potassium sorbate (E 202)": "Sorbate tal-potassju (E 202)",
+        "Lysozyme (E 1105)": "Lisożima (E 1105)",
+        "L ascorbic acid (E 300)": "Aċidu askorbiku L (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetildikarbonat (DMDC)",
+        "Sulphites": "Sulfiti",
+        "Sulfur dioxide": "Dijossidu tal-kubrit",
+        "Potassium bisulfite": "Bisulfite tal-potassju",
+        "Potassium metabisulfite": "Metabisulfite tal-potassju"
+      }
+    },
+    {
+      "category": "Aids tal-ipproċessar",
+      "items": {
+        "Egg": "Bajda",
+        "Milk": "Ħalib"
+      }
+    }
+  ]
+}

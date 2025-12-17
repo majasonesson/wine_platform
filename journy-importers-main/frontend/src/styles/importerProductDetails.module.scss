@@ -1,0 +1,379 @@
+.producer-product-details {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: #fff;
+
+  .content-container {
+    max-width: 720px;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.previewTitle {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: -350px;
+  display: flex;
+  color: #111;
+  margin-top: 8rem;
+
+  @media (max-width: 1700px) {
+    margin-left: -250px;
+  }
+
+  @media (max-width: 1550px) {
+    margin-left: -210px;
+  }
+
+  @media (max-width: 1450px) {
+    margin-left: -150px;
+  }
+
+  @media (max-width: 1330px) {
+    margin-left: -80px;
+  }
+
+  @media (max-width: 1115px) {
+    margin-left: -50px;
+  }
+
+  @media (max-width: 920px) {
+    margin-left: -3px;
+  }
+}
+
+.appHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 2rem;
+
+  .appName {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+
+  .disclaimer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 0.75rem;
+    gap: 2rem;
+
+    .infoIcon {
+      width: 28px;
+      height: 28px;
+      background-color: #4e001d;
+      color: white;
+      border-radius: 50%;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .disclaimerText {
+      font-size: 0.875rem;
+      line-height: 1.4;
+      max-width: 370px;
+    }
+  }
+}
+
+.passportGrid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  margin-top: -24px;
+}
+
+.passportRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  margin-left: 200px;
+
+  /* FIXME: when image is not selected qr code breaks*/
+  @media (max-width: 1430px) {
+    margin-left: 100px;
+  }
+
+  @media (max-width: 1115px) {
+    margin-left: 50px;
+  }
+
+  .syncSection {
+    position: relative;
+    display: inline-block;
+    z-index: 100;
+  }
+
+  .syncOptions {
+    position: absolute;
+    top: calc(100% - 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    background: white;
+    border: 1px solid #E6E6E6;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 8px 0;
+    min-width: 200px;
+
+    button {
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      display: block;
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #F5F5F5;
+      }
+    }
+  }
+
+  .syncStatus {
+    margin-top: 10px;
+  }
+}
+
+.qrTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.qrBox {
+  width: 260px;
+  height: 260px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qrImage {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+.labelButtons {
+  position: relative;
+  z-index: 101;
+  width: 296px;
+  height: 42px;
+  font-size: 1.01rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.cardSection {
+  background: #f9f9f9;
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  width: 27rem;
+}
+
+.responsibilityTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.responsibilityContent {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+  line-height: 1.5;
+
+  .responsibilityList {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+
+    li {
+      list-style-type: disc;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.backButton {
+  position: fixed;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  top: 100px;
+  left: 145px;
+  display: flex;
+  align-items: center;
+
+  svg {
+    position: static;
+    background: transparent;
+
+    path {
+      stroke: #808080;
+    }
+  }
+
+  span {
+    position: absolute;
+    width: 45px;
+    height: 24px;
+    left: 25px;
+    top: -1px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #808080;
+  }
+
+  &:hover {
+    background: transparent;
+
+    svg path {
+      stroke: #717171;
+    }
+
+    span {
+      color: #717171;
+    }
+  }
+}
+
+.journyFooterContent {
+  text-align: center;
+  margin-right: 15rem;
+  gap: 1rem;
+}
+
+.journyFooterTitle {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.journyFooter {
+  display: flex;
+  justify-content: center;
+
+  p {
+    font-size: 30px;
+    background-color: #fff4d0;
+    padding: 0.17rem 4.9rem;
+    border-radius: 35px;
+    display: inline-block;
+    margin: 0;
+  }
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: 2rem;
+  text-align: center;
+
+  h2 {
+    color: #e74c3c;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 2rem;
+    color: #666;
+  }
+
+  .backButton {
+    padding: 0.75rem 1.5rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #2980b9;
+    }
+  }
+}
+
+.syncedBadge {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  background-color: #2D5C3B;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.passportLeft {
+  position: relative;
+  padding-top: 24px;
+}

@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Üldine",
+      "items": {
+        "Grapes": "Viinamarjad",
+        "Sucrose": "Sahharoos",
+        "Aleppo pine resin": "Aleppo männi vaik",
+        "Caramel": "Karamell",
+        "Concentrated grape must": "Kontsentreeritud viinamarjamahl",
+        "Grape must": "Viinamarjamahl",
+        "Rectified concentrated grape must": "Parandatud kontsentreeritud viinamarjamahl",
+        "Filling dosage": "Täiteannus",
+        "Shipping dosage": "Saadetise annus"
+      }
+    },
+    {
+      "category": "Gaasid ja pakendigaasid",
+      "items": {
+        "Argon (E 938)": "Argoon (E 938)",
+        "Nitrogen (E 941)": "Lämmastik (E 941)",
+        "Carbon dioxide (E 290)": "Süsinikdioksiid (E 290)",
+        "Packaged under protective atmosphere": "Pakendatud kaitsekeskkonnas"
+      }
+    },
+    {
+      "category": "Happesuse regulaatorid",
+      "items": {
+        "Tartaric acid (E 334)": "Viinhape (E 334)",
+        "Malic acid (E 296)": "Õunhape (E 296)",
+        "Lactic acid (E 270)": "Piimhape (E 270)",
+        "Calcium sulphate (E 516)": "Kaltsiumsulfaat (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Happesuse regulaator: Sidrunhape (E 330)"
+      }
+    },
+    {
+      "category": "Stabilisaatorid",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabilisaator: Sidrunhape (E 330)",
+        "Metatartaric acid (E 353)": "Metaviinhape (E 353)",
+        "Gum arabic (E 414)": "Araabikakummi (E 414)",
+        "Yeast mannoproteins": "Pärmimannoproteiinid",
+        "Carboxymethylcellulose (E 466)": "Karboksümetüültselluloos (E 466)",
+        "Potassium polyaspartate (E 456)": "Kaaliumpolüaspartaat (E 456)",
+        "Fumaric acid (E 297)": "Fumaarhape (E 297)"
+      }
+    },
+    {
+      "category": "Säilitusained ja antioksüdandid",
+      "items": {
+        "Potassium sorbate (E 202)": "Kaaliumsorbaat (E 202)",
+        "Lysozyme (E 1105)": "Lüsosüüm (E 1105)",
+        "L ascorbic acid (E 300)": "L askorbiinhape (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetüüldikarbonaat (DMDC)",
+        "Sulphites": "Sulfid",
+        "Sulfur dioxide": "Vääveldioksiid",
+        "Potassium bisulfite": "Kaaliumvesiniksulfit",
+        "Potassium metabisulfite": "Kaalium metabisulfit"
+      }
+    },
+    {
+      "category": "Töötlemisained",
+      "items": {
+        "Egg": "Muna",
+        "Milk": "Piim"
+      }
+    }
+  ]
+}

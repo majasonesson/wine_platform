@@ -1,0 +1,286 @@
+.customerProductDetails {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  padding: 0;
+  background-color: #ffffff;
+}
+.customerProductDetails .contentContainer {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  background-color: #ffffff;
+  border-radius: 15px;
+}
+.customerProductDetails .contentContainer .logo {
+  margin: 10px 0;
+}
+.customerProductDetails .contentContainer .logo h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: #FA8657;
+}
+.customerProductDetails .contentContainer .wineDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.customerProductDetails .contentContainer .wineDetails img {
+  height: 160px;
+  border-radius: 15px;
+  margin: 10px 0;
+}
+.customerProductDetails .contentContainer .wineDetails .wineName {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #313638;
+  margin-bottom: 0;
+}
+.customerProductDetails .contentContainer .wineDetails .wineBrand {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  color: #313638;
+  margin: 0;
+}
+.customerProductDetails .contentContainer .infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  -moz-column-gap: 0;
+       column-gap: 0;
+  row-gap: 15px;
+  width: 80%;
+  margin-bottom: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
+.customerProductDetails .contentContainer .infoGrid .infoItem {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 0px;
+  text-align: center;
+}
+.customerProductDetails .contentContainer .infoGrid .infoItem h2 {
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  margin: 0;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .infoGrid .infoItem p {
+  font-size: 0.8rem;
+  color: #313638;
+  margin: 0;
+}
+.customerProductDetails .contentContainer .ingredientsSection {
+  width: 80%;
+  padding: 10px;
+  text-align: flex-start;
+  margin-top: 5px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.customerProductDetails .contentContainer .ingredientsSection h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .ingredientsSection p {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #313638;
+  margin: 0;
+}
+.customerProductDetails .contentContainer .nutritionSection {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+}
+.customerProductDetails .contentContainer .nutritionSection h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.customerProductDetails .contentContainer .nutritionSection .flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+.customerProductDetails .contentContainer .nutritionSection .flexCol {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.customerProductDetails .contentContainer .nutritionSection h3, .customerProductDetails .contentContainer .nutritionSection p {
+  font-size: 1rem;
+  margin: 0;
+}
+.customerProductDetails .contentContainer .nutritionSection .divider {
+  border: 0;
+  height: 1px;
+  background: #000;
+  margin: 5px 0;
+}
+.customerProductDetails .contentContainer .nutritionSection .textSm {
+  font-size: 0.8rem;
+  color: #313638;
+  margin: 0;
+  padding: 0;
+}
+.customerProductDetails .contentContainer .nutritionSection .sugarsRow {
+  margin-bottom: 90px;
+}
+.customerProductDetails .contentContainer .nutritionSection .contains {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.customerProductDetails .contentContainer .nutritionSection .contains b {
+  font-size: 1.1rem;
+}
+.customerProductDetails .contentContainer .nutritionSection .contains p {
+  font-size: 1rem;
+  margin-top: 5px;
+}
+.customerProductDetails .contentContainer .sustainabilitySection {
+  width: 80%;
+  text-align: flex-start;
+}
+.customerProductDetails .contentContainer .sustainabilitySection h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .sustainabilitySection h3 {
+  font-size: 1.2rem;
+  font-weight: 200;
+  margin-bottom: 10px;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .sustainabilitySection .sustainabilityImage {
+  height: 70px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.customerProductDetails .contentContainer .sustainabilitySection .h3sqpni {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .sustainabilitySection p {
+  font-size: 1rem;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .footerLogo {
+  padding-top: 20px;
+  text-align: center;
+}
+.customerProductDetails .contentContainer .footerLogo h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #FA8657;
+}
+.customerProductDetails .contentContainer .recyclingSection {
+  width: 80%;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.customerProductDetails .contentContainer .recyclingSection h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .recyclingSection p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .recyclingSection {
+  width: 80%;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.customerProductDetails .contentContainer .recyclingSection h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .recyclingSection p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .responsibilitySection {
+  width: 80%;
+  text-align: left;
+  margin-bottom: 0;
+}
+.customerProductDetails .contentContainer .responsibilitySection h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .responsibilitySection p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .responsibilitySection ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.customerProductDetails .contentContainer .responsibilitySection ul li {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #313638;
+}
+.customerProductDetails .contentContainer .productionSection {
+  width: 80%;
+  margin: 20px auto;
+  padding: 10px;
+}
+.customerProductDetails .contentContainer .productionSection h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.customerProductDetails .contentContainer .productionSection .infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.customerProductDetails .contentContainer .productionSection .infoItem {
+  text-align: center;
+}
+.customerProductDetails .contentContainer .productionSection .infoItem .infoTitle {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+.customerProductDetails .contentContainer .productionSection .infoItem .infoValue {
+  font-size: 0.9rem;
+  color: #313638;
+}/*# sourceMappingURL=customerProductDetails.module.css.map */

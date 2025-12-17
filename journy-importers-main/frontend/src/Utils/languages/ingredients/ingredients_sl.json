@@ -1,0 +1,69 @@
+{
+  "ingredients": [
+    {
+      "category": "Splošno",
+      "items": {
+        "Grapes": "Grozdje",
+        "Sucrose": "Saharoza",
+        "Aleppo pine resin": "Smola alepskega bora",
+        "Caramel": "Karamela",
+        "Concentrated grape must": "Koncentriran grozdni mošt",
+        "Grape must": "Grozdni mošt",
+        "Rectified concentrated grape must": "Rektificiran koncentriran grozdni mošt",
+        "Filling dosage": "Doziranje polnjenja",
+        "Shipping dosage": "Doziranje pošiljanja"
+      }
+    },
+    {
+      "category": "Plini in pakirni plini",
+      "items": {
+        "Argon (E 938)": "Argon (E 938)",
+        "Nitrogen (E 941)": "Dušik (E 941)",
+        "Carbon dioxide (E 290)": "Ogljikov dioksid (E 290)",
+        "Packaged under protective atmosphere": "Pakirano v zaščitni atmosferi"
+      }
+    },
+    {
+      "category": "Regulatorji kislosti",
+      "items": {
+        "Tartaric acid (E 334)": "Vinska kislina (E 334)",
+        "Malic acid (E 296)": "Jabolčna kislina (E 296)",
+        "Lactic acid (E 270)": "Mlečna kislina (E 270)",
+        "Calcium sulphate (E 516)": "Kalcijev sulfat (E 516)",
+        "Acidity regulator: Citric Acid (E 330)": "Regulator kislosti: Citronska kislina (E 330)"
+      }
+    },
+    {
+      "category": "Stabilizatorji",
+      "items": {
+        "Stabilising agent: Citric Acid (E 330)": "Stabilizator: Citronska kislina (E 330)",
+        "Metatartaric acid (E 353)": "Metavinska kislina (E 353)",
+        "Gum arabic (E 414)": "Arabski gumi (E 414)",
+        "Yeast mannoproteins": "Kvasni manoproteini",
+        "Carboxymethylcellulose (E 466)": "Karboksimetilceluloza (E 466)",
+        "Potassium polyaspartate (E 456)": "Kalijev poliaspartat (E 456)",
+        "Fumaric acid (E 297)": "Fumarična kislina (E 297)"
+      }
+    },
+    {
+      "category": "Konzervansi in antioksidanti",
+      "items": {
+        "Potassium sorbate (E 202)": "Kalijev sorbat (E 202)",
+        "Lysozyme (E 1105)": "Lizocim (E 1105)",
+        "L ascorbic acid (E 300)": "L askorbinska kislina (E 300)",
+        "Dimethyldicarbonate (DMDC)": "Dimetildikarbomat (DMDC)",
+        "Sulphites": "Sulfiti",
+        "Sulfur dioxide": "Žveplov dioksid",
+        "Potassium bisulfite": "Kalijev bisulfit",
+        "Potassium metabisulfite": "Kalijev metabisulfit"
+      }
+    },
+    {
+      "category": "Pomožna sredstva za predelavo",
+      "items": {
+        "Egg": "Jajce",
+        "Milk": "Mleko"
+      }
+    }
+  ]
+}
