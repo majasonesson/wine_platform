@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { signIn } from '@/lib/api-client';
-import Cookies from 'js-cookie';
+import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from '@/app/styles/login.module.scss';
 import { LoadingModal } from '@/components/layout/LoadingModal';
 import { Modal } from '@/components/layout/Modal';
 import { ResetPasswordModal } from '@/components/auth/ResetPasswordModal';
-import { jwtDecode } from 'jwt-decode';
 
 // Import language files
 import en from '@/lib/i18n/auth/en.json';
@@ -37,12 +35,6 @@ import ro from '@/lib/i18n/auth/ro.json';
 import sk from '@/lib/i18n/auth/sk.json';
 import sl from '@/lib/i18n/auth/sl.json';
 
-interface DecodedToken {
-  id: number;
-  Role?: string;
-  role?: string;
-}
-
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,6 +44,19 @@ export default function LoginPage() {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [language, setLanguage] = useState('en');
   const router = useRouter();
+
+  // Skapa Supabase-klienten för webbläsaren
+  // Skapa Supabase-klienten för webbläsaren
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  useEffect(() => {
+    console.log('Login Page Mounted');
+    console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? 'Defined' : 'Missing');
+    console.log('Supabase Key:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'Defined' : 'Missing');
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -68,30 +73,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     const languages: Record<string, any> = {
-      en,
-      it,
-      fr,
-      es,
-      sv,
-      pt,
-      el,
-      bg,
-      hr,
-      cs,
-      da,
-      nl,
-      et,
-      fi,
-      de,
-      hu,
-      ga,
-      lv,
-      lt,
-      mt,
-      pl,
-      ro,
-      sk,
-      sl,
+      en, it, fr, es, sv, pt, el, bg, hr, cs, da, nl, et, fi, de, hu, ga, lv, lt, mt, pl, ro, sk, sl,
     };
     setTranslatedText(languages[language] || en);
   }, [language]);
@@ -106,31 +88,44 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("SUBMIT: Startar inloggning för:", email);
     setLoading(true);
+
     try {
-      const response = await signIn(email, password);
-      Cookies.set('token', response.token);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-      setEmail('');
-      setPassword('');
-
-      // Decode token to get user role
-      const decodedToken = jwtDecode<DecodedToken>(response.token);
-      const userRole = decodedToken.Role || decodedToken.role;
-      if (userRole === 'Importer') {
-        router.push('/importer');
-      } else if (userRole === 'Producer') {
-        router.push('/producer');
-      } else {
-        router.push('/');
+      if (error) {
+        console.error("SUPABASE ERROR:", error.message);
+        throw error;
       }
 
-      showModal(translatedText['User successfully logged in'] || 'User successfully logged in');
-    } catch (error) {
-      console.error(error);
+      console.log("LOGIN SUCCESS: Användare inloggad!", data.user);
+
+      // Hämta rollen vi satte vid signup
+      const userRole = data.user?.user_metadata?.role;
+      console.log("USER ROLE:", userRole);
+
+      // Använd window.location.href för att tvinga en hård omdirigering 
+      // så att Middlewaren säkert plockar upp den nya sessionen.
+      if (userRole === 'Producer') {
+        console.log("Redirecting to Producer Step 2...");
+        window.location.href = '/onboarding/producer/step-2';
+      } else if (userRole === 'Distributor') {
+        console.log("Redirecting to Distributor Step 2...");
+        window.location.href = '/onboarding/distributor/step-2';
+      } else {
+        console.log("No specific role found, going home.");
+        window.location.href = '/';
+      }
+
+    } catch (error: any) {
+      console.error('FINAL ERROR:', error.message);
       showModal(
         translatedText['Username or Password is invalid, Try again.'] ||
-          'Username or Password is invalid, Try again.'
+        'Username or Password is invalid, Try again.'
       );
     } finally {
       setLoading(false);
@@ -150,10 +145,11 @@ export default function LoginPage() {
             <div className={styles.formGroup}>
               <label>{translatedText['Email'] || 'Email'} </label>
               <input
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.inputField}
+                required
               />
             </div>
             <div className={styles.formGroup}>
@@ -163,10 +159,16 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={styles.inputField}
+                required
               />
             </div>
 
-            <button className={styles.loginButton} disabled={loading}>
+            <button
+              type="submit"
+              className={styles.loginButton}
+              disabled={loading}
+              onClick={() => console.log('LOGIN BUTTON CLICKED')}
+            >
               {loading ? (
                 <span className={styles.spinnerWrapper}>
                   <span className={styles.spinner}></span>
@@ -186,12 +188,12 @@ export default function LoginPage() {
           <ResetPasswordModal
             isOpen={isPasswordModalOpen}
             onClose={() => setIsPasswordModalOpen(false)}
-            onSubmit={() => {}}
+            onSubmit={() => { }}
             translatedText={translatedText}
           />
         </div>
         <div className={styles.footer}>
-          © Journy2025 {translatedText['all rights reserved'] || 'all rights reserved'}
+          © Journy 2025 {translatedText['all rights reserved'] || 'all rights reserved'}
         </div>
       </div>
       <Modal
