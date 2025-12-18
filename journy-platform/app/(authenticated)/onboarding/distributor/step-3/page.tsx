@@ -33,9 +33,15 @@ export default function DistributorStep3() {
     }
     getProfile();
   }, [supabase]);
-
-  const handleFinish = async () => {
+const handleFinish = async () => {
     if (!profileId) return;
+
+    // KONTROLL: Har användaren valt något annat än 'not_specified'?
+    if (foundingType === 'not_specified') {
+      alert("Please fill in all fields to continue.");
+      return;
+    }
+
     setLoading(true);
     
     const { error } = await supabase
@@ -50,7 +56,6 @@ export default function DistributorStep3() {
       .eq('id', profileId);
 
     if (!error) {
-      // NU ÄR DENNA PÅ RÄTT PLATS:
       router.push('/onboarding/distributor/step-4');
     } else {
       setLoading(false);
@@ -107,7 +112,7 @@ export default function DistributorStep3() {
             disabled={loading}
             className="w-full h-[60px] bg-[#4E001D] text-white rounded-full font-bold shadow-lg mt-4 text-lg hover:opacity-95 transition-all disabled:opacity-50"
           >
-            {loading ? 'Finishing...' : 'Finish'}
+            {loading ? 'Finishing...' : 'Continue'}
           </button>
         </div>
       </div>

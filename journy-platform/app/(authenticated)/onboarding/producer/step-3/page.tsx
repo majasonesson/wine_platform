@@ -33,17 +33,19 @@ export default function ProducerStep4() {
     }
     getProfile();
   }, [supabase]);
+const handleFinish = async () => {
+    if (!profileId) return;
 
-  const handleFinish = async () => {
-    if (!profileId) {
-      alert("Profile not found. Please try again.");
+    // KONTROLL: Har användaren valt något annat än 'not_specified'?
+    if (foundingType === 'not_specified') {
+      alert("Please fill in all fields to continue.");
       return;
     }
-    
+
     setLoading(true);
     
     const { error } = await supabase
-      .from('producer') // Uppdaterar producent-tabellen
+      .from('producer')
       .update({
         founding_team_type: foundingType,
         gender_dist_women: women,
@@ -54,12 +56,9 @@ export default function ProducerStep4() {
       .eq('id', profileId);
 
     if (!error) {
-      // REDIRECT TILL PRODUCENT-DASHBOARD
-      console.log("Success! Redirecting to /onboarding/producer/step-4");
       router.push('/onboarding/producer/step-4');
     } else {
       setLoading(false);
-      console.error("Supabase Error:", error);
       alert("Error saving data: " + error.message);
     }
   };
@@ -113,7 +112,7 @@ export default function ProducerStep4() {
             disabled={loading}
             className="w-full h-[60px] bg-[#4E001D] text-white rounded-full font-bold shadow-lg mt-4 text-lg hover:opacity-95 transition-all disabled:opacity-50"
           >
-            {loading ? 'Finishing...' : 'Finish'}
+            {loading ? 'Finishing...' : 'Continue'}
           </button>
         </div>
       </div>

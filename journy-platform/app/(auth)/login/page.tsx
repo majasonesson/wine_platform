@@ -45,18 +45,10 @@ export default function LoginPage() {
   const [language, setLanguage] = useState('en');
   const router = useRouter();
 
-  // Skapa Supabase-klienten för webbläsaren
-  // Skapa Supabase-klienten för webbläsaren
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
-
-  useEffect(() => {
-    console.log('Login Page Mounted');
-    console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? 'Defined' : 'Missing');
-    console.log('Supabase Key:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'Defined' : 'Missing');
-  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -88,7 +80,6 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("SUBMIT: Startar inloggning för:", email);
     setLoading(true);
 
     try {
@@ -97,32 +88,45 @@ export default function LoginPage() {
         password,
       });
 
-      if (error) {
-        console.error("SUPABASE ERROR:", error.message);
-        throw error;
-      }
+      if (error) throw error;
 
-      console.log("LOGIN SUCCESS: Användare inloggad!", data.user);
+      const user = data.user;
+      const rawRole = user?.user_metadata?.role; // 'Producer' eller 'Distributor'
+      const roleTable = rawRole?.toLowerCase(); 
 
-      // Hämta rollen vi satte vid signup
-      const userRole = data.user?.user_metadata?.role;
-      console.log("USER ROLE:", userRole);
-
-      // Använd window.location.href för att tvinga en hård omdirigering 
-      // så att Middlewaren säkert plockar upp den nya sessionen.
-      if (userRole === 'Producer') {
-        console.log("Redirecting to Producer Step 2...");
-        window.location.href = '/onboarding/producer/step-2';
-      } else if (userRole === 'Distributor') {
-        console.log("Redirecting to Distributor Step 2...");
-        window.location.href = '/onboarding/distributor/step-2';
-      } else {
-        console.log("No specific role found, going home.");
+      if (!roleTable) {
         window.location.href = '/';
+        return;
       }
+
+      // Hämta profil för att kontrollera Steg 2 och Steg 3
+      const { data: profile } = await supabase
+        .from(roleTable)
+        .select('company_name, founding_team_type')
+        .eq('user_id', user.id)
+        .single();
+
+      // LOGIK FÖR SMART REDIRECT
+      let targetPath = `/onboarding/${roleTable}/step-2`; // Default startpunkt
+
+      if (profile) {
+        const hasStep2 = profile.company_name && profile.company_name.trim() !== '';
+        const hasStep3 = profile.founding_team_type && profile.founding_team_type !== 'not_specified';
+
+        if (hasStep2 && hasStep3) {
+          // Både företagsuppgifter och diversity är ifyllt -> Gå till Dashboard
+          targetPath = `/dashboard/${roleTable}`;
+        } else if (hasStep2) {
+          // Har gjort företagsuppgifter men inte diversity -> Skicka till Steg 3
+          targetPath = `/onboarding/${roleTable}/step-3`;
+        }
+      }
+
+      // Tvinga hård omdirigering för att Middleware ska uppfatta sessionen korrekt
+      window.location.href = targetPath;
 
     } catch (error: any) {
-      console.error('FINAL ERROR:', error.message);
+      console.error('Login Error:', error.message);
       showModal(
         translatedText['Username or Password is invalid, Try again.'] ||
         'Username or Password is invalid, Try again.'
@@ -167,7 +171,6 @@ export default function LoginPage() {
               type="submit"
               className={styles.loginButton}
               disabled={loading}
-              onClick={() => console.log('LOGIN BUTTON CLICKED')}
             >
               {loading ? (
                 <span className={styles.spinnerWrapper}>
