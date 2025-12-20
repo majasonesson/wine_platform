@@ -93,6 +93,93 @@ export const PRIMARY_FERMENTATION_VESSELS = [
     'Concrete tanks'
 ];
 
+export const COLOR_INTENSITY = ['Pale', 'Light', 'Medium', 'Deep', 'Dark', 'Dense'];
+
+export const COLOR_HUES = [
+  'Straw', 'Yellow', 'Gold', 'Brown', 
+  'Amber', 'Copper', 'Salmon', 'Pink', 
+  'Ruby', 'Purple', 'Garnet', 'Tawny'
+];
+export const WINE_AROMAS = {
+  FRUIT: {
+    CITRUS: ['Lime', 'Lemon', 'Grapefruit', 'Orange', 'Marmalade'],
+    TREE_FRUIT: ['Quince', 'Apple', 'Pear', 'Nectarine', 'Peach', 'Apricot', 'Persimmon'],
+    TROPICAL_FRUIT: ['Pineapple', 'Mango', 'Guava', 'Kiwi', 'Lychee', 'Bubblegum'],
+    RED_FRUIT: ['Cranberry', 'Red Plum', 'Pomegranate', 'Sour Cherry', 'Strawberry', 'Cherry', 'Raspberry'],
+    BLACK_FRUIT: ['Boysenberry', 'Black Currant', 'Black Cherry', 'Plum', 'Blackberry', 'Blueberry'],
+    DRIED_FRUIT: ['Raisin', 'Fig', 'Date', 'Fruitcake']
+  },
+  VEGETABLE_HERB: {
+    FLOWER: ['Iris', 'Peony', 'Elderflower', 'Acacia', 'Lilac', 'Jasmine', 'Honeysuckle', 'Violet', 'Lavender', 'Rose', 'Potpourri', 'Hibiscus'],
+    SPICE: ['Thyme', 'Mint', 'Eucalyptus', 'Fennel', 'Anise', 'Asian 5-Spice', 'Cinnamon', 'Black Pepper', 'Red Pepper', 'White Pepper', 'Saffron', 'Ginger'],
+    VEGETABLE: ['Grass', 'Tomato Leaf', 'Gooseberry', 'Bell Pepper', 'Jalapeño', 'Green Almond', 'Tomato', 'Sun Dried Tomato', 'Black Tea'],
+    EARTH: ['Clay Pot', 'Slate', 'Wet Gravel', 'Potting Soil', 'Red Beet', 'Volcanic Rocks', 'Petroleum']
+  },
+  PRODUCTION_AGING: {
+    MICROBIAL: ['Butter', 'Cream', 'Sourdough', 'Lager', 'Truffle', 'Mushroom'],
+    OAK_AGING: ['Vanilla', 'Coconut', 'Baking Spices', 'Cigar Box', 'Smoke', 'Dill'],
+    GENERAL_AGING: ['Dried Fruit', 'Nuts', 'Tobacco', 'Coffee', 'Cocoa', 'Leather'],
+    NOBLE_ROT: ['Beeswax', 'Honey']
+  },
+  FAULTS: {
+    TCA: ['Musty Cardboard', 'Wet Dog'],
+    SULFIDES: ['Cured Meat', 'Boiled Eggs', 'Burnt Rubber', 'Match Box', 'Garlic', 'Onion', 'Cat Pee'],
+    BRETT: ['Black Cardamom', 'Band-Aid', 'Sweaty Leather Saddle', 'Horse Manure']
+  }
+};
+
+export const FOOD_PAIRINGS = [
+  // MEAT
+  { id: 'red_meat', label: 'Red Meat', category: 'Meat' },
+  { id: 'pork', label: 'Pork', category: 'Meat' },
+  { id: 'poultry', label: 'Poultry', category: 'Meat' },
+  { id: 'game', label: 'Game', category: 'Meat' },
+  { id: 'cured_meat', label: 'Cured Meat', category: 'Meat' },
+  
+  // SEAFOOD
+  { id: 'fish', label: 'Fish', category: 'Seafood' },
+  { id: 'shellfish', label: 'Shellfish', category: 'Seafood' },
+  { id: 'mollusk', label: 'Mollusks', category: 'Seafood' },
+  
+  // PREPARATION / DISHES
+  { id: 'pasta', label: 'Pasta', category: 'Dishes' },
+  { id: 'grilled', label: 'Grilled/Barbecued', category: 'Dishes' },
+  { id: 'spicy', label: 'Spicy Dishes', category: 'Dishes' },
+  { id: 'stew', label: 'Rich Stews', category: 'Dishes' },
+  
+  // VEGETABLES & DAIRY
+  { id: 'veggies', label: 'Green Vegetables', category: 'Veggie' },
+  { id: 'root_veggies', label: 'Root Vegetables', category: 'Veggie' },
+  { id: 'mushrooms', label: 'Mushrooms', category: 'Veggie' },
+  { id: 'soft_cheese', label: 'Soft Cheese', category: 'Dairy' },
+  { id: 'hard_cheese', label: 'Hard Cheese', category: 'Dairy' },
+  
+  // OTHER
+  { id: 'aperitif', label: 'Aperitif', category: 'Occasion' },
+  { id: 'dessert', label: 'Fruit Desserts', category: 'Occasion' }
+];
+
+export const generateAromaText = (selectedAromas: string[]): string => {
+  if (selectedAromas.length === 0) return "";
+  
+  const list = selectedAromas.length > 1 
+    ? `${selectedAromas.slice(0, -1).join(', ').toLowerCase()} and ${selectedAromas.slice(-1)[0].toLowerCase()}`
+    : selectedAromas[0].toLowerCase();
+    
+  return `Fruity aroma with notes of ${list}.`;
+};
+
+export const generateTasteProfile = (selectedAromas: string[]): string => {
+  if (selectedAromas.length === 0) return "";
+  
+  const list = selectedAromas.length > 1 
+    ? `${selectedAromas.slice(0, -1).join(', ').toLowerCase()} and ${selectedAromas.slice(-1)[0].toLowerCase()}`
+    : selectedAromas[0].toLowerCase();
+    
+  // Här lägger vi till "fresh taste" som du ville ha
+  return `Fruity, fresh taste with notes of ${list}.`;
+};
+
 export const BOTTLE_MATERIALS = [
   { label: 'Glass bottle clear', material: 'GL 70' },
   { label: 'Glass bottle green', material: 'GL 71' },
