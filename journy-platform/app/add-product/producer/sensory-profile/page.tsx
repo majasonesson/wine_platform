@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   COLOR_INTENSITY, 
@@ -9,222 +9,295 @@ import {
   WINE_CHARACTERISTICS, 
   WINE_TEXTURE, 
   TASTE_CLOCKS,
-  FOOD_PAIRINGS, 
+  FOOD_PAIRINGS,
   generateFullDescription,
   generateColorDescription
 } from '@/utils/constants';
 
-// --- HJÄLPKOMPONENT FÖR KLOCKOR ---
-const ProfileClock = ({ value, label }: { value: number; label: string }) => {
-  const percentage = (value / 12) * 100;
-  const circumference = 2 * Math.PI * 20;
+// --- TYPES ---
+interface SearchOption {
+  id: string;
+  label: string;
+}
 
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <span className="text-[10px] font-bold uppercase tracking-tight text-gray-400">{label}</span>
-      <div className="relative w-14 h-14 flex items-center justify-center">
-        <svg className="w-full h-full -rotate-90">
-          <circle cx="28" cy="28" r="20" stroke="#f3f4f6" strokeWidth="6" fill="transparent" />
-          <circle 
-            cx="28" cy="28" r="20" stroke="#4E001D" strokeWidth="6" 
-            fill="transparent"
-            strokeDasharray={circumference}
-            strokeDashoffset={circumference - (percentage / 100) * circumference}
-            strokeLinecap="round"
-          />
-        </svg>
-        <span className="absolute text-[11px] font-black">{value}</span>
-      </div>
-    </div>
-  );
-};
+interface FormData {
+  intensity: string;
+  hue: string;
+  clocks: {
+    sweetness: number;
+    body: number;
+    acidity: number;
+    tannins: number;
+  };
+  selectedChars: string[];
+  selectedTexture: string[];
+  selectedAromas: string[];
+  selectedFood: string[];
+}
 
 export default function SensoryProfilePage() {
   const router = useRouter();
+  
+  const [formData, setFormData] = useState<FormData>({
+    intensity: '',
+    hue: '',
+    clocks: { sweetness: 0, body: 0, acidity: 0, tannins: 0 },
+    selectedChars: [],
+    selectedTexture: [],
+    selectedAromas: [],
+    selectedFood: []
+  });
 
-  // --- STATE ---
-  const [selectedIntensity, setSelectedIntensity] = useState('Medium');
-  const [selectedHue, setSelectedHue] = useState('Ruby');
-  const [clocks, setClocks] = useState({ sweetness: 0, body: 0, acidity: 0, tannins: 0 });
-  const [selectedChars, setSelectedChars] = useState<string[]>([]);
-  const [selectedTexture, setSelectedTexture] = useState<string[]>([]);
-  const [selectedAromas, setSelectedAromas] = useState<string[]>([]);
-  const [selectedFood, setSelectedFood] = useState<string[]>([]); // NY STATE FÖR MAT
-
-  // Ladda data
   useEffect(() => {
     const saved = localStorage.getItem('wine_draft');
     if (saved) {
-      const parsed = JSON.parse(saved);
-      if (parsed.clocks) setClocks(parsed.clocks);
-      if (parsed.selectedChars) setSelectedChars(parsed.selectedChars);
-      if (parsed.selectedTexture) setSelectedTexture(parsed.selectedTexture);
-      if (parsed.selectedAromas) setSelectedAromas(parsed.selectedAromas);
-      if (parsed.selectedFood) setSelectedFood(parsed.selectedFood);
-      if (parsed.intensity) setSelectedIntensity(parsed.intensity);
-      if (parsed.hue) setSelectedHue(parsed.hue);
+      try {
+        const parsed = JSON.parse(saved);
+        setFormData(prev => ({ ...prev, ...parsed }));
+      } catch (e) {
+        console.error("Failed to load draft", e);
+      }
     }
   }, []);
 
-  const colorText = useMemo(() => generateColorDescription(selectedIntensity, selectedHue), [selectedIntensity, selectedHue]);
-  const tasteText = useMemo(() => generateFullDescription(selectedChars, selectedTexture, selectedAromas), [selectedChars, selectedTexture, selectedAromas]);
+  const colorText = useMemo(() => 
+    generateColorDescription(formData.intensity, formData.hue), 
+    [formData.intensity, formData.hue]
+  );
 
-  const toggleSelection = (item: string, state: string[], setState: (val: string[]) => void) => {
-    setState(state.includes(item) ? state.filter(i => i !== item) : [...state, item]);
+  const tasteText = useMemo(() => 
+    generateFullDescription(formData.selectedChars, formData.selectedTexture, formData.selectedAromas), 
+    [formData.selectedChars, formData.selectedTexture, formData.selectedAromas]
+  );
+
+  const toggleMulti = (field: keyof FormData, value: string) => {
+    setFormData(prev => {
+      const currentList = prev[field] as string[];
+      const newList = currentList.includes(value)
+        ? currentList.filter((i: string) => i !== value)
+        : [...currentList, value];
+      return { ...prev, [field]: newList };
+    });
+  };
+
+  const saveToDraft = () => {
+    const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
+    localStorage.setItem('wine_draft', JSON.stringify({ 
+      ...saved, 
+      ...formData,
+      taste_profile: tasteText,
+      color_description: colorText
+    }));
   };
 
   const handleNext = () => {
-    const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
-    const currentData = { 
-      ...saved, 
-      intensity: selectedIntensity,
-      hue: selectedHue,
-      clocks,
-      selectedChars,
-      selectedTexture,
-      selectedAromas,
-      selectedFood, // SPARA MATEN HÄR
-      taste_profile: tasteText,
-      color_description: colorText 
-    };
-    localStorage.setItem('wine_draft', JSON.stringify(currentData));
+    saveToDraft();
     router.push('/add-product/producer/packaging');
   };
 
   const handleBack = () => {
+    saveToDraft();
     const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
     router.push(saved.wine_category === 'Sparkling wine' ? '/add-product/producer/fermentation-process' : '/add-product/producer/production-process');
   };
 
+  const flattenedAromas = useMemo(() => {
+    const flat: string[] = [];
+    Object.values(WINE_AROMAS).forEach((cat: any) => {
+      Object.values(cat).forEach((items: any) => {
+        flat.push(...items);
+      });
+    });
+    return Array.from(new Set(flat));
+  }, []);
+
   return (
-    <div className="max-w-5xl mx-auto p-6 md:p-12 pb-40 space-y-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      
-      {/* 1. VISUAL PROFILE */}
-      <section className="space-y-6 text-left">
-        <h2 className="text-[11px] font-bold uppercase tracking-[3px] text-[#4E001D]">1. Visual Profile</h2>
-        <div className="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm space-y-8">
-            {/* ... Intensitet & Nyans-knappar ... */}
-            <div className="flex flex-col gap-4">
-                <p className="text-[10px] font-bold text-gray-400 uppercase">Intensity</p>
-                <div className="flex flex-wrap gap-2">
-                    {COLOR_INTENSITY.map(i => (
-                        <button key={i} onClick={() => setSelectedIntensity(i)} className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${selectedIntensity === i ? 'bg-[#4E001D] text-white border-[#4E001D]' : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'}`}>{i}</button>
-                    ))}
-                </div>
-            </div>
-            <div className="flex flex-col gap-4">
-                <p className="text-[10px] font-bold text-gray-400 uppercase">Hue</p>
-                <div className="flex flex-wrap gap-2">
-                    {COLOR_HUES.map(h => (
-                        <button key={h} onClick={() => setSelectedHue(h)} className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${selectedHue === h ? 'bg-[#4E001D] text-white border-[#4E001D]' : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'}`}>{h}</button>
-                    ))}
-                </div>
-            </div>
-        </div>
-      </section>
-
-      {/* 2. TASTE STRUCTURE */}
-      <section className="space-y-6 text-left">
-        <h2 className="text-[11px] font-bold uppercase tracking-[3px] text-[#4E001D]">2. Taste Structure</h2>
-        <div className="bg-white p-10 rounded-[32px] border border-gray-100 shadow-sm">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {TASTE_CLOCKS.map(clock => (
-              <div key={clock.id} className="space-y-4">
-                <ProfileClock label={clock.label} value={clocks[clock.id as keyof typeof clocks]} />
-                <input type="range" min="0" max="12" step="1" value={clocks[clock.id as keyof typeof clocks]} onChange={(e) => setClocks({...clocks, [clock.id]: parseInt(e.target.value)})} className="w-full h-1.5 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-[#4E001D]" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. CHARACTER & TEXTURE (Förenklat här för rymd, behåll din fulla version) */}
-      <section className="space-y-6 text-left">
-        <h2 className="text-[11px] font-bold uppercase tracking-[3px] text-[#4E001D]">3. Character & Texture</h2>
-        <div className="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm space-y-10">
-            <div className="flex flex-wrap gap-2">
-                {WINE_CHARACTERISTICS.map(char => (
-                    <button key={char} onClick={() => toggleSelection(char, selectedChars, setSelectedChars)} className={`px-4 py-2 rounded-full text-xs font-bold border transition-all ${selectedChars.includes(char) ? 'bg-[#4E001D] text-white' : 'bg-white text-gray-400'}`}>{char}</button>
-                ))}
-            </div>
-        </div>
-      </section>
-
-      {/* 4. AROMA WHEEL (Behåll din fulla Object.entries mappning här) */}
-      <section className="space-y-6 text-left">
-        <h2 className="text-[11px] font-bold uppercase tracking-[3px] text-[#4E001D]">4. Aroma Wheel</h2>
-        <div className="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm space-y-12">
-            {Object.entries(WINE_AROMAS).map(([mainCat, subCats]) => (
-                <div key={mainCat} className="space-y-6">
-                    <h3 className="text-xs font-black text-[#4E001D] border-b border-gray-50 pb-2 uppercase">{mainCat}</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {Object.entries(subCats).map(([subTitle, items]) => (
-                            <div key={subTitle} className="space-y-3">
-                                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{subTitle}</p>
-                                <div className="flex flex-wrap gap-1.5">
-                                    {(items as string[]).map(aroma => (
-                                        <button key={aroma} onClick={() => toggleSelection(aroma, selectedAromas, setSelectedAromas)} className={`px-2.5 py-1 rounded-md text-[10px] font-bold border transition-all ${selectedAromas.includes(aroma) ? 'bg-amber-50 border-amber-200 text-[#4E001D]' : 'bg-gray-50 text-gray-400 border-transparent hover:border-gray-200'}`}>{aroma}</button>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ))}
-        </div>
-      </section>
-
-      {/* 5. FOOD PAIRINGS */}
-<section className="space-y-6 text-left">
-  <h2 className="text-[11px] font-bold uppercase tracking-[3px] text-[#4E001D]">5. Food Pairings</h2>
-  <div className="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm space-y-10">
-    
-    {/* Vi grupperar efter kategori för bättre överblick */}
-    {Array.from(new Set(FOOD_PAIRINGS.map(f => f.category))).map(cat => (
-      <div key={cat} className="space-y-4">
-        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[2px] border-b border-gray-50 pb-2">
-          {cat}
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {FOOD_PAIRINGS.filter(f => f.category === cat).map((food) => (
-            <button
-              key={food.id}
-              type="button" // Viktigt för att inte trigga form submit
-              onClick={() => toggleSelection(food.id, selectedFood, setSelectedFood)}
-              className={`flex flex-col items-center justify-center py-4 px-2 rounded-2xl border transition-all gap-2 ${
-                selectedFood.includes(food.id)
-                  ? 'bg-[#4E001D] border-[#4E001D] text-white'
-                  : 'bg-white border-gray-100 text-gray-500 hover:border-gray-300'
-              }`}
-            >
-              <span className="text-[10px] font-bold uppercase tracking-tighter text-center">
-                {food.label}
-              </span>
-            </button>
-          ))}
-        </div>
+    <div className="flex flex-col gap-16 pb-32 max-w-4xl mx-auto px-4 text-left animate-in fade-in duration-700">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-4xl font-light text-[#1A1A1A]">4. Sensory Profile</h1>
+        <p className="text-xs text-gray-400 uppercase tracking-widest">Visual and taste characteristics</p>
       </div>
-    ))}
-  </div>
-</section>
 
-      {/* FOOTER NAV & PREVIEW */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-100 p-6 shadow-2xl z-50">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <button onClick={handleBack} className="text-[11px] font-bold uppercase tracking-[3px] text-gray-400 hover:text-black">Previous</button>
-          <div className="flex-1 space-y-1 text-center md:text-left">
-            <p className="text-[10px] font-black uppercase text-[#4E001D] tracking-widest">Live Profile Preview</p>
-            <p className="text-xs text-gray-500 italic line-clamp-2">{tasteText || "Select characteristics and aromas..."}</p>
+      {/* 1. TASTE STRUCTURE (CLOCKS) */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-8 bg-[#FDFDFD] p-10 rounded-[40px] border border-gray-50 shadow-sm">
+        {TASTE_CLOCKS.map(clock => (
+          <div key={clock.id} className="flex flex-col items-center gap-4">
+            <ProfileClock label={clock.label} value={formData.clocks[clock.id as keyof typeof formData.clocks]} />
+            <input 
+              type="range" min="0" max="12" step="1"
+              value={formData.clocks[clock.id as keyof typeof formData.clocks]}
+              onChange={(e) => setFormData({
+                ...formData, 
+                clocks: {...formData.clocks, [clock.id]: parseInt(e.target.value)}
+              })}
+              className="w-full h-1 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-[#4E001D]" 
+            />
           </div>
-          <button onClick={handleNext} className="flex items-center gap-6 group">
-            <span className="text-[13px] font-bold uppercase tracking-[3px]">Next</span>
-            <div className="w-14 h-14 bg-[#4E001D] rounded-full flex items-center justify-center transition-transform group-hover:translate-x-2">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </div>
+        ))}
+      </section>
+
+      {/* 2. DROPDOWNS */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+        <DropdownSelect 
+          label="Color Intensity" 
+          value={formData.intensity} 
+          options={COLOR_INTENSITY} 
+          onSelect={(val: string) => setFormData({...formData, intensity: val})} 
+        />
+        <DropdownSelect 
+          label="Color Hue" 
+          value={formData.hue} 
+          options={COLOR_HUES} 
+          onSelect={(val: string) => setFormData({...formData, hue: val})} 
+        />
+        <MultiDropdownSelect 
+          label="Characteristics" 
+          selected={formData.selectedChars} 
+          options={WINE_CHARACTERISTICS} 
+          onToggle={(val: string) => toggleMulti('selectedChars', val)} 
+        />
+        <MultiDropdownSelect 
+          label="Texture & Mouthfeel" 
+          selected={formData.selectedTexture} 
+          options={WINE_TEXTURE} 
+          onToggle={(val: string) => toggleMulti('selectedTexture', val)} 
+        />
+      </div>
+
+      {/* 3. SEARCHABLES */}
+      <div className="flex flex-col gap-12">
+        <SearchableList 
+          label="Aromas" 
+          selected={formData.selectedAromas} 
+          options={flattenedAromas} 
+          onToggle={(val: string) => toggleMulti('selectedAromas', val)} 
+        />
+        <SearchableList 
+          label="Food Pairings" 
+          selected={formData.selectedFood} 
+          options={FOOD_PAIRINGS.map(f => ({ id: f.id, label: f.label }))} 
+          onToggle={(val: string) => toggleMulti('selectedFood', val)} 
+        />
+      </div>
+
+      <div className="flex justify-between pt-16 items-center border-t border-gray-100">
+        <button onClick={handleBack} className="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors">Previous</button>
+        <button onClick={handleNext} className="bg-[#4E001D] text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black transition-all flex items-center gap-4 shadow-lg">
+          Next
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// --- SUB-COMPONENTS ---
+
+function ProfileClock({ value, label }: { value: number; label: string }) {
+  const percentage = (value / 12) * 100;
+  const circumference = 2 * Math.PI * 20;
+  const offset = circumference - (percentage / 100) * circumference;
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <span className="text-[10px] font-bold uppercase tracking-widest text-gray-300">{label}</span>
+      <div className="relative w-16 h-16 flex items-center justify-center">
+        {/* rotate-[180deg] gör att den börjar vid klockan 9 */}
+        <svg className="w-full h-full rotate-[180deg]">
+          <circle cx="32" cy="32" r="20" stroke="#f3f4f6" strokeWidth="5" fill="transparent" />
+          <circle 
+            cx="32" cy="32" r="20" stroke="#4E001D" strokeWidth="5" 
+            fill="transparent" 
+            strokeDasharray={circumference} 
+            strokeDashoffset={offset} 
+            strokeLinecap="round" 
+            className="transition-all duration-500 ease-in-out"
+          />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ... DropdownSelect, MultiDropdownSelect och SearchableList förblir desamma som i föregående kodblock ...
+
+function DropdownSelect({ label, value, options, onSelect }: { label: string, value: string, options: string[], onSelect: (v: string) => void }) {
+  return (
+    <div className="flex flex-col gap-2 group">
+      <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-focus-within:text-[#4E001D] transition-colors">{label}</label>
+      <select 
+        className="border-b border-gray-200 py-2 bg-transparent outline-none focus:border-[#4E001D] text-sm cursor-pointer appearance-none"
+        value={value}
+        onChange={(e) => onSelect(e.target.value)}
+      >
+        <option value="">Select {label.toLowerCase()}</option>
+        {options.map((o) => <option key={o} value={o}>{o}</option>)}
+      </select>
+    </div>
+  );
+}
+
+function MultiDropdownSelect({ label, selected, options, onToggle }: { label: string, selected: string[], options: string[], onToggle: (v: string) => void }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{label}</label>
+      <select 
+        className="border-b border-gray-200 py-2 bg-transparent outline-none focus:border-[#4E001D] text-sm cursor-pointer appearance-none"
+        onChange={(e) => { if(e.target.value) onToggle(e.target.value); e.target.value = ""; }}
+      >
+        <option value="">Add {label.toLowerCase()}...</option>
+        {options.map((o) => !selected.includes(o) && <option key={o} value={o}>{o}</option>)}
+      </select>
+      <div className="flex flex-wrap gap-2 mt-3">
+        {selected.map((s) => (
+          <button key={s} type="button" onClick={() => onToggle(s)} className="bg-[#4E001D] text-white px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-tighter flex items-center gap-2 hover:bg-red-800 transition-colors">
+            {s} <span>×</span>
           </button>
-        </div>
+        ))}
       </div>
+    </div>
+  );
+}
 
+function SearchableList({ label, selected, options, onToggle }: { label: string, selected: string[], options: (string | SearchOption)[], onToggle: (v: string) => void }) {
+  const [query, setQuery] = useState('');
+  const filtered = options.filter(o => {
+    const s = typeof o === 'string' ? o : o.label;
+    return s.toLowerCase().includes(query.toLowerCase());
+  }).slice(0, 8);
+
+  return (
+    <div className="flex flex-col gap-4 bg-[#F9F9F9] p-8 rounded-[32px] border border-gray-100">
+      <label className="text-[10px] font-bold uppercase tracking-widest text-[#4E001D]">{label}</label>
+      <input 
+        type="text" placeholder="Type to search..." value={query} onChange={e => setQuery(e.target.value)}
+        className="bg-white border border-gray-100 rounded-xl p-4 text-sm outline-none focus:border-[#4E001D] transition-all shadow-sm"
+      />
+      <div className="flex flex-wrap gap-2">
+        {selected.map(s => {
+          const item = options.find(o => (typeof o === 'string' ? o : o.id) === s);
+          const labelText = typeof item === 'string' ? item : item?.label;
+          return (
+            <button key={s} type="button" onClick={() => onToggle(s)} className="bg-[#4E001D] text-white px-4 py-2 rounded-full text-[10px] font-bold flex items-center gap-2">
+              {labelText} ×
+            </button>
+          );
+        })}
+      </div>
+      {query && (
+        <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100 mt-2">
+          {filtered.map(o => {
+            const val = typeof o === 'string' ? o : o.id;
+            const lab = typeof o === 'string' ? o : o.label;
+            if (selected.includes(val)) return null;
+            return (
+              <button key={val} type="button" onClick={() => { onToggle(val); setQuery(''); }} className="bg-white border border-gray-200 px-4 py-2 rounded-xl text-[10px] font-bold text-gray-500 hover:border-[#4E001D] hover:text-[#4E001D] transition-all">
+                + {lab}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -5,204 +5,257 @@ import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 
 export default function GeneralInfoPage() {
-  const router = useRouter();
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+    const router = useRouter();
+    const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
 
-  // --- STATE ---
-  const [loading, setLoading] = useState(true);
-  const [availableBrands, setAvailableBrands] = useState<string[]>([]);
-  const [myCertificates, setMyCertificates] = useState<any[]>([]);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+    // --- STATE ---
+    const [loading, setLoading] = useState(true);
+    const [isUploading, setIsUploading] = useState(false);
+    const [availableBrands, setAvailableBrands] = useState<string[]>([]);
+    const [myCertificates, setMyCertificates] = useState<any[]>([]);
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const [formData, setFormData] = useState({
-    wine_name: '',
-    gtin: '',
-    brand_name: '',
-    vintage: '', 
-    selected_certs: [] as string[],
-    image_file: null as File | null
-  });
+    const [formData, setFormData] = useState({
+        wine_name: '',
+        gtin: '',
+        brand_name: '',
+        vintage: '',
+        selected_certs: [] as string[],
+        image_file: null as File | null,
+        product_image_url: '' as string // Store URL here
+    });
 
-  // --- 1. HÄMTA DATA ---
-  useEffect(() => {
-    async function loadProducerData() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
+    // --- 1. HÄMTA DATA ---
+    useEffect(() => {
+        async function loadProducerData() {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) return;
 
-        const { data: producer } = await supabase
-          .from('producer')
-          .select(`
+                const { data: producer } = await supabase
+                    .from('producer')
+                    .select(`
             brands, 
             owner_certificate_instance (
               certificate_id,
               certificate (certificate_code)
             )
           `)
-          .eq('user_id', user.id)
-          .single();
+                    .eq('user_id', user.id)
+                    .single();
 
-        if (producer) {
-          setAvailableBrands(producer.brands || []);
-          const certs = producer.owner_certificate_instance?.map((inst: any) => 
-            inst.certificate.certificate_code
-          ) || [];
-          setMyCertificates(certs);
+                if (producer) {
+                    setAvailableBrands(producer.brands || []);
+                    const certs = producer.owner_certificate_instance?.map((inst: any) =>
+                        inst.certificate.certificate_code
+                    ) || [];
+                    setMyCertificates(certs);
+                }
+
+                const saved = localStorage.getItem('wine_draft');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    setFormData(prev => ({ ...prev, ...parsed }));
+                    if (parsed.product_image_url) {
+                        setImageUrl(parsed.product_image_url);
+                    }
+                }
+            } catch (err) {
+                console.error("Kunde inte ladda data:", err);
+            } finally {
+                setLoading(false);
+            }
         }
+        loadProducerData();
+    }, []);
 
-        const saved = localStorage.getItem('wine_draft');
-        if (saved) {
-          setFormData(prev => ({ ...prev, ...JSON.parse(saved) }));
+    // --- 2. HANDLERS ---
+
+    const handleImageUpload = async (file: File) => {
+        try {
+            setIsUploading(true);
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+            const filePath = `${fileName}`;
+
+            // Assuming 'product-images' bucket exists. If not, this throws error.
+            const { error: uploadError } = await supabase.storage
+                .from('product-images')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('product-images')
+                .getPublicUrl(filePath);
+
+            setFormData(prev => ({
+                ...prev,
+                image_file: file,
+                product_image_url: publicUrl
+            }));
+            setImageUrl(publicUrl);
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            alert('Failed to upload image. Ensure "product-images" bucket exists in Supabase.');
+        } finally {
+            setIsUploading(false);
         }
-      } catch (err) {
-        console.error("Kunde inte ladda data:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadProducerData();
-  }, []);
+    };
 
-  // --- 2. HANDLERS ---
-  const handleNext = () => {
-    const { image_file, ...dataToSave } = formData;
-    localStorage.setItem('wine_draft', JSON.stringify(dataToSave));
-    router.push('/add-product/producer/product-info');
-  };
+    const handleNext = () => {
+        // We save everything except raw File object to localStorage
+        const { image_file, ...dataToSave } = formData;
+        localStorage.setItem('wine_draft', JSON.stringify(dataToSave));
+        router.push('/add-product/producer/product-info');
+    };
 
-  if (loading) return <div className="p-20 text-[#4E001D] animate-pulse uppercase tracking-widest text-xs font-bold">Loading profile...</div>;
+    if (loading) return <div className="p-20 text-[#4E001D] animate-pulse uppercase tracking-widest text-xs font-bold">Loading profile...</div>;
 
-  return (
-    <div className="flex flex-col gap-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <h1 className="text-3xl font-medium tracking-tight text-[#1A1A1A]">
-        1. General Information
-      </h1>
+    return (
+        <div className="flex flex-col gap-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h1 className="text-3xl font-medium tracking-tight text-[#1A1A1A]">
+                1. General Information
+            </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-        {/* VÄNSTER: BILDUPPLADDNING */}
-        <div className="flex flex-col gap-4">
-          <label className="text-[10px] font-bold uppercase tracking-[2px] text-gray-400">Wine Bottle Image</label>
-          <div 
-            className="aspect-[3/4] w-full max-w-[320px] bg-[#FDFDFD] border border-gray-100 rounded-[32px] flex items-center justify-center overflow-hidden relative group cursor-pointer shadow-sm hover:shadow-md transition-all"
-            onClick={() => document.getElementById('file-upload')?.click()}
-          >
-            {imageUrl ? (
-              <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
-            ) : (
-              <div className="flex flex-col items-center gap-4 text-gray-300 group-hover:text-[#4E001D] transition-colors text-center p-6">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-                <span className="text-[10px] font-bold uppercase tracking-widest leading-relaxed">Click to upload bottle image</span>
-              </div>
-            )}
-          </div>
-          <input id="file-upload" type="file" className="hidden" accept="image/*" onChange={(e) => {
-             const file = e.target.files?.[0];
-             if (file) {
-               setFormData({...formData, image_file: file});
-               setImageUrl(URL.createObjectURL(file));
-             }
-          }} />
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+                {/* VÄNSTER: BILDUPPLADDNING */}
+                <div className="flex flex-col gap-4">
+                    <label className="text-[10px] font-bold uppercase tracking-[2px] text-gray-400">Wine Bottle Image</label>
+                    <div
+                        className="aspect-[3/4] w-full max-w-[320px] bg-[#FDFDFD] border border-gray-100 rounded-[32px] flex items-center justify-center overflow-hidden relative group cursor-pointer shadow-sm hover:shadow-md transition-all"
+                        onClick={() => {
+                            if (!isUploading) document.getElementById('file-upload')?.click();
+                        }}
+                    >
+                        {isUploading ? (
+                            <div className="flex flex-col items-center gap-2">
+                                <div className="w-6 h-6 border-2 border-[#4E001D] border-t-transparent rounded-full animate-spin"></div>
+                                <span className="text-[9px] uppercase tracking-widest text-[#4E001D]">Uploading...</span>
+                            </div>
+                        ) : imageUrl ? (
+                            <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                        ) : (
+                            <div className="flex flex-col items-center gap-4 text-gray-300 group-hover:text-[#4E001D] transition-colors text-center p-6">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                                    <path d="M12 5v14M5 12h14" />
+                                </svg>
+                                <span className="text-[10px] font-bold uppercase tracking-widest leading-relaxed">Click to upload bottle image</span>
+                            </div>
+                        )}
+                    </div>
+                    <input
+                        id="file-upload"
+                        type="file"
+                        className="hidden"
+                        accept="image/*"
+                        disabled={isUploading}
+                        onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                                handleImageUpload(file);
+                            }
+                        }}
+                    />
+                </div>
 
-        {/* HÖGER: FORMULÄR */}
-        <div className="flex flex-col gap-10">
-          <div className="flex flex-col gap-2">
-            <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Brand Name</label>
-            <select 
-              className="border-b border-gray-200 py-3 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer"
-              value={formData.brand_name}
-              onChange={(e) => setFormData({...formData, brand_name: e.target.value})}
-            >
-              <option value="">Select your brand</option>
-              {availableBrands.map(brand => (
-                <option key={brand} value={brand}>{brand}</option>
-              ))}
-            </select>
-          </div>
+                {/* HÖGER: FORMULÄR */}
+                <div className="flex flex-col gap-10">
+                    <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Brand Name</label>
+                        <select
+                            className="border-b border-gray-200 py-3 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer"
+                            value={formData.brand_name}
+                            onChange={(e) => setFormData({ ...formData, brand_name: e.target.value })}
+                        >
+                            <option value="">Select your brand</option>
+                            {availableBrands.map(brand => (
+                                <option key={brand} value={brand}>{brand}</option>
+                            ))}
+                        </select>
+                    </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Wine Name</label>
-            <input 
-              placeholder="e.g. Heritage Reserve"
-              className="border-b border-gray-200 py-3 outline-none focus:border-[#4E001D] transition-colors"
-              value={formData.wine_name}
-              onChange={(e) => setFormData({...formData, wine_name: e.target.value})}
-            />
-          </div>
+                    <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Wine Name</label>
+                        <input
+                            placeholder="e.g. Heritage Reserve"
+                            className="border-b border-gray-200 py-3 outline-none focus:border-[#4E001D] transition-colors"
+                            value={formData.wine_name}
+                            onChange={(e) => setFormData({ ...formData, wine_name: e.target.value })}
+                        />
+                    </div>
 
-          <div className="grid grid-cols-2 gap-10">
-            <div className="flex flex-col gap-2">
-              <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">GTIN</label>
-              <input 
-                placeholder="73000..."
-                className="border-b border-gray-200 py-3 outline-none focus:border-[#4E001D] transition-colors"
-                value={formData.gtin}
-                onChange={(e) => setFormData({...formData, gtin: e.target.value})}
-              />
+                    <div className="grid grid-cols-2 gap-10">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">GTIN</label>
+                            <input
+                                placeholder="73000..."
+                                className="border-b border-gray-200 py-3 outline-none focus:border-[#4E001D] transition-colors"
+                                value={formData.gtin}
+                                onChange={(e) => setFormData({ ...formData, gtin: e.target.value })}
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Vintage</label>
+                            <input
+                                type="number"
+                                placeholder="2024"
+                                className="border-b border-gray-200 py-3 outline-none focus:border-[#4E001D] transition-colors"
+                                value={formData.vintage}
+                                onChange={(e) => setFormData({ ...formData, vintage: e.target.value })}
+                            />
+                        </div>
+                    </div>
+
+                    {/* CERTIFIKAT */}
+                    <div className="flex flex-col gap-4">
+                        <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Certificates</label>
+                        <div className="flex flex-wrap gap-2">
+                            {myCertificates.length > 0 ? myCertificates.map(cert => (
+                                <button
+                                    key={cert}
+                                    onClick={() => {
+                                        const active = formData.selected_certs.includes(cert);
+                                        setFormData({
+                                            ...formData,
+                                            selected_certs: active
+                                                ? formData.selected_certs.filter(c => c !== cert)
+                                                : [...formData.selected_certs, cert]
+                                        });
+                                    }}
+                                    className={`px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest transition-all ${formData.selected_certs.includes(cert)
+                                            ? 'bg-[#4E001D] text-white border-[#4E001D]'
+                                            : 'bg-white text-gray-400 border border-gray-200 hover:border-gray-400'
+                                        }`}
+                                >
+                                    {cert}
+                                </button>
+                            )) : (
+                                <p className="text-[11px] text-gray-400 italic">No certificates found in your profile.</p>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Vintage</label>
-              <input 
-                type="number"
-                placeholder="2024"
-                className="border-b border-gray-200 py-3 outline-none focus:border-[#4E001D] transition-colors"
-                value={formData.vintage}
-                onChange={(e) => setFormData({...formData, vintage: e.target.value})}
-              />
-            </div>
-          </div>
 
-          {/* CERTIFIKAT */}
-          <div className="flex flex-col gap-4">
-            <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Certificates</label>
-            <div className="flex flex-wrap gap-2">
-              {myCertificates.length > 0 ? myCertificates.map(cert => (
+            {/* FOOTER NAV */}
+            <div className="flex justify-end pt-12 border-t border-gray-50">
                 <button
-                  key={cert}
-                  onClick={() => {
-                    const active = formData.selected_certs.includes(cert);
-                    setFormData({
-                      ...formData,
-                      selected_certs: active 
-                        ? formData.selected_certs.filter(c => c !== cert)
-                        : [...formData.selected_certs, cert]
-                    });
-                  }}
-                  className={`px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest transition-all ${
-                    formData.selected_certs.includes(cert)
-                      ? 'bg-[#4E001D] text-white border-[#4E001D]'
-                      : 'bg-white text-gray-400 border border-gray-200 hover:border-gray-400'
-                  }`}
+                    onClick={handleNext}
+                    disabled={isUploading}
+                    className="flex items-center gap-6 group cursor-pointer disabled:opacity-50"
                 >
-                  {cert}
+                    <span className="text-[13px] font-bold uppercase tracking-[3px]">Next</span>
+                    <div className="w-14 h-14 bg-[#4E001D] rounded-full flex items-center justify-center transition-transform group-hover:translate-x-2">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
                 </button>
-              )) : (
-                <p className="text-[11px] text-gray-400 italic">No certificates found in your profile.</p>
-              )}
             </div>
-          </div>
         </div>
-      </div>
-
-      {/* FOOTER NAV */}
-      <div className="flex justify-end pt-12 border-t border-gray-50">
-        <button 
-          onClick={handleNext}
-          className="flex items-center gap-6 group cursor-pointer"
-        >
-          <span className="text-[13px] font-bold uppercase tracking-[3px]">Next</span>
-          <div className="w-14 h-14 bg-[#4E001D] rounded-full flex items-center justify-center transition-transform group-hover:translate-x-2">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </div>
-        </button>
-      </div>
-    </div>
-  );
+    );
 }

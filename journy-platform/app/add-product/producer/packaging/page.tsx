@@ -52,18 +52,14 @@ export default function PackagingPage() {
     }));
   };
 
-  // 3. Smart Back-knapp som kollar vintyp
+  
   const handleBack = () => {
     // Spara det vi valt i Packaging hittills
     const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
     localStorage.setItem('wine_draft', JSON.stringify({ ...saved, ...formData }));
 
-    // Navigera bakåt baserat på kategori
-    if (formData.wine_category === 'Sparkling wine') {
-      router.push('/add-product/producer/fermentation-process');
-    } else {
-      router.push('/add-product/producer/production-process');
-    }
+        router.push('/add-product/producer/sensory-profile'); 
+
   };
 
   // 4. Hantera Next
@@ -72,11 +68,12 @@ export default function PackagingPage() {
     localStorage.setItem('wine_draft', JSON.stringify({ ...saved, ...formData }));
     router.push('/add-product/producer/generate-qr-code');
   };
+   
 
   return (
     <div className="flex flex-col gap-12 pb-20 max-w-4xl mx-auto px-4">
       <div className="flex flex-col gap-2 text-left">
-        <h1 className="text-4xl font-light text-[#1A1A1A]">4. Packaging</h1>
+        <h1 className="text-4xl font-light text-[#1A1A1A]">5. Packaging</h1>
         <p className="text-xs text-gray-400 uppercase tracking-widest">Environmental Selection</p>
       </div>
 
