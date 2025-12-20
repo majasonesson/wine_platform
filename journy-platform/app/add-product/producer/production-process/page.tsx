@@ -48,7 +48,7 @@ export default function ProductionProcessPage() {
     if (updatedDraft.wine_category === 'Sparkling wine') {
       router.push('/add-product/producer/fermentation-process');
     } else {
-      router.push('/add-product/producer/packaging');
+      router.push('/add-product/producer/sensory-profile');
     }
   };
 

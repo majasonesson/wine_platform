@@ -128,6 +128,22 @@ export const WINE_AROMAS = {
   }
 };
 
+export const TASTE_CHARACTERISTICS = [
+  'Fruity', 'Fresh', 'Full-bodied', 'Spicy', 'Floral', 
+  'Developed', 'Complex', 'Oak-aged', 'Crisp', 'Elegant',
+  'Rich', 'Earthy', 'Mineral-driven', 'Toasty'
+];
+
+// Karaktärsdrag (Den första delen av beskrivningen)
+export const WINE_CHARACTERISTICS = [
+  'Nuanced', 'Fruity', 'Very sweet', 'Fresh', 'Spicy', 'Developed', 
+  'Complex', 'Crisp', 'Elegant', 'Rich', 'Aromatic', 'Earthy'
+];
+
+// Munkänsla/Textur (Valbart för att fördjupa smakbeskrivningen)
+export const WINE_TEXTURE = [
+  'Full-bodied', 'Light-bodied', 'Tannic', 'Smooth', 'Velvety', 'Crisp'
+];
 export const FOOD_PAIRINGS = [
   // MEAT
   { id: 'red_meat', label: 'Red Meat', category: 'Meat' },
@@ -159,25 +175,37 @@ export const FOOD_PAIRINGS = [
   { id: 'dessert', label: 'Fruit Desserts', category: 'Occasion' }
 ];
 
-export const generateAromaText = (selectedAromas: string[]): string => {
-  if (selectedAromas.length === 0) return "";
-  
-  const list = selectedAromas.length > 1 
-    ? `${selectedAromas.slice(0, -1).join(', ').toLowerCase()} and ${selectedAromas.slice(-1)[0].toLowerCase()}`
-    : selectedAromas[0].toLowerCase();
-    
-  return `Fruity aroma with notes of ${list}.`;
-};
+export const TASTE_CLOCKS = [
+  { id: 'sweetness', label: 'Sweetness', min: 0, max: 12 },
+  { id: 'body', label: 'Body', min: 0, max: 12 },
+  { id: 'acidity', label: 'Acidity', min: 0, max: 12 },
+  { id: 'tannins', label: 'Tannins', min: 0, max: 12 } // Endast för rött
+];
 
-export const generateTasteProfile = (selectedAromas: string[]): string => {
-  if (selectedAromas.length === 0) return "";
-  
-  const list = selectedAromas.length > 1 
-    ? `${selectedAromas.slice(0, -1).join(', ').toLowerCase()} and ${selectedAromas.slice(-1)[0].toLowerCase()}`
-    : selectedAromas[0].toLowerCase();
-    
-  // Här lägger vi till "fresh taste" som du ville ha
-  return `Fruity, fresh taste with notes of ${list}.`;
+export const generateFullDescription = (
+  characteristics: string[], // Från WINE_CHARACTERISTICS
+  texture: string[],         // Från WINE_TEXTURE
+  aromas: string[]           // Från WINE_AROMAS
+): string => {
+  if (aromas.length === 0) return "";
+
+  // 1. Slå ihop Karaktär och Textur (t.ex. "Nuanced, fruity and full-bodied")
+  const combinedBase = [...characteristics, ...texture];
+  const firstPart = combinedBase.length > 1 
+    ? `${combinedBase.slice(0, -1).join(', ')} and ${combinedBase.slice(-1)[0].toLowerCase()}`
+    : combinedBase[0] || "";
+
+  // 2. Formatera aromerna (t.ex. "apricot, honey and saffron")
+  const aromaPart = aromas.length > 1 
+    ? `${aromas.slice(0, -1).join(', ').toLowerCase()} and ${aromas.slice(-1)[0].toLowerCase()}`
+    : aromas[0].toLowerCase();
+
+  // 3. Slå ihop till Systembolaget-stil
+  return `${firstPart} taste with notes of ${aromaPart}.`;
+};
+export const generateColorDescription = (intensity: string, hue: string): string => {
+  if (!intensity || !hue) return "";
+  return `${intensity} ${hue.toLowerCase()} color.`;
 };
 
 export const BOTTLE_MATERIALS = [

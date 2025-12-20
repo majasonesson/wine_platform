@@ -37,7 +37,7 @@ export default function FermentationProcessPage() {
 
   const handleNext = () => {
     saveToDraft();
-    router.push('/add-product/producer/packaging');
+    router.push('/add-product/producer/sensory-profile');
   };
 
   const handleBack = () => {
