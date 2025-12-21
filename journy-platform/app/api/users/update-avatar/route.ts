@@ -34,11 +34,15 @@ export async function POST(request: Request) {
       .eq('id', id);
   } 
   else if (type === 'wine') {
-    result = await supabase
-      .from('product_wine')
-      .update({ product_image_url: blob.url })
-      .eq('gtin', id);
-  }
+  // Vi använder upsert så att raden skapas även om det är ett nytt vin
+  result = await supabase
+    .from('product_wine')
+    .upsert({ 
+      gtin: id, 
+      product_image_url: blob.url 
+      // OBS: Om vinet är nytt kommer resten av fälten vara tomma tills du trycker "Finish"
+    }, { onConflict: 'gtin' });
+}
   // ... inuti din POST function i route.ts ...
 
   else if (type === 'certificate') {

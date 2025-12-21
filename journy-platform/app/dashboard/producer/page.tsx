@@ -1,91 +1,75 @@
-'use client';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+import Link from 'next/link';
+import WineCard from './WineCard';
 
-import { useState, useEffect } from 'react';
-import { createBrowserClient } from '@supabase/ssr';
-import { useRouter } from 'next/navigation';
-
-export default function ProducerDashboard() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  const supabase = createBrowserClient(
+export default async function WinesPage() {
+  const cookieStore = await cookies();
+  
+  const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() { return cookieStore.getAll(); },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {}
+        },
+      },
+    }
   );
 
-  useEffect(() => {
-    async function loadData() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.push('/login');
-        return;
-      }
-      setUser(user);
-      setLoading(false);
-    }
-    loadData();
-  }, [supabase, router]);
+  const { data: { user } } = await supabase.auth.getUser();
 
-  const handleAddProduct = () => {
-    router.push('/add-product/producer/general-info');
-  };
+  const { data: producer } = await supabase
+    .from('producer')
+    .select('id, company_name')
+    .eq('user_id', user?.id)
+    .single();
 
-  if (loading) return null;
+  const { data: wines, error: wineError } = await supabase
+    .from('product_wine')
+    .select('gtin, wine_name, product_image_url, vintage')
+    .eq('producer_id', producer?.id)
+    .order('wine_name', { ascending: true });
 
   return (
-    <div className="bg-white min-h-screen font-sans p-10 px-20 relative">
+    <div className="min-h-screen bg-[#FDFDFD] p-10">
       
-      {/* Header */}
-      <header className="flex justify-between items-center mb-32">
-        <div className="text-[32px] font-medium tracking-tight">Journy</div>
-        
-        <div className="flex items-center gap-10">
-          <button className="text-[16px] hover:opacity-50">Connect</button>
-          <button className="text-[16px] hover:opacity-50">Home</button>
-          {/* Profile Icon - Bare and simple as in Figma */}
-          <div className="w-12 h-12 bg-[#D9D9D9] rounded-full overflow-hidden flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-4xl">
-        <h1 className="text-[18px] text-gray-500 mb-12 lowercase">
-          Welcome {user?.user_metadata?.first_name || 'maja'}!
+      {/* 1. WELCOME SECTION (Från din skiss) */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-light text-[#1A1A1A] mb-6">
+          Welcome {producer?.company_name || 'Producer'}!
         </h1>
 
-        <div className="flex flex-col items-start gap-4">
-          {/* Add Product Button */}
-          <button
-            onClick={handleAddProduct}
-            className="flex items-center gap-3 border border-gray-200 rounded-full px-6 py-2 hover:bg-gray-50 transition-all group"
-          >
-            <span className="text-[14px] font-medium tracking-widest text-gray-400 uppercase">
-              Add Product
-            </span>
-            <div className="w-6 h-6 bg-[#4E001D] rounded-full flex items-center justify-center text-white text-lg">
-              +
-            </div>
+        {/* DIN KNAPP ÄR TILLBAKA HÄR */}
+        <Link href="/add-product/producer/general-info">
+          <button className="flex items-center gap-3 border border-gray-200 px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">
+            Add Product <span className="bg-[#4E001D] text-white w-5 h-5 rounded-full flex items-center justify-center text-lg">+</span>
           </button>
-        </div>
+        </Link>
+      </div>
 
-        {/* Placeholder Text */}
-        <div className="mt-[250px] w-full flex justify-center">
-          <p className="text-[14px] text-gray-300 font-light">
-            Press on "Add Product" to add a new product
-          </p>
-        </div>
-      </main>
+      <hr className="border-gray-100 mb-10" />
 
-      {/* Footer */}
-      <footer className="absolute bottom-10 left-0 w-full text-center">
-        <p className="text-[12px] text-gray-300">@Journy2025 all rights reserved</p>
-      </footer>
+      {/* 2. WINE GRID SECTION */}
+      {wineError ? (
+        <div className="text-red-500">Error loading wines: {wineError.message}</div>
+      ) : wines && wines.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {wines.map((wine) => (
+            <WineCard key={wine.gtin} wine={wine} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-gray-100 rounded-3xl">
+          <p className="text-gray-400">No products available</p>
+        </div>
+      )}
     </div>
   );
 }
