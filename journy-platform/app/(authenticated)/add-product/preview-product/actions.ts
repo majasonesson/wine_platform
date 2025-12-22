@@ -60,7 +60,8 @@ export async function publishWineAction(wineData: any) {
             gtin: savedGtin,
             wine_category: wineData.wine_category || 'Still wine',
             wine_type: wineData.wine_type || 'Red',
-            bottle_volume_ml: volume
+            bottle_volume_ml: volume,
+            variety_gpc_code: wineData.variety_gpc_code || null // Added GS1 code
         });
 
         // 4. WINE TECHNICAL DATA
@@ -186,7 +187,8 @@ export async function publishWineAction(wineData: any) {
             const grapeInsert = wineData.grapes.map((g: any) => ({
                 gtin: savedGtin,
                 grape_variety: g.grape_name,
-                percentage: g.percentage
+                percentage: g.percentage,
+                attribute_number: g.attribute_number // Added granular GS1 number
             }));
             await supabase.from('wine_grape').insert(grapeInsert);
         }

@@ -264,6 +264,7 @@ export default function SensoryProfilePage() {
                     options={flattenedAromas}
                     onToggle={(val: string) => toggleMulti('selectedAromas', val)}
                 />
+                
                 <SearchableList
                     label="Food Pairings"
                     selected={formData.selectedFood}

@@ -117,6 +117,20 @@ export default async function GS1DigitalLinkPage({
                         </div>
                     </div>
 
+                    {/* Grape Varieties */}
+                    {wine.grape_varieties && wine.grape_varieties.length > 0 && (
+                        <div className="px-8 mb-16">
+                            <h4 className="text-[12px] font-black text-[#1A1A1A] mb-4 uppercase tracking-widest">Grape Varieties</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {wine.grape_varieties.map((g: string) => (
+                                    <div key={g} className="bg-white px-4 py-2 rounded-xl border border-gray-100 text-[11px] font-bold text-gray-600 shadow-sm">
+                                        {g}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     {/* Nutrition Declaration */}
                     <div className="px-8 mb-16">
                         <h4 className="text-[12px] font-black text-[#1A1A1A] mb-4 uppercase tracking-widest">Nutrition Declaration</h4>
