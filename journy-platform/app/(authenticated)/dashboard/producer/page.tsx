@@ -33,7 +33,7 @@ export default async function WinesPage() {
         .single();
 
     const { data: wines, error: wineError } = await supabase
-        .from('product_wine')
+        .from('wine')
         .select('gtin, wine_name, product_image_url, vintage')
         .eq('producer_id', producer?.id)
         .order('wine_name', { ascending: true });
@@ -49,7 +49,7 @@ export default async function WinesPage() {
 
                 {/* DIN KNAPP ÄR TILLBAKA HÄR */}
                 <div className="flex gap-4">
-                    <Link href="/add-product/producer/general-info">
+                    <Link href="/add-product/general-info">
                         <button className="flex items-center gap-3 border border-gray-200 px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">
                             Add Product <span className="bg-[#4E001D] text-white w-5 h-5 rounded-full flex items-center justify-center text-lg">+</span>
                         </button>

@@ -56,7 +56,7 @@ export async function POST(request: Request) {
         // --- WINE ---
         else if (type === 'wine') {
             result = await adminClient
-                .from('product_wine')
+                .from('wine')
                 .upsert({
                     gtin: id,
                     product_image_url: blob.url

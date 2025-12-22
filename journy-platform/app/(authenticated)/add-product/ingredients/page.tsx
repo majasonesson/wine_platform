@@ -23,7 +23,9 @@ export default function IngredientsPage() {
         expiry_date: '',
         selected_ingredients: [] as string[],
         energy_kcal_per_100ml: 0,
-        energy_kj_per_100ml: 0
+        energy_kj_per_100ml: 0,
+        energy_carbs: 0,
+        energy_carbs_of_sugar: 0
     });
 
     useEffect(() => {
@@ -94,16 +96,24 @@ export default function IngredientsPage() {
         const totalKcal = Math.round(alcoholEnergy + sugarEnergy + acidEnergy);
         const totalKj = Math.round(totalKcal * 4.184);
 
-        // Only update if changed to avoid loop, but primitives in spread checks might be fine.
-        // Better to just set them in formData on change? 
-        // Effect dependent on dependencies is safer.
+        // EU Nutrition: Carbs and Sugars are typically sugar/10 for 100ml
+        const carbs = parseFloat((sugar / 10).toFixed(1));
+        const carbsOfSugar = parseFloat((sugar / 10).toFixed(1));
 
         setFormData(prev => {
-            if (prev.energy_kcal_per_100ml === totalKcal && prev.energy_kj_per_100ml === totalKj) return prev;
+            if (
+                prev.energy_kcal_per_100ml === totalKcal &&
+                prev.energy_kj_per_100ml === totalKj &&
+                prev.energy_carbs === carbs &&
+                prev.energy_carbs_of_sugar === carbsOfSugar
+            ) return prev;
+
             return {
                 ...prev,
                 energy_kcal_per_100ml: totalKcal,
-                energy_kj_per_100ml: totalKj
+                energy_kj_per_100ml: totalKj,
+                energy_carbs: carbs,
+                energy_carbs_of_sugar: carbsOfSugar
             };
         });
 
@@ -129,8 +139,32 @@ export default function IngredientsPage() {
         router.push('/add-product/product-info');
     };
 
-    const filteredIngredients = dbIngredients.filter(ing =>
-        ing.code.toLowerCase().includes(searchQuery.toLowerCase())
+    // Exact Figma-based Order
+    const figmaOrder = [
+        'GRAPES', 'SUCROSE', 'CARAMEL', 'ALEPPO_PINE_RESIN', 'GRAPE_MUST',
+        'CONCENTRATED_GRAPE_MUST', 'RECTIFIED_CONCENTRATED_GRAPE_MUST',
+        'FILLING_DOSAGE', 'SHIPPING_DOSAGE',
+        'ARGON_E938', 'NITROGEN_E941', 'CARBON_DIOXIDE_E290', 'PROTECTIVE_ATMOSPHERE',
+        'TARTARIC_ACID_E334', 'MALIC_ACID_E296', 'LACTIC_ACID_E270', 'CALCIUM_SULPHATE_E516', 'CITRIC_ACID_E330_ACIDITY',
+        'CITRIC_ACID_E330_STABILISING', 'METATARTARIC_ACID_E353', 'GUM_ARABIC_E414', 'YEAST_MANNOPROTEINS', 'CARBOXYMETHYLCELLULOSE_E466',
+        'POTASSIUM_SORBATE_E202', 'LYSOZYME_E1105', 'L_ASCORBIC_ACID_E300', 'DMDC',
+        'SULPHITES', 'SULFUR_DIOXIDE', 'POTASSIUM_BISULFITE', 'POTASSIUM_METABISULFITE',
+        'EGG', 'MILK', 'BICARBONATE'
+    ];
+
+    // Create a map for O(1) lookup
+    const orderIndexMap = figmaOrder.reduce((acc, code, idx) => ({ ...acc, [code]: idx }), {} as Record<string, number>);
+
+    // Derived sorted ingredients based on Figma index
+    const sortedIngredients = [...dbIngredients].sort((a, b) => {
+        const indexA = orderIndexMap[a.code] ?? 999;
+        const indexB = orderIndexMap[b.code] ?? 999;
+        return indexA - indexB;
+    });
+
+    const filteredIngredients = sortedIngredients.filter(ing =>
+        ing.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (ing.name_en && ing.name_en.toLowerCase().includes(searchQuery.toLowerCase()))
     );
 
     if (loading) return <div className="p-20 animate-pulse uppercase text-[10px] font-bold tracking-[3px]">Loading...</div>;
@@ -166,7 +200,7 @@ export default function IngredientsPage() {
                                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300'
                                     }`}
                             >
-                                {ing.name_sv || ing.name_en || ing.code} {ing.is_allergen && '⚠️'}
+                                {ing.name_en || ing.code}
                             </button>
                         ))}
                     </div>

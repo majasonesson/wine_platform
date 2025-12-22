@@ -66,7 +66,7 @@ export default function PackagingPage() {
   const handleNext = () => {
     const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
     localStorage.setItem('wine_draft', JSON.stringify({ ...saved, ...formData }));
-    router.push('/add-product/generate-qr-code');
+    router.push('/add-product/preview-product');
   };
    
 
