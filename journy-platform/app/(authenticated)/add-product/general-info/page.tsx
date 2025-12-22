@@ -54,12 +54,93 @@ export default function GeneralInfoPage() {
                     setMyCertificates(certs);
                 }
 
-                const saved = localStorage.getItem('wine_draft');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    setFormData(prev => ({ ...prev, ...parsed }));
-                    if (parsed.product_image_url) {
-                        setImageUrl(parsed.product_image_url);
+                // CHECK FOR GTIN IN QUERY PARAMS (Edit Mode)
+                const urlParams = new URLSearchParams(window.location.search);
+                const gtinParam = urlParams.get('gtin');
+
+                if (gtinParam) {
+                    // Fetch existing wine data
+                    const { data: wine, error } = await supabase
+                        .from('wine_full_card')
+                        .select('*')
+                        .eq('gtin', gtinParam)
+                        .single();
+
+                    if (wine) {
+                        const existingData = {
+                            wine_name: wine.wine_name || '',
+                            gtin: wine.gtin || '',
+                            brand_name: wine.brand_name || '',
+                            vintage: wine.vintage?.toString() || '',
+                            selected_certs: wine.certificates || [],
+                            product_image_url: wine.product_image_url || ''
+                        };
+                        setFormData(existingData);
+                        if (wine.product_image_url) {
+                            setImageUrl(wine.product_image_url);
+                        }
+                        // Save to draft for subsequent steps
+                        localStorage.setItem('wine_draft', JSON.stringify({
+                            ...existingData,
+                            // Capture other fields from wine_full_card for steps 2-8
+                            wine_category: wine.wine_category,
+                            wine_type: wine.wine_type,
+                            bottle_volume_ml: wine.bottle_volume_ml,
+                            alcohol_content_percent: wine.alcohol_content_percent,
+                            residual_sugar_gpl: wine.residual_sugar_gpl,
+                            total_acidity_gpl: wine.total_acidity_gpl,
+                            so2_total_mgpl: wine.so2_total_mgpl,
+                            energy_kcal_per_100ml: wine.energy_kcal_per_100ml,
+                            energy_kj_per_100ml: wine.energy_kj_per_100ml,
+                            energy_carbs_of_sugar: wine.energy_carbs_of_sugar,
+                            energy_carbs: wine.energy_carbs,
+                            harvest_method: wine.harvest_method,
+                            fermentation_vessel: wine.fermentation_vessel,
+                            vineyard_source: wine.vineyard_source,
+                            aging_vessel: wine.aging_vessel,
+                            aging_duration_months: wine.aging_duration_months,
+                            dosage_level: wine.dosage_level,
+                            secondary_fermentation_time: wine.secondary_fermentation_time,
+                            lees_aging: wine.lees_aging,
+                            riddling_method: wine.riddling_method,
+                            disgorgement_method: wine.disgorgement_method,
+                            primary_fermentation_vessel: wine.primary_fermentation_vessel,
+                            color_intensity: wine.color_intensity,
+                            color_hue: wine.color_hue,
+                            color_description: wine.color_description,
+                            taste_profile: wine.taste_profile,
+                            texture_finish: wine.texture_finish,
+                            food_pairing_text: wine.food_pairing_text,
+                            serving_temp_min_c: wine.serving_temp_min_c,
+                            serving_temp_max_c: wine.serving_temp_max_c,
+                            aging_potential: wine.aging_potential,
+                            sweetness_level: wine.sweetness_level,
+                            body_level: wine.body_level,
+                            acidity_level: wine.acidity_level,
+                            tannin_level: wine.tannin_level,
+                            bottle_type: wine.bottle_type,
+                            material_code_bottle: wine.material_code_bottle,
+                            closure_type: wine.closure_type,
+                            material_code_closure: wine.material_code_closure,
+                            capsule_type: wine.capsule_type,
+                            material_code_capsule: wine.material_code_capsule,
+                            weight_finished_product_g: wine.weight_finished_product_g,
+                            grape_varieties: wine.grape_varieties,
+                            ingredients: wine.ingredients,
+                            aromas: wine.aromas,
+                            taste_characteristics: wine.taste_characteristics,
+                            food_pairings: wine.food_pairings
+                        }));
+                    }
+                } else {
+                    // Normal Draft Mode
+                    const saved = localStorage.getItem('wine_draft');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        setFormData(prev => ({ ...prev, ...parsed }));
+                        if (parsed.product_image_url) {
+                            setImageUrl(parsed.product_image_url);
+                        }
                     }
                 }
             } catch (err) {

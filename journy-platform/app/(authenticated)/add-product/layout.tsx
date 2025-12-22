@@ -31,7 +31,20 @@ export default function AddProductLayout({ children }: { children: React.ReactNo
       {/* Header */}
       <header className="p-10 px-20 flex justify-between items-center">
         <div className="text-[32px] font-medium tracking-tight">Journy</div>
-        <div className="w-10 h-10 bg-[#D9D9D9] rounded-full" />
+        <div className="flex items-center gap-6">
+          <button
+            onClick={() => {
+              if (confirm("Are you sure you want to cancel? All unsaved changes will be lost.")) {
+                localStorage.removeItem('wine_draft');
+                window.location.href = '/dashboard/producer';
+              }
+            }}
+            className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-red-600 transition-colors"
+          >
+            Cancel Edit
+          </button>
+          <div className="w-10 h-10 bg-[#D9D9D9] rounded-full" />
+        </div>
       </header>
 
       {/* Stegmätare 1-6 */}
@@ -41,19 +54,17 @@ export default function AddProductLayout({ children }: { children: React.ReactNo
             <div key={step.id} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center relative z-10">
                 {/* Cirkel med status-färg */}
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-all duration-300 ${
-                  currentStep === step.id 
-                    ? 'border-2 border-[#4E001D] text-[#4E001D] bg-white scale-110 shadow-sm' 
-                    : currentStep > step.id 
-                      ? 'bg-[#4E001D] text-white' 
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-all duration-300 ${currentStep === step.id
+                    ? 'border-2 border-[#4E001D] text-[#4E001D] bg-white scale-110 shadow-sm'
+                    : currentStep > step.id
+                      ? 'bg-[#4E001D] text-white'
                       : 'bg-gray-100 text-gray-400'
-                }`}>
+                  }`}>
                   {step.id}
                 </div>
                 {/* Etikett */}
-                <span className={`absolute top-12 whitespace-nowrap text-[9px] uppercase tracking-[2px] font-bold transition-colors duration-300 ${
-                  currentStep === step.id ? 'text-[#1A1A1A]' : 'text-gray-300'
-                }`}>
+                <span className={`absolute top-12 whitespace-nowrap text-[9px] uppercase tracking-[2px] font-bold transition-colors duration-300 ${currentStep === step.id ? 'text-[#1A1A1A]' : 'text-gray-300'
+                  }`}>
                   {step.label}
                 </span>
               </div>
@@ -61,8 +72,8 @@ export default function AddProductLayout({ children }: { children: React.ReactNo
               {/* Linje mellan cirklarna */}
               {index < steps.length - 1 && (
                 <div className="flex-1 h-[1px] mx-4 bg-gray-100 relative">
-                  <div 
-                    className="absolute h-full bg-[#4E001D] transition-all duration-700 ease-in-out" 
+                  <div
+                    className="absolute h-full bg-[#4E001D] transition-all duration-700 ease-in-out"
                     style={{ width: currentStep > step.id ? '100%' : '0%' }}
                   />
                 </div>

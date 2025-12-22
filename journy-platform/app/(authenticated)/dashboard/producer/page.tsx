@@ -33,8 +33,8 @@ export default async function WinesPage() {
         .single();
 
     const { data: wines, error: wineError } = await supabase
-        .from('wine')
-        .select('gtin, wine_name, product_image_url, vintage')
+        .from('wine_full_card')
+        .select('gtin, wine_name, product_image_url, vintage, alcohol_content_percent, best_before_date')
         .eq('producer_id', producer?.id)
         .order('wine_name', { ascending: true });
 

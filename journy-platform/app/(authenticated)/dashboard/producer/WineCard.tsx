@@ -4,6 +4,7 @@ import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { generateDigitalLink } from '@/utils/gs1';
 
 interface WineCardProps {
   wine: {
@@ -11,6 +12,8 @@ interface WineCardProps {
     wine_name: string;
     product_image_url: string | null;
     vintage: number | null;
+    alcohol_content_percent?: number;
+    best_before_date?: string;
   };
 }
 
@@ -36,9 +39,17 @@ export default function WineCard({ wine }: WineCardProps) {
       alert("Error: " + error.message);
       setIsDeleting(false);
     } else {
-      router.refresh(); // Uppdaterar listan på sidan
+      router.refresh();
     }
   };
+
+  // Generate GS1 Digital Link URL
+  const digitalLink = generateDigitalLink({
+    gtin: wine.gtin,
+    alcoholPercent: wine.alcohol_content_percent,
+    expiryDate: wine.best_before_date,
+    domain: '' // Use relative path for internal routing
+  });
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
@@ -66,24 +77,36 @@ export default function WineCard({ wine }: WineCardProps) {
         </p>
       </div>
 
-      {/* TWO BUTTONS */}
-      <div className="flex gap-2 w-full mt-auto">
-        {/* VIEW MORE - Redirectar till detaljsidan */}
-        <Link
-          href={`/dashboard/producer/wines/${wine.gtin}`}
-          className="flex-1 bg-[#4E001D] text-white py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-center hover:bg-black transition-colors"
-        >
-          View More
-        </Link>
+      {/* BUTTONS */}
+      <div className="flex flex-col gap-2 w-full mt-auto">
+        <div className="flex gap-2 w-full">
+          {/* VIEW (Management) - Producer sees the management page */}
+          <Link
+            href={`/dashboard/producer/product/${wine.gtin}`}
+            className="flex-1 bg-[#4E001D] text-white py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-center hover:bg-black transition-colors"
+          >
+            Manage
+          </Link>
 
-        {/* DELETE - On click trigger */}
-        <button
-          onClick={handleDelete}
-          disabled={isDeleting}
-          className="px-4 py-2.5 border border-gray-200 text-gray-400 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-colors"
-        >
-          {isDeleting ? '...' : 'Del'}
-        </button>
+          {/* EDIT - Link directly to General Info with GTIN */}
+          <Link
+            href={`/add-product/general-info?gtin=${wine.gtin}`}
+            className="flex-1 bg-white border border-gray-100 text-gray-400 hover:text-black py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-center transition-all"
+          >
+            Edit
+          </Link>
+        </div>
+
+        <div className="flex gap-2 w-full">
+          {/* DELETE - On click trigger */}
+          <button
+            onClick={handleDelete}
+            disabled={isDeleting}
+            className="flex-1 px-4 py-2.5 border border-gray-200 text-gray-400 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-colors"
+          >
+            {isDeleting ? '...' : 'Delete'}
+          </button>
+        </div>
       </div>
     </div>
   );
