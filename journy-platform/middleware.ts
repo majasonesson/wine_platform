@@ -56,11 +56,11 @@ export async function middleware(request: NextRequest) {
         }
     }
 
-    // 3. Om man är klar och försöker gå till /login eller /signup
+   /* // 3. Om man är klar och försöker gå till /login eller /signup
     if (user && (url.pathname === '/login' || url.pathname === '/signup')) {
         const role = user.user_metadata.role?.toLowerCase()
         return NextResponse.redirect(new URL(`/dashboard/${role}`, request.url))
-    }
+    }*/
 
     return response
 }

@@ -12,7 +12,7 @@ export default function IngredientsPage() {
     );
 
     const [loading, setLoading] = useState(true);
-    const [dbIngredients, setDbIngredients] = useState<{ code: string; is_allergen: boolean }[]>([]);
+    const [dbIngredients, setDbIngredients] = useState<{ code: string; is_allergen: boolean; name_sv?: string; name_en?: string }[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     const [formData, setFormData] = useState({
@@ -52,7 +52,9 @@ export default function IngredientsPage() {
     const adjustValue = (field: string, delta: number, isFloat: boolean = true) => {
         setFormData(prev => {
             const currentVal = Number(prev[field as keyof typeof prev]) || 0;
-            const newVal = isFloat ? parseFloat((currentVal + delta).toFixed(1)) : currentVal + delta;
+            // Round to 1 decimal place if float, otherwise integer
+            const newValRaw = currentVal + delta;
+            const newVal = isFloat ? parseFloat(newValRaw.toFixed(1)) : Math.round(newValRaw);
             return { ...prev, [field]: newVal < 0 ? 0 : newVal };
         });
     };
@@ -118,13 +120,13 @@ export default function IngredientsPage() {
 
     const handleNext = () => {
         saveToDraft();
-        router.push('/add-product/producer/production-process');
+        router.push('/add-product/production-process');
     };
 
     const handleBack = () => {
         saveToDraft();
         // Explicit navigering för att bryta historik-loopen
-        router.push('/add-product/producer/product-info');
+        router.push('/add-product/product-info');
     };
 
     const filteredIngredients = dbIngredients.filter(ing =>
@@ -164,7 +166,7 @@ export default function IngredientsPage() {
                                     : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300'
                                     }`}
                             >
-                                {ing.code} {ing.is_allergen && '⚠️'}
+                                {ing.name_sv || ing.name_en || ing.code} {ing.is_allergen && '⚠️'}
                             </button>
                         ))}
                     </div>
@@ -176,9 +178,9 @@ export default function IngredientsPage() {
                     <h2 className="text-[10px] font-bold uppercase tracking-[3px] text-[#4E001D]">Technical Parameters</h2>
                     <div className="grid grid-cols-1 gap-10">
                         {[
-                            { label: 'Alcohol Volume', field: 'alcohol_content_percent', unit: '%', step: 0.1 },
-                            { label: 'Residual Sugar', field: 'residual_sugar_gpl', unit: 'g/L', step: 0.1 },
-                            { label: 'Total Acidity', field: 'total_acidity_gpl', unit: 'g/L', step: 0.1 },
+                            { label: 'Alcohol Volume', field: 'alcohol_content_percent', unit: '%', step: 1, isFloat: true },
+                            { label: 'Residual Sugar', field: 'residual_sugar_gpl', unit: 'g/L', step: 1, isFloat: true },
+                            { label: 'Total Acidity', field: 'total_acidity_gpl', unit: 'g/L', step: 1, isFloat: true },
                             { label: 'Amount of Sulphites', field: 'so2_total_mgpl', unit: 'mg/L', step: 1, isFloat: false },
                         ].map((item) => (
                             <div key={item.field} className="flex flex-col gap-3 group">

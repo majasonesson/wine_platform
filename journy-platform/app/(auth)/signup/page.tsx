@@ -9,12 +9,12 @@ export default function SignUpPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    
+
     const formData = new FormData(e.currentTarget);
     formData.append('role', role); // Lägg till den valda rollen
 
     const result = await signUpAction(formData);
-    
+
     if (result?.error) {
       alert(result.error);
     } else {
@@ -27,36 +27,34 @@ export default function SignUpPage() {
     <div className="bg-[#FDFDFD] min-h-screen flex flex-col items-center justify-center p-4 text-black font-sans">
       {/* Logo Placeholder */}
       <div className="mb-8 font-bold text-2xl tracking-tighter">Journy</div>
-      
+
       <h1 className="text-xl mb-12">Sign up</h1>
 
       {/* Main Card */}
       <div className="bg-white rounded-[40px] shadow-[0px_4px_25px_rgba(0,0,0,0.08)] p-12 w-full max-w-[850px]">
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          
+
           <p className="text-sm mb-6 text-gray-500">I am a</p>
-          
+
           {/* Role Toggle */}
           <div className="flex bg-white gap-4 mb-10">
             <button
               type="button"
               onClick={() => setRole('Producer')}
-              className={`h-[48px] w-[180px] rounded-full text-sm transition-all border-2 ${
-                role === 'Producer' 
-                ? 'bg-[#4E001D] text-white border-[#4E001D]' 
-                : 'bg-white text-[#4E001D] border-[#4E001D]'
-              }`}
+              className={`h-[48px] w-[180px] rounded-full text-sm transition-all border-2 ${role === 'Producer'
+                  ? 'bg-[#4E001D] text-white border-[#4E001D]'
+                  : 'bg-white text-[#4E001D] border-[#4E001D]'
+                }`}
             >
               Producer
             </button>
             <button
               type="button"
               onClick={() => setRole('Distributor')}
-              className={`h-[48px] w-[180px] rounded-full text-sm transition-all border-2 ${
-                role === 'Distributor' 
-                ? 'bg-[#4E001D] text-white border-[#4E001D]' 
-                : 'bg-white text-[#4E001D] border-[#4E001D]'
-              }`}
+              className={`h-[48px] w-[180px] rounded-full text-sm transition-all border-2 ${role === 'Distributor'
+                  ? 'bg-[#4E001D] text-white border-[#4E001D]'
+                  : 'bg-white text-[#4E001D] border-[#4E001D]'
+                }`}
             >
               Distributor
             </button>
@@ -72,7 +70,12 @@ export default function SignUpPage() {
 
           {/* Terms */}
           <div className="flex items-center gap-3 mb-8">
-            <input type="checkbox" required className="w-4 h-4 rounded border-gray-300 accent-[#4E001D]" />
+            <input
+              type="checkbox"
+              name="acceptsTerms"
+              required
+              className="w-4 h-4 rounded border-gray-300 accent-[#4E001D]"
+            />
             <span className="text-xs text-gray-600">I agree to the Terms & Conditions</span>
           </div>
 
@@ -84,17 +87,13 @@ export default function SignUpPage() {
           >
             {loading ? 'Wait...' : 'Sign up'}
           </button>
-
-          <button type="button" className="mt-4 text-xs text-gray-500 hover:underline">
-            Forgot password?
-          </button>
         </form>
       </div>
 
       <p className="mt-8 text-sm">
         or <a href="/login" className="underline font-bold">Log in</a> if you already have an account
       </p>
-      
+
       <p className="mt-12 text-[10px] text-gray-400 opacity-50">@Journy2025 all rights reserved</p>
     </div>
   );

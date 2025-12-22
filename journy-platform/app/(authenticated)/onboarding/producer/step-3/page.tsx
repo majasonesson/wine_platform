@@ -1,159 +1,135 @@
+
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
+import { useRouter } from 'next/navigation';
 
-export default function ProducerStep4() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [profileId, setProfileId] = useState<string | null>(null);
-  
-  const [foundingType, setFoundingType] = useState('not_specified');
-  const [women, setWomen] = useState(0);
-  const [men, setMen] = useState(0);
-  const [nonBinary, setNonBinary] = useState(0);
-  const [leadership, setLeadership] = useState(0);
+export default function ProducerStep3() {
+  const [certs, setCerts] = useState<any[]>([]);
+  const [uploadingId, setUploadingId] = useState<string | null>(null);
+  const [producerId, setProducerId] = useState<string | null>(null);
+  const [formValues, setFormValues] = useState<Record<string, { ref: string, date: string }>>({});
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
+  const router = useRouter();
 
   useEffect(() => {
-    async function getProfile() {
+    async function getData() {
+      // 1. Hämta certifikatstyper
+      const { data: certTypes } = await supabase.from('certificate').select('*');
+      setCerts(certTypes || []);
+
+      // 2. Hämta producentens ID
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        const { data } = await supabase
-          .from('producer') // Hämtar från producent-tabellen
+        const { data: producer } = await supabase
+          .from('producer')
           .select('id')
           .eq('user_id', user.id)
           .single();
-        setProfileId(data?.id);
+        setProducerId(producer?.id);
       }
     }
-    getProfile();
+    getData();
   }, [supabase]);
-const handleFinish = async () => {
-    if (!profileId) return;
 
-    // KONTROLL: Har användaren valt något annat än 'not_specified'?
-    if (foundingType === 'not_specified') {
-      alert("Please fill in all fields to continue.");
-      return;
-    }
-
-    setLoading(true);
-    
-    const { error } = await supabase
-      .from('producer')
-      .update({
-        founding_team_type: foundingType,
-        gender_dist_women: women,
-        gender_dist_men: men,
-        gender_dist_non_binary: nonBinary,
-        women_in_leadership: leadership
-      })
-      .eq('id', profileId);
-
-    if (!error) {
-      router.push('/onboarding/producer/step-4');
-    } else {
-      setLoading(false);
-      alert("Error saving data: " + error.message);
-    }
+  const handleInputChange = (certId: string, field: 'ref' | 'date', value: string) => {
+    setFormValues(prev => ({
+      ...prev,
+      [certId]: { ...prev[certId], [field]: value }
+    }));
   };
+
+const handleUpload = async (certId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file || !producerId) return;
+
+  const metadata = formValues[certId];
+  if (!metadata?.ref || !metadata?.date) {
+    alert("Please fill in Reference Number and Expiry Date first.");
+    return;
+  }
+
+  setUploadingId(certId);
+
+  try {
+
+    const res = await fetch(
+      `/api/users/update-avatar?filename=${file.name}&type=certificate&id=${producerId}&producerId=${producerId}&certificateId=${certId}&refNumber=${metadata.ref}&expiryDate=${metadata.date}`,
+      { method: 'POST', body: file }
+    );
+
+    if (res.ok) {
+      alert("Certificate saved!");
+    } else {
+      const err = await res.json();
+      alert("Upload failed: " + err.error);
+    }
+  } catch (error) {
+    console.error("Upload failed", error);
+  } finally {
+    setUploadingId(null);
+  }
+};
 
   return (
     <div className="bg-[#FDFDFD] min-h-screen flex flex-col items-center justify-center p-4 text-black font-sans">
-      <div className="mb-8 font-bold text-2xl tracking-tighter">Journy</div>
+      <div className="mb-8 font-bold text-2xl tracking-tighter uppercase">Journy</div>
+      
+      <div className="bg-white rounded-[40px] shadow-[0px_4px_25px_rgba(0,0,0,0.05)] p-12 w-full max-w-[600px]">
+        <h1 className="text-xl mb-2 font-semibold text-center">Sustainability Certifications</h1>
+        <p className="text-gray-400 text-[10px] mb-10 uppercase tracking-[0.2em] font-bold text-center">Step 3 of 3</p>
+        
+        <div className="space-y-6 mb-10">
+          {certs.map((cert) => (
+            <div key={cert.id} className="p-6 rounded-3xl border border-gray-100 bg-gray-50/50 transition-all hover:bg-white hover:shadow-sm">
+              <span className="font-bold block mb-4 text-[#4E001D] uppercase text-xs tracking-wider">{cert.certificate_code}</span>
+              
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="flex flex-col gap-1">
+                  <label className="text-[10px] font-bold text-gray-400 uppercase ml-2">Reference</label>
+                  <input 
+                    type="text" 
+                    placeholder="Ref #" 
+                    className="text-sm p-3 rounded-xl border border-gray-100 bg-white outline-none focus:border-[#4E001D]"
+                    onChange={(e) => handleInputChange(cert.id, 'ref', e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-[10px] font-bold text-gray-400 uppercase ml-2">Expiry Date</label>
+                  <input 
+                    type="date" 
+                    className="text-sm p-3 rounded-xl border border-gray-100 bg-white outline-none focus:border-[#4E001D]"
+                    onChange={(e) => handleInputChange(cert.id, 'date', e.target.value)}
+                  />
+                </div>
+              </div>
 
-      <div className="bg-white rounded-[40px] shadow-[0px_4px_25px_rgba(0,0,0,0.06)] p-12 w-full max-w-[550px]">
-        <h1 className="text-2xl font-semibold text-center mb-1 text-[#1A1A1A]">Diversity & Inclusion</h1>
-        <p className="text-gray-500 text-sm text-center mb-10 px-4">
-          Tell us more about your team and leadership representation.
-        </p>
+              <label className={`block text-center cursor-pointer py-3 rounded-full text-xs font-bold shadow-md transition-all ${uploadingId === cert.id ? 'bg-gray-200' : 'bg-[#4E001D] text-white hover:opacity-90'}`}>
+                {uploadingId === cert.id ? 'Uploading...' : 'Upload & Save'}
+                <input type="file" className="hidden" onChange={(e) => handleUpload(cert.id, e)} disabled={!!uploadingId} />
+              </label>
+            </div>
+          ))}
+        </div>
 
-        <div className="space-y-10">
-          <div className="flex flex-col gap-3">
-            {[
-              { label: 'Female Founded', value: 'female_founded' },
-              { label: 'Male Founded', value: 'male_founded' },
-              { label: 'Mixed founding team', value: 'mixed_team' }
-            ].map((btn) => (
-              <button
-                key={btn.value}
-                type="button"
-                onClick={() => setFoundingType(btn.value)}
-                className={`w-full py-4 rounded-full text-sm font-bold border transition-all ${
-                  foundingType === btn.value 
-                  ? 'bg-[#4E001D] border-[#4E001D] text-white' 
-                  : 'bg-white border-gray-100 text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                {btn.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="space-y-8">
-            <h3 className="text-center font-bold text-lg">Gender distribution</h3>
-            <StepperInput label="Women" value={women} onChange={setWomen} />
-            <StepperInput label="Men" value={men} onChange={setMen} />
-            <StepperInput label="Non-Binary" value={nonBinary} onChange={setNonBinary} />
-          </div>
-
-          <div className="space-y-6 pt-8 border-t border-gray-50 text-center">
-            <h3 className="font-bold text-lg leading-tight px-6">Women in leadership positions</h3>
-            <StepperInput label="" value={leadership} onChange={setLeadership} />
-          </div>
-
+        <div className="flex flex-col gap-4">
           <button 
-            onClick={handleFinish}
-            disabled={loading}
-            className="w-full h-[60px] bg-[#4E001D] text-white rounded-full font-bold shadow-lg mt-4 text-lg hover:opacity-95 transition-all disabled:opacity-50"
+            onClick={() => router.push('/dashboard/producer')} 
+            className="w-full h-14 bg-black text-white rounded-full font-bold hover:bg-gray-900 transition-all"
           >
-            {loading ? 'Finishing...' : 'Continue'}
+            Finish 
+          </button>
+          <button 
+            onClick={() => router.push('/dashboard/producer')} 
+            className="text-gray-400 text-[10px] font-bold uppercase tracking-widest text-center"
+          >
+            Skip for now
           </button>
         </div>
-      </div>
-      <p className="mt-12 text-[10px] text-gray-400 opacity-50 uppercase tracking-widest text-center">Step 2 of 3</p>
-    </div>
-  );
-}
-
-function StepperInput({ label, value, onChange }: { label: string, value: number, onChange: (v: number) => void }) {
-  const update = (amt: number) => {
-    const newVal = Math.min(100, Math.max(0, value + amt));
-    onChange(newVal);
-  };
-
-  return (
-    <div className="flex flex-col items-center gap-2">
-      {label && <span className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest">{label}</span>}
-      <div className="flex items-center gap-8">
-        <button 
-          type="button"
-          onClick={() => update(-1)}
-          className="text-3xl text-gray-300 hover:text-[#4E001D] transition-colors p-2 font-light"
-        >
-          &lt;
-        </button>
-        <div className="flex items-baseline min-w-[90px] justify-center">
-          <input 
-            type="number"
-            value={value}
-            onChange={(e) => onChange(Math.min(100, Math.max(0, Number(e.target.value))))}
-            className="w-16 text-center text-4xl font-bold bg-transparent focus:outline-none"
-          />
-          <span className="text-2xl font-bold">%</span>
-        </div>
-        <button 
-          type="button"
-          onClick={() => update(1)}
-          className="text-3xl text-gray-300 hover:text-[#4E001D] transition-colors p-2 font-light"
-        >
-          &gt;
-        </button>
       </div>
     </div>
   );

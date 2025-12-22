@@ -1,167 +1,164 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
-import { updateDistributorAction } from './actions';
 
 export default function DistributorStep2() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [profileId, setProfileId] = useState<string | null>(null);
+
+  const [foundingType, setFoundingType] = useState('not_specified');
+  const [women, setWomen] = useState(0);
+  const [men, setMen] = useState(0);
+  const [nonBinary, setNonBinary] = useState(0);
+  const [womenInLeadership, setWomenInLeadership] = useState(0);
+  const [menInLeadership, setMenInLeadership] = useState(0);
+  const [nonBinaryInLeadership, setNonBinaryInLeadership] = useState(0);
+
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
-  const [countries, setCountries] = useState<any[]>([]);
-  const [geoData, setGeoData] = useState<any[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedArea, setSelectedArea] = useState('');
-
   useEffect(() => {
-    async function loadCountries() {
-      const { data } = await supabase.from('country').select('code, name_sv').order('name_sv');
-      setCountries(data || []);
+    async function getProfile() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase
+          .from('distributor')
+          .select('id')
+          .eq('user_id', user.id)
+          .single();
+        setProfileId(data?.id);
+      }
     }
-    loadCountries();
+    getProfile();
   }, [supabase]);
+  const handleFinish = async () => {
+    if (!profileId) return;
 
-  useEffect(() => {
-    async function loadGeoData() {
-      if (!selectedCountry) return setGeoData([]);
-      const { data } = await supabase.from('geo_region').select('*').eq('country_code', selectedCountry);
-      setGeoData(data || []);
+    // KONTROLL: Har användaren valt något annat än 'not_specified'?
+    if (foundingType === 'not_specified') {
+      alert("Please fill in all fields to continue.");
+      return;
     }
-    loadGeoData();
-  }, [selectedCountry, supabase]);
 
-  const regions = Array.from(new Set(geoData.map(g => g.geographical_area)));
-  const districts = geoData.filter(g => g.geographical_area === selectedArea);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
     setLoading(true);
-    const formData = new FormData(e.currentTarget);
-    const result = await updateDistributorAction(formData);
-    if (result?.error) { 
-        alert(result.error); 
-        setLoading(false); 
+
+    const { error } = await supabase
+      .from('distributor')
+      .update({
+        founding_team_type: foundingType,
+        gender_dist_women: women,
+        gender_dist_men: men,
+        gender_dist_non_binary: nonBinary,
+        women_in_leadership: womenInLeadership,
+        men_in_leadership: menInLeadership,
+        non_binary_in_leadership: nonBinaryInLeadership
+      })
+      .eq('id', profileId);
+
+    if (!error) {
+      router.push('/onboarding/distributor/step-3');
+    } else {
+      setLoading(false);
+      alert("Error saving data: " + error.message);
     }
-  }
+  };
 
   return (
     <div className="bg-[#FDFDFD] min-h-screen flex flex-col items-center justify-center p-4 text-black font-sans">
       <div className="mb-8 font-bold text-2xl tracking-tighter">Journy</div>
-      
-      {/* Stegmätare - Samma som Producer */}
-      <div className="flex items-center gap-4 mb-12">
-        <span className="w-8 h-8 rounded-full bg-[#4E001D] text-white flex items-center justify-center text-sm">1</span>
-        <div className="h-[2px] w-8 bg-[#4E001D]"></div>
-        <span className="w-8 h-8 rounded-full bg-[#4E001D] text-white flex items-center justify-center text-sm">2</span>
-        <div className="h-[2px] w-8 bg-gray-200"></div>
-        <span className="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-sm">3</span>
-      </div>
 
-      <h1 className="text-xl mb-2 font-semibold">Company Details</h1>
-      <p className="text-gray-500 mb-10 text-sm">Tell us more about your company</p>
+      <div className="bg-white rounded-[40px] shadow-[0px_4px_25px_rgba(0,0,0,0.06)] p-12 w-full max-w-[550px]">
+        <h1 className="text-2xl font-semibold text-center mb-1 text-[#1A1A1A]">Diversity & Inclusion</h1>
+        <p className="text-gray-500 text-sm text-center mb-10 px-4">
+          Tell us more about your team and leadership representation.
+        </p>
 
-      <div className="bg-white rounded-[40px] shadow-[0px_4px_25px_rgba(0,0,0,0.06)] p-12 w-full max-w-[850px]">
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-10">
-            
-            {/* 1. GLN */}
-            <InputField label="GLN (Global Location Number)" name="gln" placeholder="13 digits" required={false} />
-
-            {/* 2. Company Registration Number */}
-            <InputField label="Company Registration Number" name="company_reg_number" placeholder="Company number" />
-
-            {/* 3. Company Name */}
-            <InputField label="Company Name" name="company_name" placeholder="Company name" />
-
-            {/* 4. Address */}
-            <InputField label="Address" name="distributor_address" placeholder="Street" />
-            
-            {/* 5. Country */}
-            <SelectField 
-              label="Country" 
-              name="country_code" 
-              options={countries.map(c => ({ value: c.code, label: c.name_sv }))}
-              onChange={(e: any) => { setSelectedCountry(e.target.value); setSelectedArea(''); }}
-            />
-
-            {/* 6. Region */}
-            <SelectField 
-              label="Region" 
-              name="region_area"
-              disabled={!selectedCountry}
-              placeholder={!selectedCountry ? "Select a country first" : "Select region"}
-              options={regions.map(r => ({ value: r, label: r }))}
-              onChange={(e: any) => setSelectedArea(e.target.value)}
-            />
-
-            {/* 7. District */}
-            <div className="md:col-span-2">
-              <SelectField 
-                label="District" 
-                name="geo_region_id"
-                disabled={!selectedArea}
-                placeholder={!selectedArea ? "Select a region first" : "Select district"}
-                options={districts.map(d => ({ value: d.id, label: d.region_name || d.geographical_area }))}
-              />
-            </div>
+        <div className="space-y-10">
+          <div className="flex flex-col gap-3">
+            {[
+              { label: 'Female Founded', value: 'female_founded' },
+              { label: 'Male Founded', value: 'male_founded' },
+              { label: 'Mixed founding team', value: 'mixed_team' }
+            ].map((btn) => (
+              <button
+                key={btn.value}
+                type="button"
+                onClick={() => setFoundingType(btn.value)}
+                className={`w-full py-4 rounded-full text-sm font-bold border transition-all ${foundingType === btn.value
+                  ? 'bg-[#4E001D] border-[#4E001D] text-white'
+                  : 'bg-white border-gray-100 text-gray-700 hover:border-gray-300'
+                  }`}
+              >
+                {btn.label}
+              </button>
+            ))}
           </div>
 
-          <div className="flex justify-center">
-            <button 
-              type="submit" 
-              disabled={loading} 
-              className="bg-[#4E001D] text-white w-[320px] h-[55px] rounded-full font-medium hover:opacity-90 transition-all disabled:opacity-50 shadow-lg"
-            >
-              {loading ? 'Saving details...' : 'Continue'}
-            </button>
+          <div className="space-y-8">
+            <h3 className="text-center font-bold text-lg">Gender distribution</h3>
+            <StepperInput label="Women" value={women} onChange={setWomen} />
+            <StepperInput label="Men" value={men} onChange={setMen} />
+            <StepperInput label="Non-Binary" value={nonBinary} onChange={setNonBinary} />
           </div>
-        </form>
-      </div>
-      <p className="mt-12 text-[10px] text-gray-400 opacity-50 uppercase tracking-widest text-center">Step 1 of 3</p>
-    </div>
-  );
-}
 
-// HJÄLP-KOMPONENTER (Samma styling som Producer)
+          <div className="space-y-6 pt-8 border-t border-gray-50">
+            <h3 className="font-bold text-lg leading-tight px-6 text-center">Leadership positions</h3>
+            <StepperInput label="Women" value={womenInLeadership} onChange={setWomenInLeadership} />
+            <StepperInput label="Men" value={menInLeadership} onChange={setMenInLeadership} />
+            <StepperInput label="Non-Binary" value={nonBinaryInLeadership} onChange={setNonBinaryInLeadership} />
+          </div>
 
-function InputField({ label, name, placeholder, required = true }: any) {
-  return (
-    <div className="flex flex-col gap-2">
-      <label className="text-[12px] font-semibold text-gray-600 ml-1 uppercase tracking-wider">{label}</label>
-      <input
-        name={name}
-        required={required}
-        placeholder={placeholder}
-        className="w-full h-[50px] px-6 rounded-full border border-gray-100 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#4E001D] text-sm transition-all shadow-sm"
-      />
-    </div>
-  );
-}
-
-function SelectField({ label, name, options, onChange, disabled, placeholder = "Select option" }: any) {
-  return (
-    <div className="flex flex-col gap-2">
-      <label className="text-[12px] font-semibold text-gray-600 ml-1 uppercase tracking-wider">{label}</label>
-      <div className="relative">
-        <select
-          name={name}
-          required={!disabled}
-          disabled={disabled}
-          onChange={onChange}
-          className="w-full h-[50px] px-6 rounded-full border border-gray-100 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#4E001D] text-sm transition-all shadow-sm appearance-none disabled:opacity-30 cursor-pointer"
-        >
-          <option value="">{placeholder}</option>
-          {options.map((opt: any) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
-        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <button
+            onClick={handleFinish}
+            disabled={loading}
+            className="w-full h-[60px] bg-[#4E001D] text-white rounded-full font-bold shadow-lg mt-4 text-lg hover:opacity-95 transition-all disabled:opacity-50"
+          >
+            {loading ? 'Finishing...' : 'Continue'}
+          </button>
         </div>
+      </div>
+      <p className="mt-12 text-[10px] text-gray-400 opacity-50 uppercase tracking-widest text-center">Step 2 of 3</p>
+    </div>
+  );
+}
+
+function StepperInput({ label, value, onChange }: { label: string, value: number, onChange: (v: number) => void }) {
+  const update = (amt: number) => {
+    const newVal = Math.min(100, Math.max(0, value + amt));
+    onChange(newVal);
+  };
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      {label && <span className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest">{label}</span>}
+      <div className="flex items-center gap-8">
+        <button
+          type="button"
+          onClick={() => update(-1)}
+          className="text-3xl text-gray-300 hover:text-[#4E001D] transition-colors p-2 font-light"
+        >
+          &lt;
+        </button>
+        <div className="flex items-baseline min-w-[90px] justify-center">
+          <input
+            type="number"
+            value={value}
+            onChange={(e) => onChange(Math.min(100, Math.max(0, Number(e.target.value))))}
+            className="w-16 text-center text-4xl font-bold bg-transparent focus:outline-none"
+          />
+          <span className="text-2xl font-bold">%</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => update(1)}
+          className="text-3xl text-gray-300 hover:text-[#4E001D] transition-colors p-2 font-light"
+        >
+          &gt;
+        </button>
       </div>
     </div>
   );

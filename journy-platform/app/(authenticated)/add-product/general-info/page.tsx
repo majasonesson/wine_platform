@@ -24,8 +24,7 @@ export default function GeneralInfoPage() {
         brand_name: '',
         vintage: '',
         selected_certs: [] as string[],
-        image_file: null as File | null,
-        product_image_url: '' as string // Store URL here
+        product_image_url: ''
     });
 
     // --- 1. HÄMTA DATA ---
@@ -38,20 +37,20 @@ export default function GeneralInfoPage() {
                 const { data: producer } = await supabase
                     .from('producer')
                     .select(`
-            brands, 
-            owner_certificate_instance (
-              certificate_id,
-              certificate (certificate_code)
-            )
-          `)
+                        brands, 
+                        owner_certificate_instance (
+                            certificate_id,
+                            certificate (certificate_code)
+                        )
+                    `)
                     .eq('user_id', user.id)
                     .single();
 
                 if (producer) {
                     setAvailableBrands(producer.brands || []);
                     const certs = producer.owner_certificate_instance?.map((inst: any) =>
-                        inst.certificate.certificate_code
-                    ) || [];
+                        inst.certificate?.certificate_code
+                    ).filter(Boolean) || [];
                     setMyCertificates(certs);
                 }
 
@@ -74,43 +73,58 @@ export default function GeneralInfoPage() {
 
     // --- 2. HANDLERS ---
 
-    const handleImageUpload = async (file: File) => {
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (!file) return;
+
+        if (!formData.gtin) {
+            alert("Please enter GTIN first before uploading the image.");
+            return;
+        }
+
         try {
             setIsUploading(true);
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-            const filePath = `${fileName}`;
 
-            // Assuming 'product-images' bucket exists. If not, this throws error.
-            const { error: uploadError } = await supabase.storage
-                .from('product-images')
-                .upload(filePath, file);
+            const response = await fetch(
+                `/api/users/update-avatar?filename=${file.name}&type=wine&id=${formData.gtin}`,
+                {
+                    method: 'POST',
+                    body: file
+                }
+            );
 
-            if (uploadError) throw uploadError;
+            const data = await response.json();
 
-            const { data: { publicUrl } } = supabase.storage
-                .from('product-images')
-                .getPublicUrl(filePath);
+            if (!response.ok && !data.url) {
+                throw new Error(data.error || "Upload failed");
+            }
 
-            setFormData(prev => ({
-                ...prev,
-                image_file: file,
-                product_image_url: publicUrl
-            }));
-            setImageUrl(publicUrl);
-        } catch (error) {
-            console.error('Error uploading image:', error);
-            alert('Failed to upload image. Ensure "product-images" bucket exists in Supabase.');
+            const finalUrl = data.url;
+
+            // 1. Uppdatera UI preview
+            setImageUrl(finalUrl);
+
+            // 2. Uppdatera formData state
+            const updatedFormData = { ...formData, product_image_url: finalUrl };
+            setFormData(updatedFormData);
+
+            // 3. Spara direkt i draft så bilden inte försvinner
+            localStorage.setItem('wine_draft', JSON.stringify(updatedFormData));
+
+            alert("Image uploaded and saved to draft!");
+
+        } catch (error: any) {
+            console.error("Upload error:", error);
+            alert("Upload failed: " + error.message);
         } finally {
             setIsUploading(false);
         }
     };
 
     const handleNext = () => {
-        // We save everything except raw File object to localStorage
-        const { image_file, ...dataToSave } = formData;
-        localStorage.setItem('wine_draft', JSON.stringify(dataToSave));
-        router.push('/add-product/producer/product-info');
+        localStorage.setItem('wine_draft', JSON.stringify(formData));
+        router.push('/add-product/product-info');
     };
 
     if (loading) return <div className="p-20 text-[#4E001D] animate-pulse uppercase tracking-widest text-xs font-bold">Loading profile...</div>;
@@ -137,7 +151,7 @@ export default function GeneralInfoPage() {
                                 <span className="text-[9px] uppercase tracking-widest text-[#4E001D]">Uploading...</span>
                             </div>
                         ) : imageUrl ? (
-                            <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                            <img src={imageUrl} alt="Preview" className="w-full h-full object-contain" />
                         ) : (
                             <div className="flex flex-col items-center gap-4 text-gray-300 group-hover:text-[#4E001D] transition-colors text-center p-6">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
@@ -153,12 +167,7 @@ export default function GeneralInfoPage() {
                         className="hidden"
                         accept="image/*"
                         disabled={isUploading}
-                        onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) {
-                                handleImageUpload(file);
-                            }
-                        }}
+                        onChange={handleImageUpload}
                     />
                 </div>
 
@@ -217,6 +226,7 @@ export default function GeneralInfoPage() {
                             {myCertificates.length > 0 ? myCertificates.map(cert => (
                                 <button
                                     key={cert}
+                                    type="button"
                                     onClick={() => {
                                         const active = formData.selected_certs.includes(cert);
                                         setFormData({
@@ -227,8 +237,8 @@ export default function GeneralInfoPage() {
                                         });
                                     }}
                                     className={`px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest transition-all ${formData.selected_certs.includes(cert)
-                                            ? 'bg-[#4E001D] text-white border-[#4E001D]'
-                                            : 'bg-white text-gray-400 border border-gray-200 hover:border-gray-400'
+                                        ? 'bg-[#4E001D] text-white border-[#4E001D]'
+                                        : 'bg-white text-gray-400 border border-gray-200 hover:border-gray-400'
                                         }`}
                                 >
                                     {cert}

@@ -90,13 +90,12 @@ export default function ProductInfoPage() {
 
   const handleNext = () => {
     saveToDraft();
-    router.push('/add-product/producer/ingredients');
+    router.push('/add-product/ingredients');
   };
 
-  // FIX: Explicit push istället för back() för att undvika loop
   const handleBack = () => {
     saveToDraft();
-    router.push('/add-product/producer/general-info'); 
+    router.push('/add-product/general-info');
   };
 
   if (loading) return <div className="p-20 text-[#4E001D] animate-pulse uppercase tracking-widest text-xs font-bold">Loading options...</div>;
@@ -112,10 +111,10 @@ export default function ProductInfoPage() {
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-2">
             <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Wine Category</label>
-            <select 
+            <select
               className="border-b border-gray-200 py-3 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer"
               value={formData.wine_category}
-              onChange={(e) => setFormData({...formData, wine_category: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, wine_category: e.target.value })}
             >
               <option value="">Select category</option>
               {WINE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
@@ -124,10 +123,10 @@ export default function ProductInfoPage() {
 
           <div className="flex flex-col gap-2">
             <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Wine Type</label>
-            <select 
+            <select
               className="border-b border-gray-200 py-3 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer"
               value={formData.wine_type}
-              onChange={(e) => setFormData({...formData, wine_type: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, wine_type: e.target.value })}
             >
               <option value="">Select type</option>
               {WINE_TYPES.map(type => <option key={type} value={type}>{type}</option>)}
@@ -136,10 +135,10 @@ export default function ProductInfoPage() {
 
           <div className="flex flex-col gap-2">
             <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Net Quantity</label>
-            <select 
+            <select
               className="border-b border-gray-200 py-3 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer"
               value={formData.bottle_volume_ml}
-              onChange={(e) => setFormData({...formData, bottle_volume_ml: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, bottle_volume_ml: e.target.value })}
             >
               <option value="">Select volume</option>
               {BOTTLE_VOLUMES.map(vol => <option key={vol} value={vol}>{vol}</option>)}
@@ -150,8 +149,8 @@ export default function ProductInfoPage() {
         {/* HÖGER: DRUVOR */}
         <div className="flex flex-col gap-6 bg-[#FDFDFD] p-8 rounded-[32px] border border-gray-100 shadow-sm">
           <label className="text-[10px] font-bold uppercase tracking-[3px] text-[#4E001D]">Grape Varieties & Blend %</label>
-          
-          <select 
+
+          <select
             className="w-full bg-white border border-gray-100 rounded-xl p-3 text-sm outline-none focus:border-[#4E001D] shadow-sm"
             onChange={(e) => addGrape(e.target.value)}
             value=""
@@ -167,7 +166,7 @@ export default function ProductInfoPage() {
                   {grape.grape_name}
                 </div>
                 <div className="w-24 relative">
-                  <input 
+                  <input
                     type="number"
                     placeholder="%"
                     max="100"
@@ -177,11 +176,11 @@ export default function ProductInfoPage() {
                     className="w-full bg-white border border-gray-100 rounded-xl p-3 text-sm outline-none focus:border-[#4E001D] text-center shadow-sm"
                   />
                 </div>
-                <button 
+                <button
                   onClick={() => removeGrape(index)}
                   className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12" /></svg>
                 </button>
               </div>
             ))}
@@ -196,14 +195,14 @@ export default function ProductInfoPage() {
 
       {/* FOOTER NAV */}
       <div className="flex justify-between items-center pt-12 border-t border-gray-50">
-        <button 
+        <button
           onClick={handleBack}
           className="text-[11px] font-bold uppercase tracking-[3px] text-gray-400 hover:text-black transition-colors"
         >
           Previous
         </button>
-        
-        <button 
+
+        <button
           onClick={handleNext}
           className="flex items-center gap-6 group cursor-pointer"
         >

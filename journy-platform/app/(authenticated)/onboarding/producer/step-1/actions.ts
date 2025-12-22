@@ -21,15 +21,15 @@ export async function updateProducerAction(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: "Not authenticated" }
 
-  // Hämta värden från formuläret
+  // Hämta värden och konvertera tomma strängar till null
   const updates = {
-    company_name: formData.get('companyName') as string,
-    company_reg_number: formData.get('regNumber') as string,
-    gln: formData.get('gln') as string,
-    producer_address: formData.get('address') as string,
-    country_code: formData.get('country_code') as string,
-    geo_region_id: formData.get('geo_region_id') as string, // Detta är UUID:t från sista dropdownen
-    district: formData.get('district') as string,
+    company_name: (formData.get('companyName') as string) || null,
+    company_reg_number: (formData.get('regNumber') as string) || null,
+    gln: (formData.get('gln') as string) || null,
+    producer_address: (formData.get('address') as string) || null,
+    country_code: (formData.get('country_code') as string) || null,
+    geo_region_id: (formData.get('geo_region_id') as string) || null,
+    district: (formData.get('district') as string) || null,
   }
 
   const { error } = await supabase
@@ -38,9 +38,12 @@ export async function updateProducerAction(formData: FormData) {
     .eq('user_id', user.id)
 
   if (error) {
+    if (error.code === '23505' && error.message.includes('gln')) {
+      return { error: "This GLN number is already registered to another account." }
+    }
     console.error(error)
     return { error: error.message }
   }
 
-  redirect('/onboarding/producer/step-3')
+  redirect('/onboarding/producer/step-2')
 }

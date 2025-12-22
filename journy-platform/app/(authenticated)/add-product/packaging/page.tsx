@@ -58,7 +58,7 @@ export default function PackagingPage() {
     const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
     localStorage.setItem('wine_draft', JSON.stringify({ ...saved, ...formData }));
 
-        router.push('/add-product/producer/sensory-profile'); 
+        router.push('/add-product/sensory-profile'); 
 
   };
 
@@ -66,7 +66,7 @@ export default function PackagingPage() {
   const handleNext = () => {
     const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
     localStorage.setItem('wine_draft', JSON.stringify({ ...saved, ...formData }));
-    router.push('/add-product/producer/generate-qr-code');
+    router.push('/add-product/generate-qr-code');
   };
    
 

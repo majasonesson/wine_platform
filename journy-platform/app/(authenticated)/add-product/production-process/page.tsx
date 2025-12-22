@@ -46,16 +46,16 @@ export default function ProductionProcessPage() {
     localStorage.setItem('wine_draft', JSON.stringify(updatedDraft));
 
     if (updatedDraft.wine_category === 'Sparkling wine') {
-      router.push('/add-product/producer/fermentation-process');
+      router.push('/add-product/fermentation-process');
     } else {
-      router.push('/add-product/producer/sensory-profile');
+      router.push('/add-product/sensory-profile');
     }
   };
 
   // FIX: Ersätt router.back() med en explicit push för att undvika historik-loopar
   const handleBack = () => {
     saveToDraft();
-    router.push('/add-product/producer/ingredients');
+    router.push('/add-product/ingredients');
   };
 
   return (

@@ -21,25 +21,14 @@ export async function updateDistributorAction(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: "Not authenticated" }
 
-  // 2. Mappa formulärfälten (name i JSX) till databaskolumnerna (SQL)
+  // 2. Mappa formulärfälten (tomma strängar -> null)
   const updates = {
-    // Från name="company_name" i din JSX till company_name i SQL
-    company_name: formData.get('company_name') as string,
-    
-    // Från name="company_reg_number" i din JSX till company_reg_number i SQL
-    company_reg_number: formData.get('company_reg_number') as string,
-    
-    // Från name="gln" i din JSX till gln i SQL
-    gln: formData.get('gln') as string,
-    
-    // Från name="distributor_address" i din JSX till distributor_address i SQL
-    distributor_address: formData.get('distributor_address') as string,
-    
-    // Från name="country_code" i din JSX till country_code i SQL
-    country_code: formData.get('country_code') as string,
-    
-    // Från name="geo_region_id" i din JSX till geo_region_id i SQL
-    geo_region_id: formData.get('geo_region_id') || null,
+    company_name: (formData.get('company_name') as string) || null,
+    company_reg_number: (formData.get('company_reg_number') as string) || null,
+    gln: (formData.get('gln') as string) || null,
+    distributor_address: (formData.get('distributor_address') as string) || null,
+    country_code: (formData.get('country_code') as string) || null,
+    geo_region_id: (formData.get('geo_region_id') as string) || null,
   }
 
   // 3. Utför uppdateringen
@@ -50,10 +39,13 @@ export async function updateDistributorAction(formData: FormData) {
 
   // 4. Hantera eventuella fel
   if (error) {
+    if (error.code === '23505' && error.message.includes('gln')) {
+      return { error: "This GLN number is already registered to another account." }
+    }
     console.error("Database error:", error.message)
     return { error: error.message }
   }
 
   // 5. Skicka användaren vidare om allt gick bra
-  redirect('/onboarding/distributor/step-3')
+  redirect('/onboarding/distributor/step-2')
 }
