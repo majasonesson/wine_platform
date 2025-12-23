@@ -1,6 +1,7 @@
 'use server';
 
 import { createServerClient } from '@supabase/ssr';
+import { generateFullDescription } from '@/utils/constants';
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 
@@ -61,7 +62,8 @@ export async function publishWineAction(wineData: any) {
             wine_category: wineData.wine_category || 'Still wine',
             wine_type: wineData.wine_type || 'Red',
             bottle_volume_ml: volume,
-            variety_gpc_code: wineData.variety_gpc_code || null // Added GS1 code
+            variety_gpc_code: wineData.variety_gpc_code || null,
+            wine_sparkling_attribute_number: wineData.wine_sparkling_attribute_number || null // Added
         });
 
         // 4. WINE TECHNICAL DATA
@@ -107,7 +109,11 @@ export async function publishWineAction(wineData: any) {
             color_intensity: wineData.intensity,
             color_hue: wineData.hue,
             color_description: wineData.color_description, // generated
-            taste_profile: wineData.taste_profile, // generated
+            taste_profile: generateFullDescription(
+                wineData.selectedChars || [],
+                wineData.selectedTexture || [],
+                wineData.selectedAromas || []
+            ), // refined generator
             texture_finish: wineData.selectedTexture?.join(', '),
             food_pairing_text: wineData.pairings?.join(', ') || wineData.selectedFood?.join(', '),
             serving_temp_min_c: wineData.serving_temp_min,

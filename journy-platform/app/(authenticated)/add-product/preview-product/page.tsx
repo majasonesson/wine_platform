@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 import { publishWineAction } from './actions';
+import { generateFullDescription } from '@/utils/constants';
 
 export default function PreviewProductPage() {
     const router = useRouter();
     const [wineData, setWineData] = useState<any>(null);
     const [producerInfo, setProducerInfo] = useState<any>(null);
     const [ingredientsList, setIngredientsList] = useState<any[]>([]);
+    const [sparklingTypeName, setSparklingTypeName] = useState<string>('');
     const [isSaving, setIsSaving] = useState(false);
 
     const supabase = createBrowserClient(
@@ -57,6 +59,20 @@ export default function PreviewProductPage() {
             // Fetch Ingredient Names
             const { data: ings } = await supabase.from('ingredient_code').select('code, name_en');
             setIngredientsList(ings || []);
+
+            // Fetch Sparkling Type Name if applicable
+            const saved = localStorage.getItem('wine_draft');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (parsed.wine_sparkling_attribute_number) {
+                    const { data: sType } = await supabase
+                        .from('wine_sparkling')
+                        .select('name')
+                        .eq('attribute_number', parsed.wine_sparkling_attribute_number)
+                        .single();
+                    if (sType) setSparklingTypeName(sType.name);
+                }
+            }
         }
 
         fetchExtraData();
@@ -158,7 +174,7 @@ export default function PreviewProductPage() {
                                 </div>
                                 <h3 className="text-2xl font-bold mb-1 line-clamp-2 text-[#1A1A1A] tracking-tight">{wineData.wine_name || 'Gretas'}</h3>
                                 <p className="text-gray-500 text-[12px] font-medium tracking-tight mb-4">
-                                    {wineData.wine_type || 'Red'} wine by {wineData.brand_name || 'Winely'}
+                                    {sparklingTypeName || wineData.wine_type || 'Red'} wine by {wineData.brand_name || 'Winely'}
                                 </p>
 
                                 <div className="flex items-center gap-6 pt-4 border-t border-gray-50 w-full justify-center">
@@ -280,9 +296,15 @@ export default function PreviewProductPage() {
                                             </div>
                                             <div>
                                                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Taste</p>
-                                                <p className="text-[14px] text-gray-800 font-medium leading-relaxed italic font-serif">
-                                                    {wineData.taste_profile || 'Complex and elegant wine with balanced notes.'}
-                                                </p>
+                                                <div className="flex flex-col gap-2">
+                                                    <p className="text-[14px] text-gray-800 font-medium leading-relaxed italic font-serif">
+                                                        {generateFullDescription(
+                                                            wineData.selectedChars || [],
+                                                            wineData.selectedTexture || [],
+                                                            wineData.selectedAromas || []
+                                                        ) || 'Complex and elegant wine with balanced notes.'}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

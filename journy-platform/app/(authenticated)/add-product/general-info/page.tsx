@@ -204,7 +204,8 @@ export default function GeneralInfoPage() {
     };
 
     const handleNext = () => {
-        localStorage.setItem('wine_draft', JSON.stringify(formData));
+        const saved = JSON.parse(localStorage.getItem('wine_draft') || '{}');
+        localStorage.setItem('wine_draft', JSON.stringify({ ...saved, ...formData }));
         router.push('/add-product/product-info');
     };
 

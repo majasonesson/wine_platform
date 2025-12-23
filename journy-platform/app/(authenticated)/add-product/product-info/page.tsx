@@ -19,11 +19,13 @@ export default function ProductInfoPage() {
   // --- STATE ---
   const [loading, setLoading] = useState(true);
   const [dbGrapes, setDbGrapes] = useState<{ attribute_number: string, name: string, is_blend: boolean, components: string[] }[]>([]);
+  const [dbSparklingTypes, setDbSparklingTypes] = useState<{ attribute_number: string, name: string }[]>([]);
   const [formData, setFormData] = useState({
     wine_category: '',
     wine_type: '',
     bottle_volume_ml: '',
     variety_gpc_code: '', // Global GS1 Classification
+    wine_sparkling_attribute_number: '', // New Field
     grapes: [] as { grape_name: string; percentage: string; attribute_number?: string }[]
   });
 
@@ -31,6 +33,7 @@ export default function ProductInfoPage() {
   useEffect(() => {
     async function fetchData() {
       try {
+        // Fetch Grapes
         const { data: grapesData } = await supabase
           .from('grape_variety_master')
           .select('*')
@@ -40,14 +43,26 @@ export default function ProductInfoPage() {
           setDbGrapes(grapesData);
         }
 
+        // Fetch Sparkling Types
+        const { data: sparklingData } = await supabase
+          .from('wine_sparkling')
+          .select('*')
+          .order('name', { ascending: true });
+
+        if (sparklingData) {
+          setDbSparklingTypes(sparklingData);
+        }
+
         const saved = localStorage.getItem('wine_draft');
         if (saved) {
           const parsed = JSON.parse(saved);
           setFormData(prev => ({
             ...prev,
+            ...parsed,
             wine_category: parsed.wine_category || '',
             wine_type: parsed.wine_type || '',
             bottle_volume_ml: parsed.bottle_volume_ml || '',
+            wine_sparkling_attribute_number: parsed.wine_sparkling_attribute_number || '',
             grapes: parsed.grapes || []
           }));
         }
@@ -179,12 +194,39 @@ export default function ProductInfoPage() {
             <select
               className="border-b border-gray-200 py-3 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer"
               value={formData.wine_category}
-              onChange={(e) => setFormData({ ...formData, wine_category: e.target.value })}
+              onChange={(e) => {
+                const newCat = e.target.value;
+                setFormData({
+                  ...formData,
+                  wine_category: newCat,
+                  // Reset sparkling type if category changes away from sparkling
+                  wine_sparkling_attribute_number: newCat === 'Sparkling wine' ? formData.wine_sparkling_attribute_number : ''
+                });
+              }}
             >
               <option value="">Select category</option>
               {WINE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
             </select>
           </div>
+
+          {/* Conditional Sparkling Type */}
+          {formData.wine_category === 'Sparkling wine' && (
+            <div className="flex flex-col gap-2 lowercase animate-in slide-in-from-top-2 duration-300">
+              <label className="text-[10px] font-bold uppercase tracking-[3px] text-[#4E001D]">Sparkling type</label>
+              <select
+                className="border-b border-gray-200 py-3 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer"
+                value={formData.wine_sparkling_attribute_number}
+                onChange={(e) => setFormData({ ...formData, wine_sparkling_attribute_number: e.target.value })}
+              >
+                <option value="">Select sparkling type</option>
+                {dbSparklingTypes.map(type => (
+                  <option key={type.attribute_number} value={type.attribute_number}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <div className="flex flex-col gap-2 lowercase">
             <label className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400">Wine Type</label>

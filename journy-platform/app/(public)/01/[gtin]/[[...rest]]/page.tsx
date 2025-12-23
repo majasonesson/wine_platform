@@ -89,7 +89,7 @@ export default async function GS1DigitalLinkPage({
                         </div>
                         <h3 className="text-2xl font-bold mb-1 line-clamp-2 text-[#1A1A1A] tracking-tight">{wine.wine_name}</h3>
                         <p className="text-gray-500 text-[12px] font-medium tracking-tight mb-4">
-                            {wine.wine_type || 'Wine'} by {wine.brand_name}
+                            {wine.sparkling_type_name || wine.wine_type || 'Wine'} by {wine.brand_name}
                         </p>
 
                         <div className="flex items-center gap-6 pt-4 border-t border-gray-50 w-full justify-center">
@@ -205,9 +205,11 @@ export default async function GS1DigitalLinkPage({
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Taste</p>
-                                    <p className="text-[14px] text-gray-800 font-medium leading-relaxed italic font-serif">
-                                        {wine.taste_profile || 'Well balanced with a smooth finish.'}
-                                    </p>
+                                    <div className="flex flex-col gap-2">
+                                        <p className="text-[14px] text-gray-800 font-medium leading-relaxed italic font-serif">
+                                            {wine.taste_profile || 'Well balanced with a smooth finish.'}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

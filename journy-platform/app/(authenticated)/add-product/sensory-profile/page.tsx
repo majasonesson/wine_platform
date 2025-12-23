@@ -6,6 +6,7 @@ import {
     COLOR_INTENSITY,
     COLOR_HUES,
     WINE_AROMAS,
+    TASTE_CHARACTERISTICS,
     WINE_CHARACTERISTICS,
     WINE_TEXTURE,
     TASTE_CLOCKS,
@@ -123,7 +124,17 @@ export default function SensoryProfilePage() {
                 flat.push(...items);
             });
         });
-        return Array.from(new Set(flat));
+        return Array.from(new Set(flat)).sort();
+    }, []);
+
+    const flattenedTaste = useMemo(() => {
+        // As requested: "you can use the constant wine_aromas if you want" for Taste
+        // However, we also have TASTE_CHARACTERISTICS which is more descriptive for "Taste: ---"
+        // Let's combine them or use the user's specific request.
+        // User said: "you can use the constant wine_aromas if you want. and do Taste: --- (dropdown list)"
+        // I will use TASTE_CHARACTERISTICS for the "Taste: ---" dropdown as it's more standard, 
+        // but I'll make sure it saves to 'selectedChars' which maps to 'wine_taste' in actions.
+        return [...TASTE_CHARACTERISTICS].sort();
     }, []);
 
     return (
@@ -183,8 +194,8 @@ export default function SensoryProfilePage() {
                     <div className="flex flex-col gap-3">
                         {/* Option 1: Drink Now */}
                         <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${formData.aging_potential === 'Best to drink now'
-                                ? 'bg-[#4E001D]/5 border-[#4E001D]'
-                                : 'bg-white border-gray-200 hover:border-gray-300'
+                            ? 'bg-[#4E001D]/5 border-[#4E001D]'
+                            : 'bg-white border-gray-200 hover:border-gray-300'
                             }`}>
                             <input
                                 type="radio"
@@ -198,8 +209,8 @@ export default function SensoryProfilePage() {
 
                         {/* Option 2: Store */}
                         <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${formData.aging_potential.startsWith('Store for')
-                                ? 'bg-[#4E001D]/5 border-[#4E001D]'
-                                : 'bg-white border-gray-200 hover:border-gray-300'
+                            ? 'bg-[#4E001D]/5 border-[#4E001D]'
+                            : 'bg-white border-gray-200 hover:border-gray-300'
                             }`}>
                             <input
                                 type="radio"
@@ -254,6 +265,13 @@ export default function SensoryProfilePage() {
                     options={WINE_TEXTURE}
                     onToggle={(val: string) => toggleMulti('selectedTexture', val)}
                 />
+
+                <MultiDropdownSelect
+                    label="Taste Characteristics"
+                    selected={formData.selectedChars}
+                    options={flattenedTaste}
+                    onToggle={(val: string) => toggleMulti('selectedChars', val)}
+                />
             </div>
 
             {/* 3. SEARCHABLES */}
@@ -264,7 +282,7 @@ export default function SensoryProfilePage() {
                     options={flattenedAromas}
                     onToggle={(val: string) => toggleMulti('selectedAromas', val)}
                 />
-                
+
                 <SearchableList
                     label="Food Pairings"
                     selected={formData.selectedFood}
