@@ -22,15 +22,15 @@ export async function updateProducerAction(formData: FormData) {
   if (!user) return { error: "Not authenticated" }
 
   // Hämta värden och konvertera tomma strängar till null
+  const originAttr = formData.get('origin_attribute_number_final') as string;
   const updates = {
     company_name: (formData.get('companyName') as string) || null,
     company_reg_number: (formData.get('regNumber') as string) || null,
     gln: (formData.get('gln') as string) || null,
     producer_address: (formData.get('address') as string) || null,
-    country_code: (formData.get('country_code') as string) || null,
-    geo_region_id: (formData.get('geo_region_id') as string) || null,
-    district: (formData.get('district') as string) || null,
+    origin_attribute_number: originAttr ? parseInt(originAttr) : null,
   }
+
 
   const { error } = await supabase
     .from('producer')

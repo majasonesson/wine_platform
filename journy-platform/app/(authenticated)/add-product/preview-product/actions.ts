@@ -63,8 +63,10 @@ export async function publishWineAction(wineData: any) {
             wine_type: wineData.wine_type || 'Red',
             bottle_volume_ml: volume,
             variety_gpc_code: wineData.variety_gpc_code || null,
-            wine_sparkling_attribute_number: wineData.wine_sparkling_attribute_number || null // Added
+            wine_sparkling_attribute_number: wineData.wine_sparkling_attribute_number || null,
+            origin_attribute_number: wineData.origin_attribute_number ? parseInt(wineData.origin_attribute_number) : null
         });
+
 
         // 4. WINE TECHNICAL DATA
         await supabase.from('wine_technical_data').upsert({

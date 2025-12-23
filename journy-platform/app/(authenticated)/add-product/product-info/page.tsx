@@ -20,12 +20,17 @@ export default function ProductInfoPage() {
   const [loading, setLoading] = useState(true);
   const [dbGrapes, setDbGrapes] = useState<{ attribute_number: string, name: string, is_blend: boolean, components: string[] }[]>([]);
   const [dbSparklingTypes, setDbSparklingTypes] = useState<{ attribute_number: string, name: string }[]>([]);
+  const [dbOrigins, setDbOrigins] = useState<{ attribute_number: number, country_name: string, region_name: string | null, district_name: string | null }[]>([]);
   const [formData, setFormData] = useState({
     wine_category: '',
     wine_type: '',
     bottle_volume_ml: '',
     variety_gpc_code: '', // Global GS1 Classification
     wine_sparkling_attribute_number: '', // New Field
+    origin_attribute_number: '', // Origin ID
+    origin_country: '',
+    origin_region: '',
+    origin_district: '',
     grapes: [] as { grape_name: string; percentage: string; attribute_number?: string }[]
   });
 
@@ -53,6 +58,18 @@ export default function ProductInfoPage() {
           setDbSparklingTypes(sparklingData);
         }
 
+        // Fetch Origins
+        const { data: originsData } = await supabase
+          .from('origin_master')
+          .select('attribute_number, country_name, region_name, district_name')
+          .order('country_name', { ascending: true })
+          .order('region_name', { ascending: true })
+          .order('district_name', { ascending: true });
+
+        if (originsData) {
+          setDbOrigins(originsData);
+        }
+
         const saved = localStorage.getItem('wine_draft');
         if (saved) {
           const parsed = JSON.parse(saved);
@@ -63,6 +80,10 @@ export default function ProductInfoPage() {
             wine_type: parsed.wine_type || '',
             bottle_volume_ml: parsed.bottle_volume_ml || '',
             wine_sparkling_attribute_number: parsed.wine_sparkling_attribute_number || '',
+            origin_attribute_number: parsed.origin_attribute_number || '',
+            origin_country: parsed.origin_country || '',
+            origin_region: parsed.origin_region || '',
+            origin_district: parsed.origin_district || '',
             grapes: parsed.grapes || []
           }));
         }
@@ -252,6 +273,100 @@ export default function ProductInfoPage() {
             </select>
           </div>
 
+          {/* Wine Origin - Cascading Selection */}
+          <div className="flex flex-col gap-4 bg-[#FDFDFD] p-6 rounded-2xl border border-gray-100">
+            <label className="text-[10px] font-bold uppercase tracking-[3px] text-[#4E001D]">Wine Origin</label>
+
+            {/* Country */}
+            <select
+              className="border-b border-gray-200 py-2 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer text-sm"
+              value={formData.origin_country}
+              onChange={(e) => {
+                const newCountry = e.target.value;
+                setFormData({
+                  ...formData,
+                  origin_country: newCountry,
+                  origin_region: '',
+                  origin_district: '',
+                  origin_attribute_number: ''
+                });
+              }}
+            >
+              <option value="">Select country</option>
+              {[...new Set(dbOrigins.map(o => o.country_name))].sort().map(country => (
+                <option key={country} value={country}>{country}</option>
+              ))}
+            </select>
+
+            {/* Region */}
+            {formData.origin_country && (
+              <select
+                className="border-b border-gray-200 py-2 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer text-sm animate-in slide-in-from-top-2 duration-300"
+                value={formData.origin_region}
+                onChange={(e) => {
+                  const newRegion = e.target.value;
+                  const matchingOrigin = dbOrigins.find(o =>
+                    o.country_name === formData.origin_country &&
+                    o.region_name === newRegion && !o.district_name
+                  ) || dbOrigins.find(o =>
+                    o.country_name === formData.origin_country && o.region_name === newRegion
+                  );
+                  setFormData({
+                    ...formData,
+                    origin_region: newRegion,
+                    origin_district: '',
+                    origin_attribute_number: matchingOrigin?.attribute_number?.toString() || ''
+                  });
+                }}
+              >
+                <option value="">Select region (optional)</option>
+                {[...new Set(dbOrigins
+                  .filter(o => o.country_name === formData.origin_country && o.region_name)
+                  .map(o => o.region_name)
+                )].sort().map(region => (
+                  <option key={region} value={region!}>{region}</option>
+                ))}
+              </select>
+            )}
+
+            {/* District */}
+            {formData.origin_region && dbOrigins.some(o =>
+              o.country_name === formData.origin_country &&
+              o.region_name === formData.origin_region && o.district_name
+            ) && (
+                <select
+                  className="border-b border-gray-200 py-2 bg-transparent outline-none focus:border-[#4E001D] transition-colors appearance-none cursor-pointer text-sm animate-in slide-in-from-top-2 duration-300"
+                  value={formData.origin_district}
+                  onChange={(e) => {
+                    const newDistrict = e.target.value;
+                    const matchingOrigin = dbOrigins.find(o =>
+                      o.country_name === formData.origin_country &&
+                      o.region_name === formData.origin_region && o.district_name === newDistrict
+                    );
+                    setFormData({
+                      ...formData,
+                      origin_district: newDistrict,
+                      origin_attribute_number: matchingOrigin?.attribute_number?.toString() || formData.origin_attribute_number
+                    });
+                  }}
+                >
+                  <option value="">Select district (optional)</option>
+                  {dbOrigins.filter(o =>
+                    o.country_name === formData.origin_country &&
+                    o.region_name === formData.origin_region && o.district_name
+                  ).map(o => (
+                    <option key={o.attribute_number} value={o.district_name!}>{o.district_name}</option>
+                  ))}
+                </select>
+              )}
+
+            {formData.origin_country && (
+              <p className="text-xs text-gray-500 italic">
+                {[formData.origin_country, formData.origin_region, formData.origin_district].filter(Boolean).join(' › ')}
+              </p>
+            )}
+          </div>
+
           {/* GS1 GPC Badge */}
           {formData.variety_gpc_code && (
             <div className="flex items-center gap-3 bg-[#4E001D]/5 p-4 rounded-2xl border border-[#4E001D]/10 animate-in fade-in zoom-in duration-500">
@@ -261,6 +376,7 @@ export default function ProductInfoPage() {
             </div>
           )}
         </div>
+
 
         {/* HÖGER: DRUVOR */}
         <div className="flex flex-col gap-6 bg-[#FDFDFD] p-8 rounded-[32px] border border-gray-100 shadow-sm relative">

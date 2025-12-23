@@ -22,14 +22,15 @@ export async function updateDistributorAction(formData: FormData) {
   if (!user) return { error: "Not authenticated" }
 
   // 2. Mappa formulärfälten (tomma strängar -> null)
+  const originAttr = formData.get('origin_attribute_number_final') as string;
   const updates = {
     company_name: (formData.get('company_name') as string) || null,
     company_reg_number: (formData.get('company_reg_number') as string) || null,
     gln: (formData.get('gln') as string) || null,
     distributor_address: (formData.get('distributor_address') as string) || null,
-    country_code: (formData.get('country_code') as string) || null,
-    geo_region_id: (formData.get('geo_region_id') as string) || null,
+    origin_attribute_number: originAttr ? parseInt(originAttr) : null,
   }
+
 
   // 3. Utför uppdateringen
   const { error } = await supabase
