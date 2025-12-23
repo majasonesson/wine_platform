@@ -47,11 +47,23 @@ export default async function WinesPage() {
                     Welcome {user?.user_metadata?.first_name || producer?.company_name || 'Producer'}!
                 </h1>
 
-                {/* DIN KNAPP ÄR TILLBAKA HÄR */}
-                <div className="flex gap-4">
+                {/* DASHBOARD ACTIONS */}
+                <div className="flex flex-wrap gap-4">
                     <Link href="/add-product/general-info">
                         <button className="flex items-center gap-3 border border-gray-200 px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">
                             Add Product <span className="bg-[#4E001D] text-white w-5 h-5 rounded-full flex items-center justify-center text-lg">+</span>
+                        </button>
+                    </Link>
+
+                    <Link href="/connect">
+                        <button className="flex items-center gap-3 border border-gray-200 px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-gray-50 transition-all text-[#4E001D]">
+                            Connect
+                        </button>
+                    </Link>
+
+                    <Link href="/dashboard/producer/profile">
+                        <button className="flex items-center gap-3 border border-gray-200 px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-gray-50 transition-all text-gray-600">
+                            Profile
                         </button>
                     </Link>
 
