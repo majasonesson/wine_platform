@@ -46,10 +46,10 @@ export async function POST(request: Request) {
 
         let result;
 
-        // --- PRODUCER ---
-        if (type === 'producer') {
+        // --- PRODUCER / DISTRIBUTOR ---
+        if (type === 'producer' || type === 'distributor') {
             result = await adminClient
-                .from('producer')
+                .from(type)
                 .update({ profile_image_url: blob.url })
                 .eq('id', id);
         }

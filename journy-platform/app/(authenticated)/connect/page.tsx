@@ -64,8 +64,8 @@ export default function ConnectPage() {
                     <button
                         onClick={() => setActiveTab('discover')}
                         className={`pb-4 px-4 font-medium transition-colors ${activeTab === 'discover'
-                                ? 'text-[#4E001D] border-b-2 border-[#4E001D]'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-[#4E001D] border-b-2 border-[#4E001D]'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                     >
                         Discover {userType === 'producer' ? 'Distributors' : 'Producers'}
@@ -73,8 +73,8 @@ export default function ConnectPage() {
                     <button
                         onClick={() => setActiveTab('requests')}
                         className={`pb-4 px-4 font-medium transition-colors ${activeTab === 'requests'
-                                ? 'text-[#4E001D] border-b-2 border-[#4E001D]'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-[#4E001D] border-b-2 border-[#4E001D]'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                     >
                         Connection Requests
@@ -116,6 +116,7 @@ function DiscoverTab({ userType }: { userType: 'producer' | 'distributor' }) {
             origin_attribute_number,
             origin_master!inner(country_name, region_name, district_name)
           `)
+                    .eq('is_public', true)
                     .order('company_name');
 
                 setProfiles(data || []);
@@ -129,6 +130,7 @@ function DiscoverTab({ userType }: { userType: 'producer' | 'distributor' }) {
             origin_attribute_number,
             origin_master!inner(country_name, region_name, district_name)
           `)
+                    .eq('is_public', true)
                     .order('company_name');
 
                 setProfiles(data || []);

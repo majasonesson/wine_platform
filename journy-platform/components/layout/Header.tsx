@@ -97,8 +97,8 @@ export default function Header() {
             </>
           )}
 
-          <Link 
-            href={isImporter ? '/importer/profile' : '/producer/profile'} 
+          <Link
+            href="/profile"
             className={styles.navLink}
           >
             <div
