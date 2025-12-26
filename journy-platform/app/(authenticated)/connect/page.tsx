@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
-import { sendPartnershipRequest, respondToPartnership, pausePartnership, deletePartnership } from './actions';
+import { sendPartnershipRequest, respondToPartnership, pausePartnership, deletePartnership, addWineToPortfolio } from './actions';
+import Link from 'next/link';
 
 export default function ConnectPage() {
     const [activeTab, setActiveTab] = useState<'discover' | 'requests'>('discover');
@@ -108,31 +109,33 @@ function DiscoverTab({ userType }: { userType: 'producer' | 'distributor' }) {
 
             if (userType === 'producer') {
                 // Load distributors
-                const { data } = await supabase
+                const { data, error } = await supabase
                     .from('distributor')
                     .select(`
-            id,
-            company_name,
-            origin_attribute_number,
-            origin_master!inner(country_name, region_name, district_name)
-          `)
+                        id,
+                        company_name,
+                        origin_attribute_number,
+                        origin_master(country_name, region_name, district_name)
+                    `)
                     .eq('is_public', true)
                     .order('company_name');
 
+                if (error) console.error("Error loading distributors:", error);
                 setProfiles(data || []);
             } else {
                 // Load producers
-                const { data } = await supabase
+                const { data, error } = await supabase
                     .from('producer')
                     .select(`
-            id,
-            company_name,
-            origin_attribute_number,
-            origin_master!inner(country_name, region_name, district_name)
-          `)
+                        id,
+                        company_name,
+                        origin_attribute_number,
+                        origin_master(country_name, region_name, district_name)
+                    `)
                     .eq('is_public', true)
                     .order('company_name');
 
+                if (error) console.error("Error loading producers:", error);
                 setProfiles(data || []);
             }
 
@@ -255,7 +258,7 @@ function ProducerCard({ producer }: { producer: any }) {
             </div>
 
             {showPortfolio && (
-                <ViewPortfolio producerId={producer.id} onClose={() => setShowPortfolio(false)} />
+                <ViewPortfolio producerId={producer.id} onClose={() => setShowPortfolio(false)} producerName={producer.company_name} />
             )}
         </div>
     );
@@ -386,9 +389,11 @@ function RequestsTab({ userType }: { userType: 'producer' | 'distributor' }) {
     );
 }
 
-function ViewPortfolio({ producerId, onClose }: { producerId: string; onClose: () => void }) {
+function ViewPortfolio({ producerId, onClose, producerName }: { producerId: string; onClose: () => void; producerName: string }) {
     const [wines, setWines] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [adding, setAdding] = useState<string | null>(null);
+    const [portfolioIds, setPortfolioIds] = useState<Set<string>>(new Set());
 
     const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -396,7 +401,26 @@ function ViewPortfolio({ producerId, onClose }: { producerId: string; onClose: (
     );
 
     useEffect(() => {
-        async function loadWines() {
+        async function loadData() {
+            setLoading(true);
+
+            // Get user's existing portfolio to show status
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { data: distributor } = await supabase.from('distributor').select('id').eq('user_id', user.id).single();
+                if (distributor) {
+                    const { data: existing } = await supabase
+                        .from('distributor_portfolio')
+                        .select('wine_gtin')
+                        .eq('distributor_id', distributor.id);
+
+                    if (existing) {
+                        setPortfolioIds(new Set(existing.map(e => e.wine_gtin)));
+                    }
+                }
+            }
+
+            // Load producer's wines
             const { data } = await supabase
                 .from('wine_full_card')
                 .select('*')
@@ -406,38 +430,109 @@ function ViewPortfolio({ producerId, onClose }: { producerId: string; onClose: (
             setWines(data || []);
             setLoading(false);
         }
-        loadWines();
+        loadData();
     }, [producerId, supabase]);
 
+    const handleAddToPortfolio = async (gtin: string) => {
+        setAdding(gtin);
+        const result = await addWineToPortfolio(gtin);
+        if (result.success) {
+            setPortfolioIds(prev => new Set([...prev, gtin]));
+        } else {
+            alert(result.error);
+        }
+        setAdding(null);
+    };
+
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={onClose}>
-            <div className="bg-white rounded-3xl p-8 max-w-4xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-semibold text-[#1A1A1A]">Producer Portfolio</h2>
-                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M18 6L6 18M6 6l12 12" />
-                        </svg>
-                    </button>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all" onClick={onClose}>
+            <div className="bg-white rounded-[40px] p-10 max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative" onClick={(e) => e.stopPropagation()}>
+
+                {/* Close Button */}
+                <button onClick={onClose} className="absolute top-8 right-8 text-gray-300 hover:text-[#4E001D] transition-all hover:scale-110">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <div className="mb-10">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4E001D] mb-2">Portfolio</p>
+                    <h2 className="text-4xl font-light text-[#1A1A1A] tracking-tight">{producerName}</h2>
                 </div>
 
                 {loading ? (
-                    <div className="text-center py-12 text-gray-500 animate-pulse">Loading wines...</div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[1, 2, 3].map(i => (
+                            <div key={i} className="h-[380px] bg-gray-50 rounded-[32px] animate-pulse" />
+                        ))}
+                    </div>
                 ) : wines.length === 0 ? (
-                    <div className="text-center py-12 text-gray-500">No published wines yet</div>
+                    <div className="text-center py-24 bg-gray-50 rounded-[40px] border-2 border-dashed border-gray-100">
+                        <p className="text-gray-400 font-medium">No published wines yet</p>
+                    </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {wines.map((wine) => (
-                            <div key={wine.gtin} className="border border-gray-200 rounded-xl p-4">
-                                {wine.product_image_url && (
-                                    <img src={wine.product_image_url} alt={wine.wine_name} className="w-full h-48 object-contain mb-3 rounded-lg" />
-                                )}
-                                <h3 className="font-semibold text-[#1A1A1A]">{wine.wine_name}</h3>
-                                <p className="text-sm text-gray-600">{wine.wine_type} • {wine.vintage}</p>
-                            </div>
+                            <WineDiscoveryCard
+                                key={wine.gtin}
+                                wine={wine}
+                                isInPortfolio={portfolioIds.has(wine.gtin)}
+                                isAdding={adding === wine.gtin}
+                                onAdd={() => handleAddToPortfolio(wine.gtin)}
+                            />
                         ))}
                     </div>
                 )}
+            </div>
+        </div>
+    );
+}
+
+function WineDiscoveryCard({ wine, isInPortfolio, isAdding, onAdd }: { wine: any; isInPortfolio: boolean; isAdding: boolean; onAdd: () => void }) {
+
+    return (
+        <div className="bg-white rounded-[32px] border border-gray-100 p-6 flex flex-col hover:shadow-xl hover:translate-y-[-4px] transition-all duration-300 group">
+            {/* Image Container */}
+            <div className="h-56 w-full mb-6 flex items-center justify-center bg-gray-50 rounded-[24px] overflow-hidden group-hover:bg-white transition-colors border border-transparent group-hover:border-gray-50">
+                {wine.product_image_url ? (
+                    <img
+                        src={wine.product_image_url}
+                        alt={wine.wine_name}
+                        className="h-full object-contain mix-blend-multiply p-4"
+                    />
+                ) : (
+                    <div className="w-12 h-20 border-2 border-dashed border-gray-200 rounded-sm"></div>
+                )}
+            </div>
+
+            {/* Info */}
+            <div className="text-center mb-6">
+                <h3 className="text-lg font-bold text-gray-900 leading-tight mb-1">
+                    {wine.wine_name}
+                </h3>
+                <p className="text-sm text-gray-400 font-medium">
+                    {wine.vintage || 'NV'} • {wine.wine_type || 'Wine'}
+                </p>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col gap-2 mt-auto">
+                <Link
+                    href={`/connect/product/${wine.gtin}`}
+                    className="w-full bg-[#1A1A1A] text-white py-3 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-[#4E001D] transition-all text-center"
+                >
+                    View More
+                </Link>
+                <button
+                    onClick={onAdd}
+                    disabled={isInPortfolio || isAdding}
+                    className={`w-full py-3 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all border ${isInPortfolio
+                        ? 'bg-green-50 text-green-600 border-green-100 cursor-default'
+                        : 'bg-white border-gray-100 text-gray-400 hover:bg-gray-50'
+                        }`}
+                >
+                    {isAdding ? 'Adding...' : isInPortfolio ? 'In Portfolio' : 'Add to Portfolio'}
+                </button>
             </div>
         </div>
     );

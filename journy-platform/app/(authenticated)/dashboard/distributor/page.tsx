@@ -12,13 +12,6 @@ export default async function DistributorDashboard() {
         {
             cookies: {
                 getAll() { return cookieStore.getAll(); },
-                setAll(cookiesToSet) {
-                    try {
-                        cookiesToSet.forEach(({ name, value, options }) =>
-                            cookieStore.set(name, value, options)
-                        );
-                    } catch { }
-                },
             },
         }
     );
@@ -80,7 +73,7 @@ export default async function DistributorDashboard() {
 
             <div className="mb-8">
                 <h2 className="text-2xl font-semibold text-[#1A1A1A]">Your Wine Portfolio</h2>
-                <p className="text-gray-500">Wines you've added from connected producers</p>
+                <p className="text-gray-500 text-sm">Wines you've added from connected producers</p>
             </div>
 
             {portfolioError ? (
@@ -88,40 +81,47 @@ export default async function DistributorDashboard() {
             ) : portfolioWines && portfolioWines.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {portfolioWines.map((item: any) => (
-                        <div key={item.wine_gtin} className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-all flex flex-col">
-                            <div className="h-40 w-full mb-4 flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
+                        <div key={item.wine_gtin} className="bg-white rounded-[32px] border border-gray-100 p-6 shadow-sm hover:shadow-xl hover:translate-y-[-4px] transition-all flex flex-col group">
+                            {/* Photo Container */}
+                            <div className="h-44 w-full mb-6 flex items-center justify-center bg-gray-50 rounded-[24px] overflow-hidden group-hover:bg-white transition-colors border border-transparent group-hover:border-gray-50">
                                 {item.wine?.product_image_url ? (
                                     <img
                                         src={item.wine.product_image_url}
                                         alt={item.wine.wine_name}
-                                        className="h-full object-contain mix-blend-multiply p-2"
+                                        className="h-full object-contain mix-blend-multiply p-3"
                                     />
                                 ) : (
                                     <div className="w-6 h-10 border-2 border-dashed border-gray-200 rounded-sm"></div>
                                 )}
                             </div>
-                            <div className="text-center mb-4">
-                                <h3 className="font-medium text-gray-900 leading-tight">
-                                    {item.wine?.wine_name} {item.wine?.vintage}
+
+                            {/* Info */}
+                            <div className="text-center mb-6">
+                                <h3 className="font-bold text-gray-900 leading-tight mb-1 text-[15px]">
+                                    {item.wine?.wine_name}
                                 </h3>
-                                <p className="text-xs text-[#4E001D] font-medium mt-1">
-                                    {item.wine?.producer?.company_name}
-                                </p>
+                                <div className="flex items-center justify-center gap-2">
+                                    <span className="text-[11px] text-[#4E001D] font-bold uppercase tracking-wider">{item.wine?.vintage || 'NV'}</span>
+                                    <span className="text-[11px] text-gray-300">•</span>
+                                    <span className="text-[11px] text-gray-400 font-medium">{item.wine?.producer?.company_name}</span>
+                                </div>
                             </div>
+
+                            {/* Action Button */}
                             <Link
                                 href={`/dashboard/distributor/product/${item.wine_gtin}`}
-                                className="w-full bg-[#4E001D] text-white py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-center hover:opacity-90 transition-opacity"
+                                className="w-full bg-[#1A1A1A] text-white py-3 rounded-full text-[10px] font-bold uppercase tracking-widest text-center hover:bg-[#4E001D] transition-all shadow-sm"
                             >
-                                View Details
+                                View More
                             </Link>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-gray-100 rounded-3xl text-center">
-                    <p className="text-gray-400 mb-4">Your portfolio is empty</p>
+                <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-gray-100 rounded-[40px] text-center bg-gray-50/50">
+                    <p className="text-gray-400 mb-4 font-medium">Your portfolio is empty</p>
                     <Link href="/connect">
-                        <button className="text-[#4E001D] font-semibold hover:underline">
+                        <button className="bg-[#4E001D] text-white px-8 py-3 rounded-full text-[11px] font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
                             Find producers and add wines
                         </button>
                     </Link>
